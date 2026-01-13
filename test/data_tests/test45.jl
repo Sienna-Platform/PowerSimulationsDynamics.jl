@@ -1,6 +1,5 @@
-using PowerSystems
+import PowerSystems as PSY
 using NLsolve
-const PSY = PowerSystems
 
 ############### Data Network ########################
 include(joinpath(dirname(@__FILE__), "dynamic_test_data.jl"))

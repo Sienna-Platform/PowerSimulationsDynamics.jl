@@ -1,10 +1,10 @@
 precompile = @timed using PowerSimulationsDynamics
 
 using PowerSimulationsDynamics
-const PSID = PowerSimulationsDynamics
+import PowerSimulationsDynamics as PSID
 using Sundials
 using PowerSystems
-const PSY = PowerSystems
+import PowerSystems as PSY
 using OrdinaryDiffEq
 using Logging
 

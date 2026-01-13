@@ -64,7 +64,7 @@ export transform_load_to_constant_power
 
 ####################################### Package Imports ####################################
 import Logging
-import InfrastructureSystems
+import InfrastructureSystems as IS
 import SciMLBase
 import DataStructures: OrderedDict
 import DataFrames: DataFrame
@@ -76,17 +76,13 @@ import Base.to_index
 import NLsolve
 import PrettyTables
 import Base.ImmutableDict
-import PowerSystems
-import PowerFlows
-import PowerNetworkMatrices
+import PowerSystems as PSY
+import PowerFlows as PF
+import PowerNetworkMatrices as PNM
 import TimerOutputs
 import FastClosures: @closure
 
-const PSY = PowerSystems
-const IS = InfrastructureSystems
 const PSID = PowerSimulationsDynamics
-const PF = PowerFlows
-const PNM = PowerNetworkMatrices
 
 using DocStringExtensions
 

@@ -22,11 +22,11 @@ Aqua.test_ambiguities(PowerSimulationsDynamics)
 Aqua.test_stale_deps(PowerSimulationsDynamics)
 Aqua.test_deps_compat(PowerSimulationsDynamics)
 
-const IS = InfrastructureSystems
-const PSY = PowerSystems
-const PSID = PowerSimulationsDynamics
-const PNM = PowerNetworkMatrices
-const PSB = PowerSystemCaseBuilder
+import InfrastructureSystems as IS
+import PowerSystems as PSY
+import PowerSimulationsDynamics as PSID
+import PowerNetworkMatrices as PNM
+import PowerSystemCaseBuilder as PSB
 
 const DISABLED_TEST_FILES = []
 test_file_dir = isempty(dirname(@__FILE__)) ? "test" : dirname(@__FILE__)
