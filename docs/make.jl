@@ -1,4 +1,11 @@
 using Documenter, PowerSystems, DocStringExtensions, PowerSimulationsDynamics
+using Literate
+
+# UPDATE FOR CURRENT MODULE NAME HERE
+const _DOCS_BASE_URL = "https://nrel-sienna.github.io/PowerSimulationsDynamics.jl/stable"
+
+include(joinpath(@__DIR__, "make_tutorials.jl"))
+make_tutorials()
 
 makedocs(;
     modules = [PowerSimulationsDynamics],
