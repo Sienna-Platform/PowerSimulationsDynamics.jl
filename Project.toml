@@ -1,7 +1,7 @@
 name = "PowerSimulationsDynamics"
 uuid = "398b2ede-47ed-4edc-b52e-69e4a48b4336"
 authors = ["Jose Daniel Lara, Rodrigo Henriquez"]
-version = "0.15.0"
+version = "0.16.0"
 
 [deps]
 DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
@@ -24,15 +24,15 @@ TimerOutputs = "a759f4b9-e2f1-59dc-863e-4aeb61b1ea8f"
 
 [compat]
 DataFrames = "1"
-DataStructures = "~0.18"
+ForwardDiff = "1"
+DataStructures = "~0.19"
 DocStringExtensions = "~0.9"
 FastClosures = "^0.3"
-ForwardDiff = "~v0.10"
-InfrastructureSystems = "2"
+InfrastructureSystems = "3"
 NLsolve = "4"
-PowerSystems = "4"
-PowerFlows = "^0.9"
-PowerNetworkMatrices = "^0.12.1"
+PowerSystems = "5"
+PowerFlows = "^0.16"
+PowerNetworkMatrices = "^0.19"
 PrettyTables = "1, 2"
 SciMLBase = "2"
 TimerOutputs = "~0.5"
