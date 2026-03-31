@@ -354,7 +354,7 @@ end
     ]
     V_r = voltages[1:2]
     V_i = voltages[3:end]
-    ybus_ = PNM.Ybus(omib_sys).data
+    ybus_ = PNM.Ybus(omib_sys; include_constant_impedance_loads = false).data
     I_balance_ybus = -1 * ybus_ * (V_r + V_i .* 1im)
     inputs = PSID.SimulationInputs(ResidualModel, omib_sys, ConstantFrequency())
     I_balance_sim = zeros(4)
@@ -383,7 +383,7 @@ end
         end
     end
 
-    ybus_original = PNM.Ybus(threebus_sys)
+    ybus_original = PNM.Ybus(threebus_sys; include_constant_impedance_loads = false)
 
     inputs = PSID.SimulationInputs(ResidualModel, threebus_sys, ConstantFrequency())
 
@@ -399,7 +399,7 @@ end
     PSID.ybus_update!(inputs, br, -1.0)
 
     remove_component!(threebus_sys, br)
-    ybus_line_trip = PNM.Ybus(threebus_sys)
+    ybus_line_trip = PNM.Ybus(threebus_sys; include_constant_impedance_loads = false)
 
     # Use is approx because the inversion of complex might be different in
     # floating point than the inversion of a single float
@@ -416,7 +416,7 @@ end
     end
 
     threebus_sys = System(three_bus_file_dir; runchecks = false)
-    ybus_original = PNM.Ybus(threebus_sys)
+    ybus_original = PNM.Ybus(threebus_sys; include_constant_impedance_loads = false)
     cb1 = NetworkSwitch(1.0, ybus_original)
 
     @test all(

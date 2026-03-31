@@ -157,7 +157,7 @@ function transform_load_to_constant_power(load::PSY.StandardLoad)
 end
 
 function make_basic_bus(bus::PSY.ACBus)
-    return PSY.ACBus(
+    return PSY.ACBus(;
         number = PSY.get_number(bus),
         name = PSY.get_name(bus),
         available = PSY.get_available(bus),
@@ -174,7 +174,7 @@ function make_basic_line(line::PSY.Line, sys::PSY.System)
     bus_original_to = PSY.get_arc(line).to
     bus_from = PSY.get_bus(sys, PSY.get_number(bus_original_from))
     bus_to = PSY.get_bus(sys, PSY.get_number(bus_original_to))
-    return PSY.Line(
+    return PSY.Line(;
         name = PSY.get_name(line),
         available = PSY.get_available(line),
         active_power_flow = line.active_power_flow,
@@ -187,7 +187,7 @@ function make_basic_line(line::PSY.Line, sys::PSY.System)
         angle_limits = line.angle_limits,
         rating_b = line.rating_b,
         rating_c = line.rating_c,
-        g = line.g
+        g = line.g,
     )
 end
 
