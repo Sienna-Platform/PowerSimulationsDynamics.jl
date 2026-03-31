@@ -42,13 +42,6 @@ function _transform_all_lines!(sys::PSY.System)
 end
 
 function transform_ybus_to_rectangular(
-    ybus::SparseArrays.SparseMatrixCSC{Complex{Float64}, Int},
-)
-    # TODO: Improve performance here
-    return hcat(vcat(real(ybus), -imag(ybus)), vcat(imag(ybus), real(ybus)))
-end
-
-function transform_ybus_to_rectangular(
     ybus::SparseArrays.SparseMatrixCSC{Complex{Float32}, Int},
 )
     # TODO: Improve performance here
