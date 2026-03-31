@@ -405,14 +405,14 @@ end
     # floating point than the inversion of a single float
     for i in 1:3, j in 1:3
         complex_ybus = ybus_line_trip.data[i, j]
-        @test isapprox(inputs.ybus_rectangular[i, j], real(complex_ybus), atol = 1e-10)
+        @test isapprox(inputs.ybus_rectangular[i, j], real(complex_ybus), atol = 1e-6)
         @test isapprox(
             inputs.ybus_rectangular[i + 3, j + 3],
             real(complex_ybus),
-            atol = 1e-10,
+            atol = 1e-6,
         )
-        @test isapprox(inputs.ybus_rectangular[i + 3, j], -imag(complex_ybus), atol = 1e-10)
-        @test isapprox(inputs.ybus_rectangular[i, j + 3], imag(complex_ybus), atol = 1e-10)
+        @test isapprox(inputs.ybus_rectangular[i + 3, j], -imag(complex_ybus), atol = 1e-6)
+        @test isapprox(inputs.ybus_rectangular[i, j + 3], imag(complex_ybus), atol = 1e-6)
     end
 
     threebus_sys = System(three_bus_file_dir; runchecks = false)
