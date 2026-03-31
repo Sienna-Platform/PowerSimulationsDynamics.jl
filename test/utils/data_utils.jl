@@ -15,6 +15,8 @@ function add_source_to_ref(sys::PSY.System, X_th::Float64)
         bus = slack_bus, #bus
         R_th = 0.0,
         X_th = X_th, #Xth
+        active_power_limits = (min = -1e6, max = 1e6),
+        reactive_power_limits = (min = -1e6, max = 1e6),
     )
     PSY.add_component!(sys, inf_source)
     return
@@ -37,6 +39,8 @@ function add_source_to_ref(sys::PSY.System)
         bus = slack_bus, #bus
         R_th = 0.0,
         X_th = 5e-6, #Xth
+        active_power_limits = (min = -1e6, max = 1e6),
+        reactive_power_limits = (min = -1e6, max = 1e6),
     )
     PSY.add_component!(sys, inf_source)
     return
