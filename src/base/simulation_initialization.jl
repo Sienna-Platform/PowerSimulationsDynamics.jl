@@ -12,14 +12,7 @@ function power_flow_solution!(
     inputs::SimulationInputs,
 )
     pf = PF.ACPowerFlow{PF.TrustRegionACPowerFlow}()
-    # TODO: This is a temporary patch
-    for l in PSY.get_components(PSY.StandardLoad, sys)
-        transform_load_to_constant_power(l)
-    end
-    res = PF.solve_and_store_power_flow!(pf, sys)
-    for l in PSY.get_components(PSY.StandardLoad, sys)
-        transform_load_to_constant_power(l)
-    end
+    res = solve_and_save_powerflow!(pf, sys, true)
     if !res
         @error("PowerFlow failed to solve")
         return BUILD_FAILED
