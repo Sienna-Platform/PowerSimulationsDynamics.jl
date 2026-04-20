@@ -211,8 +211,8 @@ function initialize_dynamic_device!(
 
     #PowerFlow Data
     if isa(device, PSY.StandardLoad)
-        P0 = PF.get_total_p(device) * Sbase / base_power # in pu (motor base)
-        Q0 = PF.get_total_q(device) * Sbase / base_power # in pu (motor base)
+        P0 = get_total_p(device) * Sbase / base_power # in pu (motor base)
+        Q0 = get_total_q(device) * Sbase / base_power # in pu (motor base)
     else
         P0 = PSY.get_active_power(device) * Sbase / base_power # in pu (motor base)
         Q0 = PSY.get_reactive_power(device) * Sbase / base_power # in pu (motor base)
@@ -312,8 +312,8 @@ function initialize_dynamic_device!(
 
     #PowerFlow Data
     if isa(device, PSY.StandardLoad)
-        P0 = PF.get_total_p(device) * Sbase / base_power # in pu (motor base)
-        Q0 = PF.get_total_q(device) * Sbase / base_power # in pu (motor base)
+        P0 = get_total_p(device) * Sbase / base_power # in pu (motor base)
+        Q0 = get_total_q(device) * Sbase / base_power # in pu (motor base)
     else
         P0 = PSY.get_active_power(device) * Sbase / base_power # in pu (motor base)
         Q0 = PSY.get_reactive_power(device) * Sbase / base_power # in pu (motor base)
@@ -469,8 +469,8 @@ function initialize_dynamic_device!(
 
     #PowerFlow Data
     if isa(device, PSY.StandardLoad)
-        P0 = PF.get_total_p(device) * Sbase / base_power # in pu (motor base)
-        Q0 = PF.get_total_q(device) * Sbase / base_power # in pu (motor base)
+        P0 = get_total_p(device) * Sbase / base_power # in pu (motor base)
+        Q0 = get_total_q(device) * Sbase / base_power # in pu (motor base)
     else
         P0 = PSY.get_active_power(device) * Sbase / base_power # in pu (motor base)
         Q0 = PSY.get_reactive_power(device) * Sbase / base_power # in pu (motor base)
