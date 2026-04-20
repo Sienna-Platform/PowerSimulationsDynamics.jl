@@ -135,7 +135,7 @@ function DynamicWrapper(
 
     # Consider the special case when the static device is StandardLoad
     if isa(device, PSY.StandardLoad)
-        reactive_power = PF.get_total_q(device)
+        reactive_power = get_total_q(device)
     else
         reactive_power = PSY.get_reactive_power(device)
     end
@@ -458,6 +458,7 @@ function StaticLoadWrapper(
     loads::Vector{PSY.ElectricLoad},
     bus_ix::Int,
     sys_base_power::Float64,
+    sys::PSY.System,
 )
     P_power = 0.0
     P_current = 0.0
@@ -468,17 +469,32 @@ function StaticLoadWrapper(
 
     # Add ZIP Loads
     for ld in loads
-        base_power_conversion = PSY.get_base_power(ld) / sys_base_power
         if isa(ld, PSY.PowerLoad)
-            P_power += PSY.get_active_power(ld) * base_power_conversion
-            Q_power += PSY.get_reactive_power(ld) * base_power_conversion
+            P_power += PSY.with_units_base(sys, PSY.UnitSystem.SYSTEM_BASE) do
+                PSY.get_active_power(ld)
+            end
+            Q_power += PSY.with_units_base(sys, PSY.UnitSystem.SYSTEM_BASE) do
+                PSY.get_reactive_power(ld)
+            end
         elseif isa(ld, PSY.StandardLoad)
-            P_impedance += PSY.get_impedance_active_power(ld) * base_power_conversion
-            Q_impedance += PSY.get_impedance_reactive_power(ld) * base_power_conversion
-            P_current += PSY.get_current_active_power(ld) * base_power_conversion
-            Q_current += PSY.get_current_reactive_power(ld) * base_power_conversion
-            P_power += PSY.get_constant_active_power(ld) * base_power_conversion
-            Q_power += PSY.get_constant_reactive_power(ld) * base_power_conversion
+            P_impedance += PSY.with_units_base(sys, PSY.UnitSystem.SYSTEM_BASE) do
+                PSY.get_impedance_active_power(ld)
+            end
+            Q_impedance += PSY.with_units_base(sys, PSY.UnitSystem.SYSTEM_BASE) do
+                PSY.get_impedance_reactive_power(ld)
+            end
+            P_current += PSY.with_units_base(sys, PSY.UnitSystem.SYSTEM_BASE) do
+                PSY.get_current_active_power(ld)
+            end
+            Q_current += PSY.with_units_base(sys, PSY.UnitSystem.SYSTEM_BASE) do
+                PSY.get_current_reactive_power(ld)
+            end
+            P_power += PSY.with_units_base(sys, PSY.UnitSystem.SYSTEM_BASE) do
+                PSY.get_constant_active_power(ld)
+            end
+            Q_power += PSY.with_units_base(sys, PSY.UnitSystem.SYSTEM_BASE) do
+                PSY.get_constant_reactive_power(ld)
+            end
         end
     end
 
