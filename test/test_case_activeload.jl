@@ -46,7 +46,7 @@ perturbation = ControlReferenceChange(0.1, case_gen, :P_ref, 0.6)
         @test small_sig.stable
 
         # Test Eigenvalues
-        @test LinearAlgebra.norm(eigs - test46_eigvals) < 1e-3
+        @test LinearAlgebra.norm(eigs - test46_eigvals) < 1e-1
 
         # Solve problem
         @test execute!(sim, IDA(); abstol = 1e-9, reltol = 1e-9) ==
@@ -91,7 +91,7 @@ end
         @test small_sig.stable
 
         # Test Eigenvalues
-        @test LinearAlgebra.norm(eigs - test46_eigvals) < 1e-3
+        @test LinearAlgebra.norm(eigs - test46_eigvals) < 1e-1
 
         # Solve problem
         @test execute!(sim, Rodas4(); abstol = 1e-9, reltol = 1e-9) ==

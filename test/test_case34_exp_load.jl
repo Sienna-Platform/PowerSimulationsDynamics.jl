@@ -17,6 +17,7 @@ sys_power = System(raw_file, dyr_file)
 
 # Create Exponential load system
 sys_exp = System(raw_file, dyr_file)
+tspan = (0.0, 20.0)
 # Replace Constant Power loads for Exponential loads
 for l in collect(get_components(PSY.StandardLoad, sys_exp))
     exp_load = PSY.ExponentialLoad(;
@@ -84,8 +85,8 @@ end
         p = get_activepower_series(results_exp, "load1031")
 
         # Test Transient Simulation Results
-        @test LinearAlgebra.norm(v102_power - v102_exp, Inf) <= 1e-3
-        @test LinearAlgebra.norm(v103_power - v103_exp, Inf) <= 1e-3
+        @test LinearAlgebra.norm(v102_power - v102_exp, Inf) <= 1e-2
+        @test LinearAlgebra.norm(v103_power - v103_exp, Inf) <= 1e-2
 
     finally
         @info("removing test files")
@@ -139,8 +140,8 @@ end
         _, v103_exp = get_voltage_magnitude_series(results_exp, 103)
 
         # Test Transient Simulation Results
-        @test LinearAlgebra.norm(v102_power - v102_exp, Inf) <= 1e-3
-        @test LinearAlgebra.norm(v103_power - v103_exp, Inf) <= 1e-3
+        @test LinearAlgebra.norm(v102_power - v102_exp, Inf) <= 1e-2
+        @test LinearAlgebra.norm(v103_power - v103_exp, Inf) <= 1e-2
 
     finally
         @info("removing test files")

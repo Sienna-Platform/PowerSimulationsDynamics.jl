@@ -27,7 +27,7 @@ Ybus_change = NetworkSwitch(
     path = mktempdir()
     try
         # Define Simulation Problem
-        sim = Simulation(
+        sim = Simulation!(
             ResidualModel,
             threebus_sys, #system,
             path,
@@ -73,7 +73,7 @@ end
     path = mktempdir()
     try
         # Define Simulation Problem
-        sim = Simulation(
+        sim = Simulation!(
             MassMatrixModel,
             threebus_sys, #system,
             path,

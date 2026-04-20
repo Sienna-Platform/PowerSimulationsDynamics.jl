@@ -96,8 +96,7 @@ csv_file_degov_delay_speed =
 
         @test execute!(
             sim,
-            MethodOfSteps(Rodas5(; autodiff = false));
-            dtmax = (1 / 240),
+            MethodOfSteps(Rodas4(; autodiff = false));
             saveat = (1 / 240),
         ) ==
               PSID.SIMULATION_FINALIZED

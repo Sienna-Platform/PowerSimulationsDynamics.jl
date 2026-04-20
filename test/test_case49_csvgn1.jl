@@ -68,6 +68,8 @@ end
             bus = bus_3, #bus
             R_th = 0.0,
             X_th = 0.0, #Xth
+            active_power_limits = (min = -1e6, max = 1e6),
+            reactive_power_limits = (min = -1e6, max = 1e6),
         )
 
         add_component!(sys, inf_source())
@@ -112,7 +114,7 @@ end
         @test small_sig.stable
 
         # Solve problem
-        @test execute!(sim, IDA(); dtmax = 0.0001, saveat = 0.0001) ==
+        @test execute!(sim, IDA(); saveat = 0.0001) ==
               PSID.SIMULATION_FINALIZED
         results = read_results(sim)
 

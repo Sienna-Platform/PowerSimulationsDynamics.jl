@@ -45,7 +45,7 @@ V_source_change = SourceBusVoltageChange(1.0, case_source, :V_ref, 1.02)
         @test (diff_val[1] < 1e-3)
 
         # Solve problem
-        execute!(sim, IDA(); dtmax = 0.02)
+        execute!(sim, IDA(); abstol = 1e-4, reltol = 1e-4)
         results = read_results(sim)
 
         # Obtain data for angles
@@ -77,7 +77,7 @@ end
         @test (diff_val[1] < 1e-3)
 
         # Solve problem
-        execute!(sim, Rodas4(); dtmax = 0.02)
+        execute!(sim, Rodas4(); abstol = 1e-4, reltol = 1e-4)
         results = read_results(sim)
 
         # Obtain data for angles
@@ -119,7 +119,7 @@ V_source_change = SourceBusVoltageChange(1.0, case_source, :θ_ref, 0.1)
         @test (diff_val[1] < 1e-3)
 
         # Solve problem
-        execute!(sim, IDA(); dtmax = 0.02)
+        execute!(sim, IDA(); abstol = 1e-4, reltol = 1e-4)
         results = read_results(sim)
 
         # Obtain data for angles
@@ -151,7 +151,7 @@ end
         @test (diff_val[1] < 1e-3)
 
         # Solve problem
-        execute!(sim, Rodas4(); dtmax = 0.02)
+        execute!(sim, Rodas4(); abstol = 1e-4, reltol = 1e-4)
         results = read_results(sim)
 
         # Obtain data for angles
