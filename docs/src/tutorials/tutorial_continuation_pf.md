@@ -78,7 +78,7 @@ for p in P_range
     set_reactive_power!(load, q_power)
     # Run Power Flow
     pf = ACPowerFlow()
-    status = solve_powerflow!(pf, sys_static)
+    status = solve_and_store_power_flow!(pf, sys_static)
     if !status
         # Finish the loop if the power flow fails
         print("Power Flow failed at p = $(power)")
@@ -145,7 +145,7 @@ for p in P_range
     set_reactive_power!(load, q_power)
     # Run Power Flow
     pf = ACPowerFlow()
-    status = solve_powerflow!(pf, sys_static)
+    status = solve_and_store_power_flow!(pf, sys_static)
     if !status
         # Finish the loop if the power flow fails
         print("Power Flow failed at p = $(power)")
