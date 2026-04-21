@@ -78,4 +78,4 @@ Contributions to the development and enahancement of PowerSimulationsDynamics.jl
 ## License
 
 PowerSimulationsDynamics.jl is released under a BSD [license](https://github.com/Sienna-Platform/PowerSimulationsDynamics.jl/blob/main/LICENSE).
-PowerSimulationsDynamics.jl has been developed as part of the Scalable Integrated Infrastructure Planning (SIIP) initiative at the U.S. Department of Energy's National Renewable Energy Laboratory ([NREL](https://www.nrel.gov/))
+PowerSimulationsDynamics.jl has been developed as part of the Scalable Integrated Infrastructure Planning (SIIP) initiative at the U.S. Department of Energy's National Laboratory of the Rockies ([NLR](https://www.nlr.gov/)), formerly known as NREL.
