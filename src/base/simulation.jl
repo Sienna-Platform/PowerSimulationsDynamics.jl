@@ -91,7 +91,7 @@ end
 Builds the simulation object and conducts the indexing process. The initial conditions are stored in the system.
 
 # Arguments:
-- `::SimulationModel` : Type of Simulation Model. `ResidualModel` or `MassMatrixModel`. See [Models Section](https://nrel-sienna.github.io/PowerSimulationsDynamics.jl/stable/models/) for more details
+- `::SimulationModel` : Type of Simulation Model. `ResidualModel` or `MassMatrixModel`. See [Models Section](https://sienna-platform.github.io/PowerSimulationsDynamics.jl/stable/models/) for more details
 - `system::PowerSystems.System` : System data
 - `simulation_folder::String` : Folder directory
 - `tspan::NTuple{2, Float64}` : Time span for simulation
@@ -148,7 +148,7 @@ end
 Builds the simulation object and conducts the indexing process. The original system is not modified and a copy its created and stored in the Simulation.
 
 # Arguments:
-- `::SimulationModel` : Type of Simulation Model. `ResidualModel` or `MassMatrixModel`. See [Models Section](https://nrel-sienna.github.io/PowerSimulationsDynamics.jl/stable/models/) for more details
+- `::SimulationModel` : Type of Simulation Model. `ResidualModel` or `MassMatrixModel`. See [Models Section](https://sienna-platform.github.io/PowerSimulationsDynamics.jl/stable/models/) for more details
 - `system::PowerSystems.System` : System data
 - `simulation_folder::String` : Folder directory
 - `tspan::NTuple{2, Float64}` : Time span for simulation

@@ -4,7 +4,7 @@
 
 ## Introduction
 
-This tutorial briefly introduces how to create a system using `PowerSystems.jl` data structures. For more details visit [`PowerSystems.jl` Documentation](https://nrel-sienna.github.io/PowerSystems.jl/stable/)
+This tutorial briefly introduces how to create a system using `PowerSystems.jl` data structures. For more details visit [`PowerSystems.jl` Documentation](https://sienna-platform.github.io/PowerSystems.jl/stable/)
 
 Start by calling `PowerSystems.jl` and `PowerSystemCaseBuilder.jl`:
 
@@ -16,7 +16,7 @@ const PSY = PowerSystems;
 
 !!! note
     `PowerSystemCaseBuilder.jl` is a helper library that makes it easier to reproduce examples in the documentation and tutorials. Normally you would pass your local files to create the system data instead of calling the function `build_system`.
-    For more details visit [PowerSystemCaseBuilder Documentation](https://nrel-sienna.github.io/PowerSystems.jl/stable/tutorials/powersystembuilder/)
+    For more details visit [PowerSystemCaseBuilder Documentation](https://sienna-platform.github.io/PowerSystems.jl/stable/tutorials/powersystembuilder/)
 
 ## System description
 
@@ -49,7 +49,7 @@ The following describes the system creation for this dynamic simulation case.
 
 ## Static System creation
 
-To create the system you need to load data using `PowerSystemCaseBuilder.jl`. This system was originally created from following [raw file](https://github.com/NREL-Sienna/PowerSystemsTestData/blob/master/psid_tests/data_tests/ThreeBusInverter.raw).  
+To create the system you need to load data using `PowerSystemCaseBuilder.jl`. This system was originally created from following [raw file](https://github.com/Sienna-Platform/PowerSystemsTestData/blob/master/psid_tests/data_tests/ThreeBusInverter.raw).  
 
 ```@repl dyn_data
 sys = build_system(PSIDSystems, "3 Bus Inverter Base"; force_build=true)
