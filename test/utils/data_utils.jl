@@ -51,7 +51,11 @@ function get_ybus_fault_threebus_sys(sys)
         filter!(x -> get_name(x) != "BUS 1-BUS 3-i_1", collect(get_components(Branch, sys)))
     sorted_buses =
         sort!(collect(get_components(ACBus, threebus_sys)); by = x -> get_number(x))
-    Ybus_fault = PNM.Ybus(fault_branch, sorted_buses)[:, :]
+    Ybus_fault = PSID.build_ybus_from_branches(
+        fault_branch,
+        sorted_buses;
+        base_power = PSY.get_base_power(sys),
+    )[:, :]
     return Ybus_fault
 end
 

@@ -184,11 +184,13 @@ function make_basic_line(line::PSY.Line, sys::PSY.System)
     )
 end
 
-function PowerNetworkMatrices.Ybus(
+function build_ybus_from_branches(
     lines::Vector{<:PSY.Branch},
     buses::Vector{PSY.ACBus},
+    ;
+    base_power::Float64,
 )
-    sys = PSY.System(100.0)
+    sys = PSY.System(base_power)
     for b in buses
         bus = make_basic_bus(b)
         PSY.add_component!(sys, bus)
