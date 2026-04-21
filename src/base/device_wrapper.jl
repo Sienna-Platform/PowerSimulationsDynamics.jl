@@ -453,6 +453,55 @@ mutable struct StaticLoadWrapper
     bus_ix::Int
 end
 
+function _zip_load_terms(::PSY.ElectricLoad, _sys)
+    return (
+        P_power = 0.0,
+        P_current = 0.0,
+        P_impedance = 0.0,
+        Q_power = 0.0,
+        Q_current = 0.0,
+        Q_impedance = 0.0,
+    )
+end
+
+function _zip_load_terms(ld::PSY.PowerLoad, sys)
+    return (
+        P_power = PSY.with_units_base(sys, PSY.UnitSystem.SYSTEM_BASE) do
+            PSY.get_active_power(ld)
+        end,
+        P_current = 0.0,
+        P_impedance = 0.0,
+        Q_power = PSY.with_units_base(sys, PSY.UnitSystem.SYSTEM_BASE) do
+            PSY.get_reactive_power(ld)
+        end,
+        Q_current = 0.0,
+        Q_impedance = 0.0,
+    )
+end
+
+function _zip_load_terms(ld::PSY.StandardLoad, sys)
+    return (
+        P_power = PSY.with_units_base(sys, PSY.UnitSystem.SYSTEM_BASE) do
+            PSY.get_constant_active_power(ld)
+        end,
+        P_current = PSY.with_units_base(sys, PSY.UnitSystem.SYSTEM_BASE) do
+            PSY.get_current_active_power(ld)
+        end,
+        P_impedance = PSY.with_units_base(sys, PSY.UnitSystem.SYSTEM_BASE) do
+            PSY.get_impedance_active_power(ld)
+        end,
+        Q_power = PSY.with_units_base(sys, PSY.UnitSystem.SYSTEM_BASE) do
+            PSY.get_constant_reactive_power(ld)
+        end,
+        Q_current = PSY.with_units_base(sys, PSY.UnitSystem.SYSTEM_BASE) do
+            PSY.get_current_reactive_power(ld)
+        end,
+        Q_impedance = PSY.with_units_base(sys, PSY.UnitSystem.SYSTEM_BASE) do
+            PSY.get_impedance_reactive_power(ld)
+        end,
+    )
+end
+
 function StaticLoadWrapper(
     bus::PSY.Bus,
     loads::Vector{PSY.ElectricLoad},
@@ -469,33 +518,13 @@ function StaticLoadWrapper(
 
     # Add ZIP Loads
     for ld in loads
-        if isa(ld, PSY.PowerLoad)
-            P_power += PSY.with_units_base(sys, PSY.UnitSystem.SYSTEM_BASE) do
-                PSY.get_active_power(ld)
-            end
-            Q_power += PSY.with_units_base(sys, PSY.UnitSystem.SYSTEM_BASE) do
-                PSY.get_reactive_power(ld)
-            end
-        elseif isa(ld, PSY.StandardLoad)
-            P_impedance += PSY.with_units_base(sys, PSY.UnitSystem.SYSTEM_BASE) do
-                PSY.get_impedance_active_power(ld)
-            end
-            Q_impedance += PSY.with_units_base(sys, PSY.UnitSystem.SYSTEM_BASE) do
-                PSY.get_impedance_reactive_power(ld)
-            end
-            P_current += PSY.with_units_base(sys, PSY.UnitSystem.SYSTEM_BASE) do
-                PSY.get_current_active_power(ld)
-            end
-            Q_current += PSY.with_units_base(sys, PSY.UnitSystem.SYSTEM_BASE) do
-                PSY.get_current_reactive_power(ld)
-            end
-            P_power += PSY.with_units_base(sys, PSY.UnitSystem.SYSTEM_BASE) do
-                PSY.get_constant_active_power(ld)
-            end
-            Q_power += PSY.with_units_base(sys, PSY.UnitSystem.SYSTEM_BASE) do
-                PSY.get_constant_reactive_power(ld)
-            end
-        end
+        terms = _zip_load_terms(ld, sys)
+        P_power += terms.P_power
+        P_current += terms.P_current
+        P_impedance += terms.P_impedance
+        Q_power += terms.Q_power
+        Q_current += terms.Q_current
+        Q_impedance += terms.Q_impedance
     end
 
     # Add Exponential Loads
