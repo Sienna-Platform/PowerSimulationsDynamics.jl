@@ -21,8 +21,11 @@ end
         fault_branch = deepcopy(collect(get_components(Branch, omib_sys))[1])
         fault_branch.r = 0.00
         fault_branch.x = 0.1
-        Ybus_fault =
-            PNM.Ybus([fault_branch], collect(get_components(ACBus, omib_sys)))[:, :]
+        Ybus_fault = PSID.build_ybus_from_branches(
+            [fault_branch],
+            collect(get_components(ACBus, omib_sys));
+            base_power = PSY.get_base_power(omib_sys),
+        )[:, :]
 
         Ybus_change = NetworkSwitch(
             1.0, #change at t = 1.0
@@ -66,8 +69,11 @@ end
         fault_branch = deepcopy(collect(get_components(Branch, omib_sys))[1])
         fault_branch.r = 0.00
         fault_branch.x = 0.1
-        Ybus_fault =
-            PNM.Ybus([fault_branch], collect(get_components(ACBus, omib_sys)))[:, :]
+        Ybus_fault = PSID.build_ybus_from_branches(
+            [fault_branch],
+            collect(get_components(ACBus, omib_sys));
+            base_power = PSY.get_base_power(omib_sys),
+        )[:, :]
 
         Ybus_change = NetworkSwitch(
             1.0, #change at t = 1.0
@@ -109,8 +115,11 @@ end
         fault_branch = deepcopy(collect(get_components(Branch, omib_sys))[1])
         fault_branch.r = 0.00
         fault_branch.x = 0.1
-        Ybus_fault =
-            PNM.Ybus([fault_branch], collect(get_components(ACBus, omib_sys)))[:, :]
+        Ybus_fault = PSID.build_ybus_from_branches(
+            [fault_branch],
+            collect(get_components(ACBus, omib_sys));
+            base_power = PSY.get_base_power(omib_sys),
+        )[:, :]
 
         Ybus_change = NetworkSwitch(
             1.0, #change at t = 1.0
@@ -716,8 +725,11 @@ end
         fault_branch = deepcopy(collect(get_components(Branch, omib_sys))[1])
         fault_branch.r = 0.00
         fault_branch.x = 0.1
-        Ybus_fault =
-            PNM.Ybus([fault_branch], collect(get_components(ACBus, omib_sys)))[:, :]
+        Ybus_fault = PSID.build_ybus_from_branches(
+            [fault_branch],
+            collect(get_components(ACBus, omib_sys));
+            base_power = PSY.get_base_power(omib_sys),
+        )[:, :]
 
         Ybus_change = NetworkSwitch(
             1.0, #change at t = 1.0
