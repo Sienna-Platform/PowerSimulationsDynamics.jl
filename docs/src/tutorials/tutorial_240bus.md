@@ -18,7 +18,7 @@ using OrdinaryDiffEq
 
 !!! note
     `PowerSystemCaseBuilder.jl` is a helper library that makes it easier to reproduce examples in the documentation and tutorials. Normally you would pass your local files to create the system data instead of calling the function `build_system`.
-    For more details visit [PowerSystemCaseBuilder Documentation](https://nrel-sienna.github.io/PowerSystems.jl/stable/tutorials/powersystembuilder/)
+    For more details visit [PowerSystemCaseBuilder Documentation](https://sienna-platform.github.io/PowerSystems.jl/stable/tutorials/powersystembuilder/)
 
 ## Load the system and transform load data
 
@@ -36,7 +36,7 @@ end
 
 ## Build the simulation and initialize the problem
 
-The next step is to create the simulation structure. This will create the indexing of our system that will be used to formulate the differential-algebraic system of equations. To do so, it is required to specify the perturbation that will occur in the system. In this case, we will use a ResidualModel formulation, for more details about the formulation checkout the [Models Section](https://nrel-sienna.github.io/PowerSimulationsDynamics.jl/stable/models/) in `PowerSimulationsDynamics.jl` documentation.
+The next step is to create the simulation structure. This will create the indexing of our system that will be used to formulate the differential-algebraic system of equations. To do so, it is required to specify the perturbation that will occur in the system. In this case, we will use a ResidualModel formulation, for more details about the formulation checkout the [Models Section](https://sienna-platform.github.io/PowerSimulationsDynamics.jl/stable/models/) in `PowerSimulationsDynamics.jl` documentation.
 
 ```@repl sys_240bus
 using Logging
@@ -72,7 +72,7 @@ plot(v1101_ida);
 
 ## Run the simulation using Rodas4()
 
-In this case, we will use a MassMatrixModel formulation, for more details about the formulation checkout the [Models Section](https://nrel-sienna.github.io/PowerSimulationsDynamics.jl/stable/models/) in `PowerSimulationsDynamics.jl` documentation
+In this case, we will use a MassMatrixModel formulation, for more details about the formulation checkout the [Models Section](https://sienna-platform.github.io/PowerSimulationsDynamics.jl/stable/models/) in `PowerSimulationsDynamics.jl` documentation
 
 ```@repl sys_240bus
 sim_rodas = Simulation(

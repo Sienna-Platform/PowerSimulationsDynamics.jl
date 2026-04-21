@@ -1,9 +1,9 @@
 # Quick Start Guide
 
-The data for these tutorials is provided in [PowerSystemCaseBuilder](https://github.com/nrel-sienna/PowerSystemCaseBuilder.jl). If you want to build your own case, take a look at the tutorial [Creating and Handling Data for Dynamic Simulations](@ref)
+The data for these tutorials is provided in [PowerSystemCaseBuilder](https://github.com/Sienna-Platform/PowerSystemCaseBuilder.jl). If you want to build your own case, take a look at the tutorial [Creating and Handling Data for Dynamic Simulations](@ref)
 
 For more details about loading data and adding more dynamic components check the
-[Creating a System with Dynamic devices](https://nrel-sienna.github.io/PowerSystems.jl/stable/modeler_guide/system_dynamic_data/)
+[Creating a System with Dynamic devices](https://sienna-platform.github.io/PowerSystems.jl/stable/modeler_guide/system_dynamic_data/)
 section of the documentation in `PowerSystems.jl`.
 
 For a detailed tutorial about this case visit [One Machine against Infinite Bus (OMIB) Simulation](@ref)
