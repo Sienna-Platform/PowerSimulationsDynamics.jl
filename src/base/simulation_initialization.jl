@@ -26,7 +26,7 @@ function power_flow_solution!(
         initial_guess[bus_ix + bus_size] = PSY.get_magnitude(bus) * sin(PSY.get_angle(bus))
         @debug "$(PSY.get_name(bus)) V_r = $(initial_guess[bus_ix]), V_i = $(initial_guess[bus_ix + bus_size])"
     end
-    @info "After PowerFlow returning to device base"
+    @debug "After PowerFlow returning to device base"
     PSY.set_units_base_system!(sys, "DEVICE_BASE")
     return BUILD_INCOMPLETE
 end
