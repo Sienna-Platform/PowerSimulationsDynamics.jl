@@ -13,9 +13,5 @@ PowerSystems = "bcd98974-b02a-5e2f-9ee0-a103f5c450dd"
 PrettyTables = "08abe8d2-0d0c-5749-adfa-8a2ac140af0d"
 Sundials = "c3572dad-4567-51f8-b174-8c6c989267f4"
 
-[sources]
-PowerFlows = {path = "/Users/rhenriqu/.julia/dev/PowerFlows"}
-PowerSimulationsDynamics = {path = ".."}
-
 [compat]
 Documenter = "=1.15.0"
