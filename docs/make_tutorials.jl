@@ -15,9 +15,10 @@ function Base.show(io::IO, mime::MIME"text/plain", df::DataFrame)
     # Call PrettyTables directly with row/column limits
     # This ensures only 10 rows are shown regardless of DataFrame size
     PrettyTables.pretty_table(io, df;
-        backend = :text,
-        maximum_number_of_rows = 10,
-        maximum_number_of_columns = 80,
+        backend = Val(:text),
+        #maximum_number_of_rows = 10,
+        #maximum_number_of_columns = 80,
+        display_size = (10, 80),  # Show only 10 rows and 80 columns
         show_omitted_cell_summary = true,
         compact_printing = false,
         limit_printing = true)
@@ -27,9 +28,9 @@ function Base.show(io::IO, mime::MIME"text/html", df::DataFrame)
     # For HTML output (which Documenter prefers for large outputs)
     # Use PrettyTables HTML backend with explicit row/column limits
     PrettyTables.pretty_table(io, df;
-        backend = :html,
-        maximum_number_of_rows = 10,
-        maximum_number_of_columns = 80,
+        backend = Val(:html),
+        #maximum_number_of_rows = 10,
+        #maximum_number_of_columns = 80,
         show_omitted_cell_summary = true,
         compact_printing = false,
         limit_printing = true)
@@ -42,7 +43,9 @@ function clean_old_generated_files(dir::String)
         return
     end
     generated_files = filter(
-        f -> startswith(f, "generated_") && (endswith(f, ".md") || endswith(f, ".ipynb")),
+        f ->
+            startswith(f, "generated_") &&
+                (endswith(f, ".md") || endswith(f, ".ipynb")),
         readdir(dir),
     )
     for file in generated_files
@@ -87,7 +90,8 @@ function preprocess_admonitions_for_notebook(str::AbstractString)
     out = String[]
     i = 1
     n = length(lines)
-    admonition_start = r"^# !!! (note|info|tip|warning|danger|compat|todo|details)(?:\s+\"([^\"]*)\")?\s*$"
+    admonition_start =
+        r"^# !!! (note|info|tip|warning|danger|compat|todo|details)(?:\s+\"([^\"]*)\")?\s*$"
     content_line = r"^#     (.*)$"  # Documenter admonition body: # then 4 spaces
     blank_comment = r"^#\s*$"      # # or # with only spaces
 
@@ -342,7 +346,8 @@ function make_tutorials()
                     credit = false,
                     execute = false,
                     preprocess = preprocess_admonitions_for_notebook,
-                    postprocess = nb -> add_image_links(add_pkg_status_to_notebook(nb), outputfile))
+                    postprocess = nb ->
+                        add_image_links(add_pkg_status_to_notebook(nb), outputfile))
             end
         end
     end
