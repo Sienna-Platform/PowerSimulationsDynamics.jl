@@ -77,7 +77,7 @@ function show_simulation_table(
     PrettyTables.pretty_table(
         io,
         table;
-        header = header,
+        column_labels = header,
         title = "Simulation Summary",
         alignment = :l,
         kwargs...,
