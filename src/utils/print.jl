@@ -49,7 +49,7 @@ function show_results_table(io::IO, res::SimulationResults; kwargs...)
     PrettyTables.pretty_table(
         io,
         table;
-        header = header,
+        column_labels = header,
         title = "Simulation Results Summary",
         alignment = :l,
         kwargs...,
