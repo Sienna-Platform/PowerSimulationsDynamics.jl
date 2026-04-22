@@ -269,7 +269,7 @@ for g in get_components(Generator, threebus_sys)
             pss_none(), #pss
         )
         #Attach the dynamic generator to the system by
-        # specifying the dynamic and static components
+        #specifying the dynamic and static components
         add_component!(threebus_sys, case_gen, g)
         #Find the generator at bus 103
     elseif get_number(get_bus(g)) == 103
