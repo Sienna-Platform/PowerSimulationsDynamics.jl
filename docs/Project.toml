@@ -10,7 +10,6 @@ PowerSimulationsDynamics = "398b2ede-47ed-4edc-b52e-69e4a48b4336"
 PowerSystemCaseBuilder = "f00506e0-b84f-492a-93c2-c0a9afc4364e"
 PowerSystems = "bcd98974-b02a-5e2f-9ee0-a103f5c450dd"
 Sundials = "c3572dad-4567-51f8-b174-8c6c989267f4"
-UnicodePlots = "b8865327-cd53-5732-bb35-84acbb429228"
 
 [compat]
-Documenter = "0.27.3"
+Documenter = "=1.15.0"
