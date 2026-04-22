@@ -15,10 +15,10 @@ function Base.show(io::IO, mime::MIME"text/plain", df::DataFrame)
     # Call PrettyTables directly with row/column limits
     # This ensures only 10 rows are shown regardless of DataFrame size
     PrettyTables.pretty_table(io, df;
-        backend = Val(:text),
-        #maximum_number_of_rows = 10,
-        #maximum_number_of_columns = 80,
-        display_size = (10, 80),  # Show only 10 rows and 80 columns
+        backend = :text,
+        maximum_number_of_rows = 10,
+        maximum_number_of_columns = 80,
+        #display_size = (10, 80),  # Show only 10 rows and 80 columns
         show_omitted_cell_summary = true,
         compact_printing = false,
         limit_printing = true)
@@ -28,9 +28,9 @@ function Base.show(io::IO, mime::MIME"text/html", df::DataFrame)
     # For HTML output (which Documenter prefers for large outputs)
     # Use PrettyTables HTML backend with explicit row/column limits
     PrettyTables.pretty_table(io, df;
-        backend = Val(:html),
-        #maximum_number_of_rows = 10,
-        #maximum_number_of_columns = 80,
+        backend = :html,
+        maximum_number_of_rows = 10,
+        maximum_number_of_columns = 80,
         show_omitted_cell_summary = true,
         compact_printing = false,
         limit_printing = true)
