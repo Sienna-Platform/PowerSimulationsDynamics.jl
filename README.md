@@ -1,9 +1,9 @@
 # PowerSimulationsDynamics.jl
 
-[![Main - CI](https://github.com/NREL-Sienna/PowerSimulationsDynamics.jl/workflows/Main%20-%20CI/badge.svg?branch=main)](https://github.com/NREL-Sienna/PowerSimulationsDynamics.jl/actions/workflows/main-tests.yml)
-[![codecov](https://codecov.io/gh/NREL-Sienna/PowerSimulationsDynamics.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/NREL-Sienna/PowerSimulationsDynamics.jl)
-[![Documentation](https://github.com/NREL-Sienna/PowerSimulationsDynamics.jl/workflows/Documentation/badge.svg)](https://nrel-sienna.github.io/PowerSimulationsDynamics.jl/stable)
-[<img src="https://img.shields.io/badge/slack-@Sienna/PSID-sienna.svg?logo=slack">](https://join.slack.com/t/nrel-sienna/shared_invite/zt-glam9vdu-o8A9TwZTZqqNTKHa7q3BpQ)
+[![Main - CI](https://github.com/Sienna-Platform/PowerSimulationsDynamics.jl/workflows/Main%20-%20CI/badge.svg?branch=main)](https://github.com/Sienna-Platform/PowerSimulationsDynamics.jl/actions/workflows/main-tests.yml)
+[![codecov](https://codecov.io/gh/Sienna-Platform/PowerSimulationsDynamics.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/Sienna-Platform/PowerSimulationsDynamics.jl)
+[![Documentation](https://github.com/Sienna-Platform/PowerSimulationsDynamics.jl/workflows/Documentation/badge.svg)](https://sienna-platform.github.io/PowerSimulationsDynamics.jl/stable)
+[<img src="https://img.shields.io/badge/slack-@Sienna/PSID-sienna.svg?logo=slack">](https://join.slack.com/t/core-sienna/shared_invite/zt-glam9vdu-o8A9TwZTZqqNTKHa7q3BpQ)
 [![DOI](https://zenodo.org/badge/280242020.svg)](https://zenodo.org/badge/latestdoi/280242020)
 [![PowerSimulationsDynamics.jl Downloads](https://img.shields.io/badge/dynamic/json?url=http%3A%2F%2Fjuliapkgstats.com%2Fapi%2Fv1%2Ftotal_downloads%2FPowerSimulationsDynamics&query=total_requests&label=Downloads)](http://juliapkgstats.com/pkg/PowerSimulationsDynamics)
 
@@ -17,7 +17,7 @@
 
 - Provide State-of-Art modeling to assess Low-Inertia Power Systems.
 
-Check the [Project Section](https://github.com/NREL-Sienna/PowerSimulationsDynamics.jl/projects/1) to see the pipelines of new models to be added.
+Check the [Project Section](https://github.com/Sienna-Platform/PowerSimulationsDynamics.jl/projects/1) to see the pipelines of new models to be added.
 
 ## Installation
 
@@ -29,14 +29,14 @@ julia> ]
 
 ## Usage
 
-`PowerSimulationsDynamics.jl` uses [PowerSystems.jl](https://github.com/NREL-Sienna/PowerSystems.jl) to handle the data used in the simulations.
+`PowerSimulationsDynamics.jl` uses [PowerSystems.jl](https://github.com/Sienna-Platform/PowerSystems.jl) to handle the data used in the simulations.
 
 ```julia
 using PowerSimulationsDynamics
 using PowerSystems
 ```
 
-For information on using the package, see the [stable documentation](https://nrel-sienna.github.io/PowerSimulationsDynamics.jl/stable/). Use the [in-development documentation](https://nrel-sienna.github.io/PowerSimulationsDynamics.jl/dev/) for the version of the documentation which contains the unreleased features.
+For information on using the package, see the [stable documentation](https://sienna-platform.github.io/PowerSimulationsDynamics.jl/stable/). Use the [in-development documentation](https://sienna-platform.github.io/PowerSimulationsDynamics.jl/dev/) for the version of the documentation which contains the unreleased features.
 
 ## Citing PowerSimulationsDynamics.jl
 
@@ -73,9 +73,9 @@ The background work on `PowerSimulationsDynamics.jl` is explained in [Revisiting
 
 ## Development
 
-Contributions to the development and enahancement of PowerSimulationsDynamics.jl is welcome. Please see [CONTRIBUTING.md](https://github.com/nrel-sienna/PowerSimulationsDynamics.jl/blob/main/CONTRIBUTING.md) for code contribution guidelines.
+Contributions to the development and enahancement of PowerSimulationsDynamics.jl is welcome. Please see [CONTRIBUTING.md](https://github.com/Sienna-Platform/PowerSimulationsDynamics.jl/blob/main/CONTRIBUTING.md) for code contribution guidelines.
 
 ## License
 
-PowerSimulationsDynamics.jl is released under a BSD [license](https://github.com/NREL-Sienna/PowerSimulationsDynamics.jl/blob/main/LICENSE).
-PowerSimulationsDynamics.jl has been developed as part of the Scalable Integrated Infrastructure Planning (SIIP) initiative at the U.S. Department of Energy's National Renewable Energy Laboratory ([NREL](https://www.nrel.gov/))
+PowerSimulationsDynamics.jl is released under a BSD [license](https://github.com/Sienna-Platform/PowerSimulationsDynamics.jl/blob/main/LICENSE).
+PowerSimulationsDynamics.jl has been developed as part of the Scalable Integrated Infrastructure Planning (SIIP) initiative at the U.S. Department of Energy's National Laboratory of the Rockies ([NLR](https://www.nlr.gov/)), formerly known as NREL.

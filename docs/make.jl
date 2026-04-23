@@ -53,7 +53,7 @@ makedocs(;
 )
 
 deploydocs(;
-    repo = "github.com/NREL-Sienna/PowerSimulationsDynamics.jl.git",
+    repo = "github.com/Sienna-Platform/PowerSimulationsDynamics.jl.git",
     target = "build",
     branch = "gh-pages",
     devbranch = "main",
