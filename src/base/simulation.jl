@@ -1,6 +1,6 @@
 mutable struct Simulation{T <: SimulationModel}
     status::BUILD_STATUS
-    problem::Union{Nothing, SciMLBase.DEProblem}
+    problem::Union{Nothing, SciMLBase.AbstractSciMLProblem}
     tspan::NTuple{2, Float64}
     sys::PSY.System
     perturbations::Vector{<:Perturbation}

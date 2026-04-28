@@ -5,6 +5,8 @@ using NLsolve
 using SciMLBase
 using Sundials
 using OrdinaryDiffEq
+using OrdinaryDiffEqRosenbrock
+using ADTypes
 using DelayDiffEq
 using DelimitedFiles
 using DataFrames

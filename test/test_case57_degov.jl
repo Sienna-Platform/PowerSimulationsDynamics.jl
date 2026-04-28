@@ -72,7 +72,7 @@ csv_file_degov_delay_speed =
         # Solve problem
         @test execute!(
             sim,
-            MethodOfSteps(Rodas4(; autodiff = false));
+            MethodOfSteps(Rodas4(; autodiff = AutoFiniteDiff()));
             dtmax = (1 / 240),
             saveat = (1 / 240),
         ) ==
@@ -96,7 +96,7 @@ csv_file_degov_delay_speed =
 
         @test execute!(
             sim,
-            MethodOfSteps(Rodas4(; autodiff = false));
+            MethodOfSteps(Rodas4(; autodiff = AutoFiniteDiff()));
             saveat = (1 / 240),
         ) ==
               PSID.SIMULATION_FINALIZED
