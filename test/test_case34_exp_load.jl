@@ -94,38 +94,6 @@ end
     end
 end
 
-@testset "Test 34 ExponentialLoad LoadChange / LoadTrip callback affects" begin
-    # Regression: LoadChange and LoadTrip on ExponentialLoad previously
-    # MethodError'd in _find_zip_load_ix and UndefVarError'd on P_change/Q_change.
-    exp_ld = first(get_components(PSY.ExponentialLoad, sys_exp))
-    P0 = PSY.get_active_power(exp_ld)
-    Q0 = PSY.get_reactive_power(exp_ld)
-    base_power_conv = PSY.get_base_power(exp_ld) / PSY.get_base_power(sys_exp)
-
-    inputs = PSID.SimulationInputs(ResidualModel, sys_exp, ConstantFrequency())
-    integrator_for_test = MockIntegrator(inputs)
-
-    new_P_ref = P0 + 0.1
-    pert_change = LoadChange(1.0, exp_ld, :P_ref, new_P_ref)
-    affect_change = PSID.get_affect(inputs, sys_exp, pert_change)
-    affect_change(integrator_for_test)
-
-    wrapped =
-        first(
-            filter(x -> haskey(PSID.get_exp_names(x), PSY.get_name(exp_ld)),
-                inputs.static_loads),
-        )
-    tuple_ix = PSID.get_exp_names(wrapped)[PSY.get_name(exp_ld)]
-    exp_params = PSID.get_exp_params(wrapped)[tuple_ix]
-    @test isapprox(exp_params.P_exp, P0 + (new_P_ref - P0) * base_power_conv; atol = 1e-12)
-
-    # Trip the same exponential load and verify it is removed from the wrapper.
-    pert_trip = LoadTrip(2.0, exp_ld)
-    affect_trip = PSID.get_affect(inputs, sys_exp, pert_trip)
-    affect_trip(integrator_for_test)
-    @test !haskey(PSID.get_exp_names(wrapped), PSY.get_name(exp_ld))
-end
-
 @testset "Test 34 ExponentialLoad MassMatrixModel" begin
     path = (joinpath(pwd(), "test-34"))
     !isdir(path) && mkdir(path)
@@ -179,4 +147,36 @@ end
         @info("removing test files")
         rm(path; force = true, recursive = true)
     end
+end
+
+@testset "Test 34 ExponentialLoad LoadChange / LoadTrip callback affects" begin
+    # Regression: LoadChange and LoadTrip on ExponentialLoad previously
+    # MethodError'd in _find_zip_load_ix and UndefVarError'd on P_change/Q_change.
+    exp_ld = first(get_components(PSY.ExponentialLoad, sys_exp))
+    P0 = PSY.get_active_power(exp_ld)
+    Q0 = PSY.get_reactive_power(exp_ld)
+    base_power_conv = PSY.get_base_power(exp_ld) / PSY.get_base_power(sys_exp)
+
+    inputs = PSID.SimulationInputs(ResidualModel, sys_exp, ConstantFrequency())
+    integrator_for_test = MockIntegrator(inputs)
+
+    new_P_ref = P0 + 0.1
+    pert_change = LoadChange(1.0, exp_ld, :P_ref, new_P_ref)
+    affect_change = PSID.get_affect(inputs, sys_exp, pert_change)
+    affect_change(integrator_for_test)
+
+    wrapped =
+        first(
+            filter(x -> haskey(PSID.get_exp_names(x), PSY.get_name(exp_ld)),
+                inputs.static_loads),
+        )
+    tuple_ix = PSID.get_exp_names(wrapped)[PSY.get_name(exp_ld)]
+    exp_params = PSID.get_exp_params(wrapped)[tuple_ix]
+    @test isapprox(exp_params.P_exp, P0 + (new_P_ref - P0) * base_power_conv; atol = 1e-12)
+
+    # Trip the same exponential load and verify it is removed from the wrapper.
+    pert_trip = LoadTrip(2.0, exp_ld)
+    affect_trip = PSID.get_affect(inputs, sys_exp, pert_trip)
+    affect_trip(integrator_for_test)
+    @test !haskey(PSID.get_exp_names(wrapped), PSY.get_name(exp_ld))
 end
