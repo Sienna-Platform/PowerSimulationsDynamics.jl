@@ -42,6 +42,9 @@ end
             console_level = Logging.Error,
         )
         @test sim.status == PSID.BUILT
+        # Show methods must not throw under PrettyTables v3 (regression: backend = :auto was invalid).
+        @test (show(IOBuffer(), MIME"text/plain"(), sim); true)
+        @test (show(IOBuffer(), MIME"text/html"(), sim); true)
         # Test accessor functions
         dyn_wrapper = PowerSimulationsDynamics.get_dynamic_wrapper(sim, "generator-102-1")
         @test isa(dyn_wrapper, PowerSimulationsDynamics.DynamicWrapper)

@@ -4,7 +4,7 @@ function Base.show(io::IO, ::MIME"text/html", sim::Simulation)
 end
 
 function Base.show(io::IO, ::MIME"text/plain", sim::Simulation)
-    show_simulation_table(io, sim; backend = :auto)
+    show_simulation_table(io, sim; backend = :text)
     println(io)
 end
 
@@ -30,7 +30,7 @@ function Base.show(io::IO, ::MIME"text/html", res::SimulationResults)
 end
 
 function Base.show(io::IO, ::MIME"text/plain", res::SimulationResults)
-    show_results_table(io, res; backend = :auto)
+    show_results_table(io, res; backend = :text)
     println(io)
 end
 

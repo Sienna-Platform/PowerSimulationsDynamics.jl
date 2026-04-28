@@ -316,17 +316,12 @@ function ybus_update!(
     return
 end
 
-function ybus_update!(
-    ybus::SparseArrays.SparseMatrixCSC{Float32, Int},
-    fa::PSY.FixedAdmittance,
-    num_bus::Dict{Int, Int},
-    mult::Float64,
-)
-    bus = PSY.get_bus(fa)
-    bus_ix = num_bus[PSY.get_number(bus)]
-    ybus[bus_ix, bus_ix] += mult * fa.Y
-    return
-end
+# NOTE: A FixedAdmittance ybus_update! method intentionally does not exist.
+# FixedAdmittance is folded into the static Ybus by PNM.Ybus(sys) at build time
+# (see _wrap_static_injectors / _wrap_loads in simulation_inputs.jl) and is
+# never updated dynamically. If a FixedAdmittance perturbation is added in the
+# future, the new ybus_update! method must mirror the rectangular four-entry
+# pattern used for ACBranch above, since ybus_rectangular is real-valued Float32.
 
 function ybus_update!(integrator_params, branch::PSY.ACBranch, mult::Float64)
     ybus_update!(integrator_params.ybus_rectangular, branch, integrator_params.lookup, mult)
@@ -684,17 +679,29 @@ function get_affect(inputs::SimulationInputs, sys::PSY.System, pert::LoadChange)
         end
     elseif isa(ld, PSY.ExponentialLoad)
         return (integrator) -> begin
+            base_power_conversion = PSY.get_base_power(ld) / sys_base_power
+            P_old = PSY.get_active_power(ld)
+            Q_old = PSY.get_reactive_power(ld)
+            P_change = 0.0
+            Q_change = 0.0
+            if signal ∈ [:P_ref, :P_ref_power]
+                P_change = (ref_value - P_old) * base_power_conversion
+            elseif signal ∈ [:Q_ref, :Q_ref_power]
+                Q_change = (ref_value - Q_old) * base_power_conversion
+            else
+                error(
+                    "Signal $(signal) is not accepted for ExponentialLoad. Use :P_ref/:P_ref_power or :Q_ref/:Q_ref_power.",
+                )
+            end
             ld_name = PSY.get_name(ld)
             wrapped_zip = get_static_loads(integrator.p)[wrapped_device_ix]
             exp_names = get_exp_names(wrapped_zip)
             exp_vects = get_exp_params(wrapped_zip)
             tuple_ix = exp_names[ld_name]
             exp_params = exp_vects[tuple_ix]
-            P_exp_old = exp_params.P_exp
-            Q_exp_old = exp_params.Q_exp
-            exp_params.P_exp = P_exp_old + P_change
-            exp_params.Q_exp = Q_exp_old + Q_change
-            @debug "Removing exponential load entry $(ld_name) at wrapper $(PSY.get_name(wrapped_zip))"
+            exp_params.P_exp += P_change
+            exp_params.Q_exp += Q_change
+            @debug "Changing exponential load $(ld_name) at wrapper $(PSY.get_name(wrapped_zip)) $(signal) to $(ref_value)"
             return
         end
     else
@@ -794,7 +801,7 @@ end
 function _find_zip_load_ix(
     inputs::SimulationInputs,
     device::U,
-) where {U <: Union{PSY.PowerLoad, PSY.StandardLoad}}
+) where {U <: Union{PSY.PowerLoad, PSY.StandardLoad, PSY.ExponentialLoad}}
     wrapped_devices = get_static_loads(inputs)
     bus_affected = PSY.get_bus(device)
     wrapped_device_ixs =

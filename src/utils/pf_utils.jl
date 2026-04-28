@@ -16,7 +16,7 @@ function _transform_load_data_to_constant_power!(data::PF.PowerFlowData)
     return
 end
 
-function solve_and_save_powerflow!(pf, system, use_constant_power_loads_in_pf; kwargs...)
+function solve_and_save_powerflow!(pf, system, use_constant_power_loads_in_pf)
     if !use_constant_power_loads_in_pf
         converged = PF.solve_and_store_power_flow!(pf, system)
     else
@@ -32,9 +32,9 @@ function solve_and_save_powerflow!(pf, system, use_constant_power_loads_in_pf; k
                     system,
                     pf,
                     data,
-                    get(kwargs, :maxIterations, PF.DEFAULT_NR_MAX_ITER),
+                    PF.DEFAULT_NR_MAX_ITER,
                 )
-                @info(
+                @debug(
                     "PowerFlow solve converged, the results have been stored in the system"
                 )
             else

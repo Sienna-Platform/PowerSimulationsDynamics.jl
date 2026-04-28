@@ -185,7 +185,7 @@ function make_basic_line(line::PSY.Line, sys::PSY.System)
 end
 
 function build_ybus_from_branches(
-    lines::Vector{<:PSY.Branch},
+    lines::Vector{<:PSY.Line},
     buses::Vector{PSY.ACBus},
     ;
     base_power::Float64,
