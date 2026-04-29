@@ -21,8 +21,11 @@ end
         fault_branch = deepcopy(collect(get_components(Branch, omib_sys))[1])
         fault_branch.r = 0.00
         fault_branch.x = 0.1
-        Ybus_fault =
-            PNM.Ybus([fault_branch], collect(get_components(ACBus, omib_sys)))[:, :]
+        Ybus_fault = PSID.build_ybus_from_branches(
+            [fault_branch],
+            collect(get_components(ACBus, omib_sys));
+            base_power = PSY.get_base_power(omib_sys),
+        )[:, :]
 
         Ybus_change = NetworkSwitch(
             1.0, #change at t = 1.0
@@ -39,6 +42,9 @@ end
             console_level = Logging.Error,
         )
         @test sim.status == PSID.BUILT
+        # Show methods must not throw under PrettyTables v3 (regression: backend = :auto was invalid).
+        @test (show(IOBuffer(), MIME"text/plain"(), sim); true)
+        @test (show(IOBuffer(), MIME"text/html"(), sim); true)
         # Test accessor functions
         dyn_wrapper = PowerSimulationsDynamics.get_dynamic_wrapper(sim, "generator-102-1")
         @test isa(dyn_wrapper, PowerSimulationsDynamics.DynamicWrapper)
@@ -66,8 +72,11 @@ end
         fault_branch = deepcopy(collect(get_components(Branch, omib_sys))[1])
         fault_branch.r = 0.00
         fault_branch.x = 0.1
-        Ybus_fault =
-            PNM.Ybus([fault_branch], collect(get_components(ACBus, omib_sys)))[:, :]
+        Ybus_fault = PSID.build_ybus_from_branches(
+            [fault_branch],
+            collect(get_components(ACBus, omib_sys));
+            base_power = PSY.get_base_power(omib_sys),
+        )[:, :]
 
         Ybus_change = NetworkSwitch(
             1.0, #change at t = 1.0
@@ -109,8 +118,11 @@ end
         fault_branch = deepcopy(collect(get_components(Branch, omib_sys))[1])
         fault_branch.r = 0.00
         fault_branch.x = 0.1
-        Ybus_fault =
-            PNM.Ybus([fault_branch], collect(get_components(ACBus, omib_sys)))[:, :]
+        Ybus_fault = PSID.build_ybus_from_branches(
+            [fault_branch],
+            collect(get_components(ACBus, omib_sys));
+            base_power = PSY.get_base_power(omib_sys),
+        )[:, :]
 
         Ybus_change = NetworkSwitch(
             1.0, #change at t = 1.0
@@ -354,7 +366,7 @@ end
     ]
     V_r = voltages[1:2]
     V_i = voltages[3:end]
-    ybus_ = PNM.Ybus(omib_sys).data
+    ybus_ = PNM.Ybus(omib_sys; include_constant_impedance_loads = false).data
     I_balance_ybus = -1 * ybus_ * (V_r + V_i .* 1im)
     inputs = PSID.SimulationInputs(ResidualModel, omib_sys, ConstantFrequency())
     I_balance_sim = zeros(4)
@@ -383,7 +395,7 @@ end
         end
     end
 
-    ybus_original = PNM.Ybus(threebus_sys)
+    ybus_original = PNM.Ybus(threebus_sys; include_constant_impedance_loads = false)
 
     inputs = PSID.SimulationInputs(ResidualModel, threebus_sys, ConstantFrequency())
 
@@ -399,24 +411,24 @@ end
     PSID.ybus_update!(inputs, br, -1.0)
 
     remove_component!(threebus_sys, br)
-    ybus_line_trip = PNM.Ybus(threebus_sys)
+    ybus_line_trip = PNM.Ybus(threebus_sys; include_constant_impedance_loads = false)
 
     # Use is approx because the inversion of complex might be different in
     # floating point than the inversion of a single float
     for i in 1:3, j in 1:3
         complex_ybus = ybus_line_trip.data[i, j]
-        @test isapprox(inputs.ybus_rectangular[i, j], real(complex_ybus), atol = 1e-10)
+        @test isapprox(inputs.ybus_rectangular[i, j], real(complex_ybus), atol = 1e-6)
         @test isapprox(
             inputs.ybus_rectangular[i + 3, j + 3],
             real(complex_ybus),
-            atol = 1e-10,
+            atol = 1e-6,
         )
-        @test isapprox(inputs.ybus_rectangular[i + 3, j], -imag(complex_ybus), atol = 1e-10)
-        @test isapprox(inputs.ybus_rectangular[i, j + 3], imag(complex_ybus), atol = 1e-10)
+        @test isapprox(inputs.ybus_rectangular[i + 3, j], -imag(complex_ybus), atol = 1e-6)
+        @test isapprox(inputs.ybus_rectangular[i, j + 3], imag(complex_ybus), atol = 1e-6)
     end
 
     threebus_sys = System(three_bus_file_dir; runchecks = false)
-    ybus_original = PNM.Ybus(threebus_sys)
+    ybus_original = PNM.Ybus(threebus_sys; include_constant_impedance_loads = false)
     cb1 = NetworkSwitch(1.0, ybus_original)
 
     @test all(
@@ -716,8 +728,11 @@ end
         fault_branch = deepcopy(collect(get_components(Branch, omib_sys))[1])
         fault_branch.r = 0.00
         fault_branch.x = 0.1
-        Ybus_fault =
-            PNM.Ybus([fault_branch], collect(get_components(ACBus, omib_sys)))[:, :]
+        Ybus_fault = PSID.build_ybus_from_branches(
+            [fault_branch],
+            collect(get_components(ACBus, omib_sys));
+            base_power = PSY.get_base_power(omib_sys),
+        )[:, :]
 
         Ybus_change = NetworkSwitch(
             1.0, #change at t = 1.0

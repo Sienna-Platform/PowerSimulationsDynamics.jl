@@ -1,7 +1,9 @@
 [deps]
+DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
 DocStringExtensions = "ffbed154-4ef7-542d-bbb7-c09d3a79fcae"
 Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
 DocumenterTools = "35a29f4d-8980-5a13-9543-d66fff28ecb8"
+Literate = "98b081ad-f1c9-55d3-8b20-4c87d4299306"
 OrdinaryDiffEq = "1dea7af3-3e70-54e6-95c3-0bf5283fa5ed"
 Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
 PowerFlows = "94fada2c-fd9a-4e89-8d82-81405f5cb4f6"
@@ -9,8 +11,8 @@ PowerNetworkMatrices = "bed98974-b02a-5e2f-9fe0-a103f5c450dd"
 PowerSimulationsDynamics = "398b2ede-47ed-4edc-b52e-69e4a48b4336"
 PowerSystemCaseBuilder = "f00506e0-b84f-492a-93c2-c0a9afc4364e"
 PowerSystems = "bcd98974-b02a-5e2f-9ee0-a103f5c450dd"
+PrettyTables = "08abe8d2-0d0c-5749-adfa-8a2ac140af0d"
 Sundials = "c3572dad-4567-51f8-b174-8c6c989267f4"
-UnicodePlots = "b8865327-cd53-5732-bb35-84acbb429228"
 
 [compat]
-Documenter = "0.27.3"
+Documenter = "=1.15.0"

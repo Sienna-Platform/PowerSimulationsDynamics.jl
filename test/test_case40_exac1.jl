@@ -54,7 +54,7 @@ csv_file = joinpath(TEST_FILES_DIR, "benchmarks/psse//EXAC1/results_PSSe.csv")
         @test LinearAlgebra.norm(eigs - test40_eigvals) < 1e-3
 
         # Solve problem
-        @test execute!(sim, IDA(); dtmax = 0.005, saveat = 0.005) ==
+        @test execute!(sim, IDA(); saveat = 0.005) ==
               PSID.SIMULATION_FINALIZED
         results = read_results(sim)
 
@@ -118,7 +118,7 @@ end
         @test LinearAlgebra.norm(eigs - test40_eigvals) < 1e-3
 
         # Solve problem
-        @test execute!(sim, Rodas4(); dtmax = 0.005, saveat = 0.005) ==
+        @test execute!(sim, Rodas4(); saveat = 0.005) ==
               PSID.SIMULATION_FINALIZED
         results = read_results(sim)
 

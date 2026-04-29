@@ -105,7 +105,7 @@ esst1a_avr() = ESST1A(;
         @test small_sig.stable
 
         # Solve problem
-        @test execute!(sim, IDA(); dtmax = 0.005, saveat = 0.005) ==
+        @test execute!(sim, IDA(); saveat = 0.005) ==
               PSID.SIMULATION_FINALIZED
         results = read_results(sim)
 

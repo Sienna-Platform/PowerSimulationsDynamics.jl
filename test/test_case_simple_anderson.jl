@@ -11,7 +11,7 @@ and the generator located in bus 3.
 
 threebus_sys = build_system(PSIDTestSystems, "psid_test_threebus_simple_anderson")
 pf = ACPowerFlow()
-solve_powerflow!(pf, threebus_sys)
+solve_and_store_power_flow!(pf, threebus_sys)
 Ybus_fault = get_ybus_fault_threebus_sys(threebus_sys)
 
 ##################################################

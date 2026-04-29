@@ -57,4 +57,8 @@ for br in fault_branches
         br.x = 4 * br.x
     end
 end
-Ybus_fault = PNM.Ybus(fault_branches, collect(get_components(ACBus, threebus_sys)))[:, :];
+Ybus_fault = PSID.build_ybus_from_branches(
+    fault_branches,
+    collect(get_components(ACBus, threebus_sys));
+    base_power = PSY.get_base_power(threebus_sys),
+)[:, :];

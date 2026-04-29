@@ -1,21 +1,26 @@
 using Documenter, PowerSystems, DocStringExtensions, PowerSimulationsDynamics
 
+const _DOCS_BASE_URL = "https://sienna-platform.github.io/PowerSimulationsDynamics.jl/stable"
+
+include(joinpath(@__DIR__, "make_tutorials.jl"))
+make_tutorials()
+
 makedocs(;
     modules = [PowerSimulationsDynamics],
     format = Documenter.HTML(; mathengine = Documenter.MathJax()),
     sitename = "PowerSimulationsDynamics.jl",
     pages = Any[
         "Welcome Page" => "index.md",
-        "Quick Start Guide" => "quick_start_guide.md",
+        "Quick Start Guide" => "tutorials/generated_quick_start_guide.md",
         "Simulation Execution" => "execute.md",
         "Tutorials" => Any[
-            "Create Dynamic Data" => "tutorials/tutorial_dynamic_data.md",
-            "OMIB" => "tutorials/tutorial_omib.md",
-            "Dynamic Lines Simulation" => "tutorials/tutorial_dynamic_lines.md",
-            "Inverter Modeling" => "tutorials/tutorial_inverter_modeling.md",
-            "240 WECC solver comparison" => "tutorials/tutorial_240bus.md",
-            "Small-Signal Analysis" => "tutorials/tutorial_continuation_pf.md",
-            "Active Load Model" => "tutorials/tutorial_activeload.md",
+            "Create Dynamic Data" => "tutorials/generated_tutorial_dynamic_data.md",
+            "OMIB" => "tutorials/generated_tutorial_omib.md",
+            "Dynamic Lines Simulation" => "tutorials/generated_tutorial_dynamic_lines.md",
+            "Inverter Modeling" => "tutorials/generated_tutorial_inverter_modeling.md",
+            "240 WECC solver comparison" => "tutorials/generated_tutorial_240bus.md",
+            "Small-Signal Analysis" => "tutorials/generated_tutorial_continuation_pf.md",
+            "Active Load Model" => "tutorials/generated_tutorial_activeload.md",
         ],
         "Models" => "models.md",
         "Initialization" => "initialization.md",

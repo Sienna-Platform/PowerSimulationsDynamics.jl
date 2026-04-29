@@ -15,6 +15,8 @@ function add_source_to_ref(sys::PSY.System, X_th::Float64)
         bus = slack_bus, #bus
         R_th = 0.0,
         X_th = X_th, #Xth
+        active_power_limits = (min = -1e6, max = 1e6),
+        reactive_power_limits = (min = -1e6, max = 1e6),
     )
     PSY.add_component!(sys, inf_source)
     return
@@ -37,6 +39,8 @@ function add_source_to_ref(sys::PSY.System)
         bus = slack_bus, #bus
         R_th = 0.0,
         X_th = 5e-6, #Xth
+        active_power_limits = (min = -1e6, max = 1e6),
+        reactive_power_limits = (min = -1e6, max = 1e6),
     )
     PSY.add_component!(sys, inf_source)
     return
@@ -47,7 +51,11 @@ function get_ybus_fault_threebus_sys(sys)
         filter!(x -> get_name(x) != "BUS 1-BUS 3-i_1", collect(get_components(Branch, sys)))
     sorted_buses =
         sort!(collect(get_components(ACBus, threebus_sys)); by = x -> get_number(x))
-    Ybus_fault = PNM.Ybus(fault_branch, sorted_buses)[:, :]
+    Ybus_fault = PSID.build_ybus_from_branches(
+        fault_branch,
+        sorted_buses;
+        base_power = PSY.get_base_power(sys),
+    )[:, :]
     return Ybus_fault
 end
 

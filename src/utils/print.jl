@@ -1,10 +1,10 @@
 function Base.show(io::IO, ::MIME"text/html", sim::Simulation)
-    show_simulation_table(io, sim; backend = Val(:html))
+    show_simulation_table(io, sim; backend = :html)
     println(io)
 end
 
 function Base.show(io::IO, ::MIME"text/plain", sim::Simulation)
-    show_simulation_table(io, sim; backend = Val(:auto))
+    show_simulation_table(io, sim; backend = :text)
     println(io)
 end
 
@@ -25,12 +25,12 @@ function Base.show(io::IO, pert::ControlReferenceChange)
 end
 
 function Base.show(io::IO, ::MIME"text/html", res::SimulationResults)
-    show_results_table(io, res; backend = Val(:html))
+    show_results_table(io, res; backend = :html)
     println(io)
 end
 
 function Base.show(io::IO, ::MIME"text/plain", res::SimulationResults)
-    show_results_table(io, res; backend = Val(:auto))
+    show_results_table(io, res; backend = :text)
     println(io)
 end
 
@@ -49,7 +49,7 @@ function show_results_table(io::IO, res::SimulationResults; kwargs...)
     PrettyTables.pretty_table(
         io,
         table;
-        header = header,
+        column_labels = header,
         title = "Simulation Results Summary",
         alignment = :l,
         kwargs...,
@@ -77,7 +77,7 @@ function show_simulation_table(
     PrettyTables.pretty_table(
         io,
         table;
-        header = header,
+        column_labels = header,
         title = "Simulation Summary",
         alignment = :l,
         kwargs...,

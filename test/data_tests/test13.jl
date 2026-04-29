@@ -51,4 +51,8 @@ end
 
 #Compute Y_bus after fault
 fault_branches = deepcopy(collect(get_components(Branch, threebus_sys))[2:end])
-Ybus_fault = PNM.Ybus(fault_branches, collect(get_components(ACBus, threebus_sys)))[:, :]
+Ybus_fault = PSID.build_ybus_from_branches(
+    fault_branches,
+    collect(get_components(ACBus, threebus_sys));
+    base_power = PSY.get_base_power(threebus_sys),
+)[:, :]

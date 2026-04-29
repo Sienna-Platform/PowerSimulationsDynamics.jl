@@ -12,7 +12,7 @@ function power_flow_solution!(
     inputs::SimulationInputs,
 )
     pf = PF.ACPowerFlow{PF.TrustRegionACPowerFlow}()
-    res = PF.solve_powerflow!(pf, sys)
+    res = solve_and_save_powerflow!(pf, sys, true)
     if !res
         @error("PowerFlow failed to solve")
         return BUILD_FAILED
@@ -26,6 +26,8 @@ function power_flow_solution!(
         initial_guess[bus_ix + bus_size] = PSY.get_magnitude(bus) * sin(PSY.get_angle(bus))
         @debug "$(PSY.get_name(bus)) V_r = $(initial_guess[bus_ix]), V_i = $(initial_guess[bus_ix + bus_size])"
     end
+    @debug "After PowerFlow returning to device base"
+    PSY.set_units_base_system!(sys, "DEVICE_BASE")
     return BUILD_INCOMPLETE
 end
 

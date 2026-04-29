@@ -9,9 +9,9 @@ struct SimulationInputs
     inner_vars_count::Int
     bus_count::Int
     ode_range::UnitRange{Int}
-    ybus_rectangular::SparseArrays.SparseMatrixCSC{Float64, Int}
+    ybus_rectangular::SparseArrays.SparseMatrixCSC{Float32, Int}
     dyn_lines::Bool
-    total_shunts::SparseArrays.SparseMatrixCSC{Float64, Int}
+    total_shunts::SparseArrays.SparseMatrixCSC{Float32, Int}
     lookup::Dict{Int, Int}
     DAE_vector::Vector{Bool}
     mass_matrix::LinearAlgebra.Diagonal{Float64}
@@ -275,19 +275,20 @@ function _wrap_loads(sys::PSY.System, lookup::Dict{Int, Int})
         # Optimize this dictionary push
         push!(get!(map_bus_load, bus, PSY.ElectricLoad[]), ld)
     end
-    return _construct_load_wrapper(lookup, map_bus_load, sys_base_power)
+    return _construct_load_wrapper(lookup, map_bus_load, sys_base_power, sys)
 end
 
 function _construct_load_wrapper(
     lookup::Dict{Int, Int},
     map_bus_load::Dict{PSY.Bus, Vector{PSY.ElectricLoad}},
     sys_base_power,
+    sys::PSY.System,
 )
     container = Vector{StaticLoadWrapper}(undef, length(map_bus_load))
     for (ix, (bus, loads)) in enumerate(map_bus_load)
         bus_n = PSY.get_number(bus)
         bus_ix = lookup[bus_n]
-        container[ix] = StaticLoadWrapper(bus, loads, bus_ix, sys_base_power)
+        container[ix] = StaticLoadWrapper(bus, loads, bus_ix, sys_base_power, sys)
     end
     return container
 end
@@ -296,7 +297,7 @@ function _get_ybus(sys::PSY.System)
     n_buses = length(PSY.get_components(PSY.Bus, sys))
     dyn_lines = PSY.get_components(x -> PSY.get_available(x), PSY.DynamicBranch, sys)
     if !isempty(PSY.get_components(PSY.ACBranch, sys))
-        Ybus_ = PNM.Ybus(sys)
+        Ybus_ = PNM.Ybus(sys; include_constant_impedance_loads = false)
         ybus = Ybus_[:, :]
         lookup = Ybus_.lookup[1]
         ybus_rectangular = transform_ybus_to_rectangular(ybus)
@@ -305,8 +306,8 @@ function _get_ybus(sys::PSY.System)
         end
     else
         ybus_rectangular =
-            SparseArrays.SparseMatrixCSC{Float64, Int}(zeros(2 * n_buses, 2 * n_buses))
-        Ybus_ = PNM.Ybus(sys)
+            SparseArrays.SparseMatrixCSC{Float32, Int}(zeros(2 * n_buses, 2 * n_buses))
+        Ybus_ = PNM.Ybus(sys; include_constant_impedance_loads = false)
         lookup = Ybus_.lookup[1]
     end
     return ybus_rectangular, lookup
@@ -362,7 +363,7 @@ function _get_shunt_values(::Union{PSY.TapTransformer, PSY.Transformer2W})
 end
 
 function _make_total_shunts(wrapped_branches, n_buses::Int)
-    shunts = SparseArrays.SparseMatrixCSC{Float64, Int}(zeros(2 * n_buses, 2 * n_buses))
+    shunts = SparseArrays.SparseMatrixCSC{Float32, Int}(zeros(2 * n_buses, 2 * n_buses))
     for br in wrapped_branches
         bus_ix_from = get_bus_ix_from(br)
         bus_ix_to = get_bus_ix_to(br)
@@ -378,7 +379,7 @@ end
 function _adjust_states!(
     DAE_vector::BitVector,
     mass_matrix::LinearAlgebra.Diagonal{Float64},
-    total_shunts::SparseArrays.SparseMatrixCSC{Float64, Int},
+    total_shunts::SparseArrays.SparseMatrixCSC{Float32, Int},
     n_buses::Int,
     sys_f::Float64,
 )

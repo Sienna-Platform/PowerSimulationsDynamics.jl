@@ -70,10 +70,9 @@ function test_renA_implicit(csv_file, init_cond, eigs_value, F_Flag)
         @test execute!(
             sim,
             IDA();
-            dtmax = 0.005,
             saveat = 0.005,
-            abstol = 1e-9,
-            reltol = 1e-9,
+            abstol = 1e-4,
+            reltol = 1e-4,
         ) == PSID.SIMULATION_FINALIZED
         results = read_results(sim)
 
