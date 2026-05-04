@@ -1,7 +1,5 @@
 using Documenter, PowerSystems, DocStringExtensions, PowerSimulationsDynamics
 
-const _DOCS_BASE_URL = "https://sienna-platform.github.io/PowerSimulationsDynamics.jl/stable"
-
 include(joinpath(@__DIR__, "make_tutorials.jl"))
 make_tutorials()
 
