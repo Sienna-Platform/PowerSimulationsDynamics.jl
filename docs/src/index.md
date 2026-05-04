@@ -27,20 +27,6 @@ year={2023}
 }
 ```
 
-## Installation
-
-The latest stable release of PowerSimulationsDynamics.jl can be installed using the Julia package manager with
-
-```julia
-] add PowerSimulationsDynamics
-```
-
-For the current development version, "checkout" this package with
-
-```julia
-] add PowerSimulationsDynamics#master
-```
-
 ## Structure
 
 The following figure shows the interactions between `PowerSimulationsDynamics.jl`, `PowerSystems.jl`, `ForwardDiff.jl`, `DiffEqBase.jl` and the integrators.
@@ -55,7 +41,27 @@ BDF and Rosenbrock methods.
 <img src="./assets/SoftwareLoop.jpg" width="65%"/>
 ``` ⠀
 
-------------
-PowerSimulationsDynamics.jl has been developed as part of the Scalable Integrated Infrastructure Planning
-(SIIP) initiative at the U.S. Department of Energy's National Renewable Energy
-Laboratory ([NREL](https://www.nrel.gov/))
+## About Sienna
+
+`PowerSimulationsDynamics.jl` is part of the National Laboratory of the Rockies (formerly known as NREL)'s
+[Sienna ecosystem](https://sienna-platform.github.io/Sienna/), an open source framework for
+power system modeling, simulation, and optimization. The Sienna ecosystem can be
+[found on Github](https://github.com/Sienna-Platform/). It contains three applications:
+
+  - [Sienna\Data](https://sienna-platform.github.io/Sienna/pages/applications/sienna_data.html) enables
+    efficient data input, analysis, and transformation
+  - [Sienna\Ops](https://sienna-platform.github.io/Sienna/pages/applications/sienna_ops.html) enables
+    enables system scheduling simulations by formulating and solving optimization problems
+  - [Sienna\Dyn](https://sienna-platform.github.io/Sienna/pages/applications/sienna_dyn.html) enables
+    system transient analysis including small signal stability and full system dynamic
+    simulations
+
+Each application uses multiple packages in the [`Julia`](http://www.julialang.org)
+programming language.
+
+## Installation and Quick Links
+
+  - [Sienna installation page](https://sienna-platform.github.io/Sienna/SiennaDocs/docs/build/how-to/install/):
+    Instructions to install `PowerSimulationsDynamics.jl` and other Sienna\Dyn packages
+  - [Sienna Documentation Hub](https://sienna-platform.github.io/Sienna/SiennaDocs/docs/build/index.html):
+    Links to other Sienna packages' documentation
