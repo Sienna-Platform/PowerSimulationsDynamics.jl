@@ -1,4 +1,4 @@
-# # [PSSE 240 Bus Case system with Renewables](https://www.nrel.gov/grid/test-case-repository.html)
+# # [PSSE 240 Bus Case system with Renewables](https://www.nlr.gov/grid/test-case-repository)
 #
 # ## Introduction
 #
