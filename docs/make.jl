@@ -1,12 +1,21 @@
 using Documenter, PowerSystems, DocStringExtensions, PowerSimulationsDynamics
+using DocumenterInterLinks
 
 include(joinpath(@__DIR__, "make_tutorials.jl"))
 make_tutorials()
 
+links = InterLinks(
+    "PowerSystems" => "https://sienna-platform.github.io/PowerSystems.jl/stable/",
+)
+
 makedocs(;
     modules = [PowerSimulationsDynamics],
-    format = Documenter.HTML(; mathengine = Documenter.MathJax()),
+    format = Documenter.HTML(
+        prettyurls = haskey(ENV, "GITHUB_ACTIONS"),
+        mathengine = Documenter.MathJax(),
+        ),
     sitename = "PowerSimulationsDynamics.jl",
+    plugins = [links],
     pages = Any[
         "Welcome Page" => "index.md",
         "Quick Start Guide" => "tutorials/generated_quick_start_guide.md",
