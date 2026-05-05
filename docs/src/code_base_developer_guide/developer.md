@@ -4,8 +4,8 @@ In order to contribute to `PowerSimulationsDynamics.jl` repository please read t
 sections of [`InfrastructureSystems.jl`](https://github.com/Sienna-Platform/InfrastructureSystems.jl)
 documentation in detail:
 
-1. [Style Guide](https://sienna-platform.github.io/InfrastructureSystems.jl/stable/style/)
-2. [Contributing Guidelines](https://github.com/Sienna-Platform/PowerSystems.jl/blob/master/CONTRIBUTING.md)
+ 1. [Style Guide](https://sienna-platform.github.io/InfrastructureSystems.jl/stable/style/)
+ 2. [Contributing Guidelines](https://github.com/Sienna-Platform/PowerSystems.jl/blob/master/CONTRIBUTING.md)
 
 Pull requests are always welcome to fix bugs or add additional modeling capabilities.
 

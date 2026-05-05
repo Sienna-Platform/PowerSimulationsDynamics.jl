@@ -30,12 +30,12 @@ it is possible to provide an initial guess for the initial conditions to speed u
 
 ```julia
 Simulation(
-        ResidualModel,
-        sys,
-        pwd(),
-        (0.0, 20.0);
-        initial_conditions = x0_init,
-    )
+    ResidualModel,
+    sys,
+    pwd(),
+    (0.0, 20.0);
+    initial_conditions = x0_init,
+)
 ```
 
 It is also possible to initialize the simulation using a flat start (`V_mag = 1.0`, `V_angle = 0.0` and `x0 = zeros`)
@@ -44,12 +44,12 @@ result in a valid initial condition for the simulation.
 
 ```julia
 Simulation(
-        ResidualModel,
-        sys,
-        pwd(),
-        (0.0, 20.0);
-        initialize_simulation = false,
-    )
+    ResidualModel,
+    sys,
+    pwd(),
+    (0.0, 20.0);
+    initialize_simulation = false,
+)
 ```
 
 If you want to avoid `PowerSimulationsDynamics.jl` from finding an stable equilibrium automatically
@@ -57,13 +57,13 @@ and provide the initial condition manually you can use the following flag combin
 
 ```julia
 Simulation(
-        ResidualModel,
-        sys,
-        pwd(),
-        (0.0, 20.0);
-        initialize_simulation = false,
-        initial_conditions = x0_init,
-    )
+    ResidualModel,
+    sys,
+    pwd(),
+    (0.0, 20.0);
+    initialize_simulation = false,
+    initial_conditions = x0_init,
+)
 ```
 
 <span style="color:red">*WARNING!*</span>: when the `initialize_simulation` is set to `false`,
@@ -105,19 +105,19 @@ detailed documentation of the process.
 
 ![init_machine](assets/inverter_init.png)
 
-1. The first component to be initialized is the filter. Given that the filter is an RLC
-   circuit connected to the grid, its currents and voltages need to match the results of the
-   power flow. The initialization of the filter provides the values for the ``P`` and ``Q``
-   used in the outer control and the ``V`` and ``I`` needed in the inner controls.
-2. Based on the bus voltage in the system's reference frame ``V_r`` and the bus angle ``\theta``
-   the PLL's can be initialized to obtain the angle and frequency estimates needed by the
-   outer control.
-3. The Outer Control calculates the internal angle ``\delta_{olc}`` required by the inner control
-   to estimate the voltage and current phase difference.
-4. The DC Source uses the power set-point consistent with the power outputs of the filter
-   to initialize the ``V_{dc}`` set-points. This value is used in the inner control.
-5. The inner control takes the phase angle ``\delta_{olc}`` and the ``V_{dc}`` to estimate the
-   modulation values of the PWM converter.
+ 1. The first component to be initialized is the filter. Given that the filter is an RLC
+    circuit connected to the grid, its currents and voltages need to match the results of the
+    power flow. The initialization of the filter provides the values for the ``P`` and ``Q``
+    used in the outer control and the ``V`` and ``I`` needed in the inner controls.
+ 2. Based on the bus voltage in the system's reference frame ``V_r`` and the bus angle ``\theta``
+    the PLL's can be initialized to obtain the angle and frequency estimates needed by the
+    outer control.
+ 3. The Outer Control calculates the internal angle ``\delta_{olc}`` required by the inner control
+    to estimate the voltage and current phase difference.
+ 4. The DC Source uses the power set-point consistent with the power outputs of the filter
+    to initialize the ``V_{dc}`` set-points. This value is used in the inner control.
+ 5. The inner control takes the phase angle ``\delta_{olc}`` and the ``V_{dc}`` to estimate the
+    modulation values of the PWM converter.
 
 **Note:** The initialization of an inverter through the proposed meta-model is actively under
 development and subject to change. This page will maintain the latest version of the sequence.

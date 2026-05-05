@@ -21,6 +21,7 @@ execute!(sim, IDA())
 ```
 
 Results can be explored using:
+
 ```julia
 results = read_results(sim)
 ```
@@ -74,7 +75,7 @@ Any solver option available in `DifferentialEquations.jl` can be passed as keywo
 Most common solver options used are `dtmax` to control the maximum dt for adaptive timestepping. `abstol` and `reltol` are also commonly used to control the tolerance in the adaptive timestepping. `saveat` is also used to store the results at a specified time stamps. For example, the following code is valid to further specify your solver options:
 
 ```julia
-execute!(sim, IDA(), dtmax = 0.01, abstol = 1e-9, reltol = 1e-6, saveat = 0.01)
+execute!(sim, IDA(); dtmax = 0.01, abstol = 1e-9, reltol = 1e-6, saveat = 0.01)
 ```
 
 In addition, the keyword argument `enable_progress_bar = false` can be used to disable the progress bar.

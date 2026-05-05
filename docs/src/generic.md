@@ -2,7 +2,7 @@
 
 ## Connection with the Inverter Metamodel
 
-Generic Renewable Models for PV solar or battery devices used in industrial tools, such as PSS/E or PowerWorld, does not necessary resemble the proposed structure of our proposed metamodel. 
+Generic Renewable Models for PV solar or battery devices used in industrial tools, such as PSS/E or PowerWorld, does not necessary resemble the proposed structure of our proposed metamodel.
 
 In general terms, a generic renewable model (for PV plant or battery) is typically a Grid Following inverter that uses a Renewable Energy Plant Controller (REPC), a Renewable Energy Electrical Controller (REEC) and a Renewable Energy Generic Converter (REGC) model. The following figure is useful to understand the general structure of such models:
 
@@ -22,7 +22,7 @@ The following example join the active power controllers from [REPCA](https://www
 
 ```@raw html
 <img src="../assets/active_ren.png" width="90%"/>
-``` ⠀
+```
 
 An important thing to consider with the industrial models, is that the change of Flags can significantly vary the model and purpose of the controller.
 
@@ -32,8 +32,7 @@ Similar to the active controller, the following figure presents the reactive con
 
 ```@raw html
 <img src="../assets/reactive_ren.png" width="90%"/>
-``` ⠀
-
+```
 
 ### Inner Controller
 
@@ -41,7 +40,7 @@ Finally, the remaining part from [REECB](https://www.powerworld.com/WebHelp/Cont
 
 ```@raw html
 <img src="../assets/inner_reecb.png" width="90%"/>
-``` ⠀
+```
 
 The [REGCA](https://www.powerworld.com/WebHelp/Content/TransientModels_HTML/Machine%20Model%20REGC_A.htm)model was directly included in a Converter Block, and the filter can be bypassed using an `RLFilter` block with `rf = lf = 0`.
 
@@ -56,10 +55,10 @@ For the active controller, both `Freq_Flag = 0` (ignoring frequency regulation) 
 The following table describes the current available combination of flags in PSID:
 
 | `REF_Flag` | `PF_Flag` | `V_Flag` | `Q_Flag` |
-|:--------:|:-------:|:------:|:------:|
-|     0    |    0    |    0   |    0   |
-|     0    |    0    |    1   |    0   |
-|     1    |    0    |    1   |    1   |
-|     1    |    0    |    0   |    0   |
+|:----------:|:---------:|:--------:|:--------:|
+| 0          | 0         | 0        | 0        |
+| 0          | 0         | 1        | 0        |
+| 1          | 0         | 1        | 1        |
+| 1          | 0         | 0        | 0        |
 
 Any combination outside of these cases may not converge to a feasible operating point. Check the following [CAISO report](http://www.caiso.com/Documents/InverterBasedInterconnectionRequestsIBRDynamicModelReviewGuideline.pdf) for the description and compliance of each flag combination.

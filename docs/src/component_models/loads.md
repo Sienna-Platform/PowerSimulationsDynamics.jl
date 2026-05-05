@@ -1,4 +1,4 @@
-Here we discuss the models used to describe load modeling in `PowerSimulationsDynamics.jl`. 
+Here we discuss the models used to describe load modeling in `PowerSimulationsDynamics.jl`.
 In a similar fashion of other devices, loads will withdraw power (i.e. current) from the current-injection balances at the nodal level. Based on the specified parameters and model chosen, the equations for computing such withdrawal will change.
 
 ## Static Loads (or Algebraic Loads)
@@ -55,6 +55,7 @@ I_\text{im}^p =  \frac{V_i \cdot P_\text{power} - V_r \cdot Q_\text{power}}{V^2}
 ```
 
 Then the total current withdrawed from the ZIP load model is simply
+
 ```math
 \begin{align}
 I_\text{zip}^\text{re}  &=  I_\text{re}^z + I_\text{re}^i + I_\text{re}^p \tag{1k} \\
@@ -72,6 +73,7 @@ Q_\text{exp} = Q_0 \cdot \left(\frac{V}{V_0}\right)^\beta \tag{1n}
 ```
 
 The current taken for the load is computed as:
+
 ```math
 \begin{align}
 I_\text{exp} &= \frac{(P_\text{exp} + j Q_\text{exp})^*}{(V_r + j V_i)^*} \tag{1o} \\
@@ -80,6 +82,7 @@ I_\text{exp} &= \frac{P_\text{exp} - j Q_\text{exp}}{V_r - j V_i} \tag{1p}
 ```
 
 that results:
+
 ```math
 \begin{align}
 I_\text{exp}^\text{re}  &= V_r \cdot P_0 \cdot \frac{V^{\alpha - 2}}{V_0^\alpha} + V_i \cdot Q_0 \cdot \frac{V^{\beta - 2}}{V_0^\beta} \tag{1q}\\
@@ -89,7 +92,7 @@ I_\text{exp}^\text{im}  &= V_i \cdot P_0 \cdot \frac{V^{\alpha - 2}}{V_0^\alpha}
 
 ## Dynamic loads
 
-### 5th-order Single Cage Induction Machine ```[SingleCageInductionMachine]```
+### 5th-order Single Cage Induction Machine [`SingleCageInductionMachine`](@ref)
 
 The following model is used to model a 5th-order induction machine with a quadratic relationship speed-torque.
 Refer to "Analysis of Electric Machinery and Drive Systems" by Paul Krause, Oleg Wasynczuk and Scott Sudhoff for the equations derivation
@@ -121,6 +124,7 @@ i_{ds} &= \frac{1}{X_{ls}} (\psi_{ds} - \psi_{md}) \\
 ```
 
 Finally, the withdrawed current from the bus is:
+
 ```math
 \begin{align*}
 I_r = \left(\frac{S_\text{motor}}{S_\text{base}}\right) (i_{ds} - v_{qs} B_{sh}) \\
@@ -128,7 +132,7 @@ I_i = \left(\frac{S_\text{motor}}{S_\text{base}}\right) (i_{qs} + v_{ds} B_{sh})
 \end{align*}
 ```
 
-### 3rd-order Single Cage Induction Machine ```[SimplifiedSingleCageInductionMachine]```
+### 3rd-order Single Cage Induction Machine [`SimplifiedSingleCageInductionMachine`](@ref)
 
 The following models approximates the stator fluxes dynamics of the 5th-order model by using algebraic equations.
 
@@ -141,6 +145,7 @@ The following models approximates the stator fluxes dynamics of the 5th-order mo
 ```
 
 where
+
 ```math
 \begin{align*}
 v_{qs} &= V_i^\text{bus} \\
@@ -155,6 +160,7 @@ i_{dr} &= \frac{1}{X_{rr}} (\psi_{dr} - X_m i_{ds}) \\
 ```
 
 Finally, the withdrawed current from the bus is:
+
 ```math
 \begin{align*}
 I_r = \left(\frac{S_\text{motor}}{S_\text{base}}\right) (i_{ds} - v_{qs} B_{sh}) \\
@@ -164,9 +170,10 @@ I_i = \left(\frac{S_\text{motor}}{S_\text{base}}\right) (i_{qs} + v_{ds} B_{sh})
 
 ### Active Constant Power Load Model
 
-The following 12-state model Active Load model  that measures the AC side using a Phase-Lock-Loop (PLL) and regulates a DC voltage to supply a resistor $r_L$. This model induces a constant power load-like behavior as it tries to maintain a fixed DC voltage to supply ``P = v_\text{DC}^2 / r_L``. The model is based on [the following reference](https://www.sciencedirect.com/science/article/pii/S0142061516000740). 
+The following 12-state model Active Load model  that measures the AC side using a Phase-Lock-Loop (PLL) and regulates a DC voltage to supply a resistor $r_L$. This model induces a constant power load-like behavior as it tries to maintain a fixed DC voltage to supply ``P = v_\text{DC}^2 / r_L``. The model is based on [the following reference](https://www.sciencedirect.com/science/article/pii/S0142061516000740).
 
 The complete model is given by:
+
 ```math
 \begin{align}
     \dot{\theta} &= \Omega_b (\omega_\text{pll} - \omega_s) \tag{4a} \\
@@ -181,4 +188,5 @@ The complete model is given by:
     v_\text{cv}^{q,\star} &= k_\text{pc}( i_\text{cv}^q - i_\text{cv}^{q,\star}) + k_\text{ic} \gamma_q - \omega_\text{pll} l_f i_\text{cv}^d \tag{4j}
 \end{align}
 ```
+
 Equations (4a)--(4c)  describes the PLL dynamics to lock the active load to the grid. Equations (4d)-(4e)  describes the DC Voltage Controller to steer the DC voltage to ``v_\text{DC}^\star``, while equation (4f) describes the DC voltage dynamics at the capacitor assuming an ideal converter. Finally, equations (4g)--(4j) describes the dynamics of the AC Current Controller. Additionally six states are defined for the LCL filter in a similar fashion of GFM inverters.

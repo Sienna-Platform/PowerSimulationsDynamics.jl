@@ -1,6 +1,6 @@
 # Filters
 
-## LCL Filter ```[LCLFilter]```
+## LCL Filter [`LCLFilter`](@ref)
 
 A standard LCL filter is proposed to connect the output of the converter to the grid. In
 this case, ``v_r`` and ``v_i`` are voltages in the capacitor, while ``v_r^{\text{grid}}``
@@ -29,7 +29,7 @@ v_r^\text{cv} + jv_i^\text{cv} = (v_d^\text{cv} + jv_q^\text{cv})e^{j\delta\thet
 
 that comes from the converter model.
 
-## RL Filter ```[RLFilter]```
+## RL Filter [`RLFilter`](@ref)
 
 The algebraic RL filter is used to connect the output of the converter through a RL series filter using algebraic phasor equations. The equations for the output current are:
 

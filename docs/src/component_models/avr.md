@@ -2,11 +2,11 @@
 
 AVR are used to determine the voltage in the field winding ``v_f`` (or ``V_f``) in the model.
 
-## Fixed AVR ```[AVRFixed]```
+## Fixed AVR [`AVRFixed`](@ref)
 
 This is a simple model that set the field voltage to be equal to a desired constant value ``v_f = v_{\text{fix}}``.
 
-## Simple AVR ```[AVRSimple]```
+## Simple AVR [`AVRSimple`](@ref)
 
 This depicts the most basic AVR, on which the field voltage is an integrator over the difference of the measured voltage and a reference:
 
@@ -16,7 +16,7 @@ This depicts the most basic AVR, on which the field voltage is an integrator ove
 \end{align}
 ```
 
-## AVR Type I ```[AVRTypeI]```
+## AVR Type I [`AVRTypeI`](@ref)
 
 This AVR is a simplified version of the IEEE DC1 AVR model:
 
@@ -37,7 +37,7 @@ S_e(v_f) = A_e \exp(B_e|v_f|)
 \end{align*}
 ```
 
-## AVR Type II ```[AVRTypeII]```
+## AVR Type II [`AVRTypeII`](@ref)
 
 This model represents a static exciter with higher gains and faster response than the Type I:
 
@@ -59,7 +59,7 @@ S_e(v_f) &= A_e \exp(B_e|v_f|)
 \end{align*}
 ```
 
-## Excitation System AC1A ```[ESAC1A]```
+## Excitation System AC1A [`ESAC1A`](@ref)
 
 The model represents the 5-states IEEE Type AC1A Excitation System Model:
 
@@ -95,7 +95,7 @@ f(I_N) &= \left\{\begin{array}{cl}
 
 on which ``X_{ad}I_{fd}`` is the field current coming from the generator and ``V_{h}`` is the terminal voltage, and ``A,B`` are the saturation coefficients computed using the ``E_1, E_2, S_e(E_1), S_e(E_2)`` data.
 
-## Simplified Excitation System ```[SEXS]```
+## Simplified Excitation System [`SEXS`](@ref)
 
 The model for the 2 states excitation system SEXS:
 
@@ -107,6 +107,7 @@ The model for the 2 states excitation system SEXS:
 ```
 
 with
+
 ```math
 \begin{align*}
 V_{in} &= V_{ref} + V_s - V_h \\
@@ -116,8 +117,7 @@ V_{LL} &= V_r + \frac{T_a}{T_b}V_{in} \\
 
 on which ``V_h`` is the terminal voltage and ``V_s`` is the PSS output signal.
 
-
-## Excitation System ST1 ```[EXST1]```
+## Excitation System ST1 [`EXST1`](@ref)
 
 The model represents the 4-states IEEE Type ST1 Excitation System Model:
 
@@ -130,7 +130,7 @@ The model represents the 4-states IEEE Type ST1 Excitation System Model:
 \end{align}
 ```
 
-with 
+with
 
 ```math
 \begin{align*}
@@ -143,7 +143,7 @@ V_f &= V_r \\
 
 on which ``V_h`` is the terminal voltage.
 
-## Excitation System EXAC1 ```[EXAC1]```
+## Excitation System EXAC1 [`EXAC1`](@ref)
 
 The model represents the 5-states IEEE Type EXAC1 Excitation System Model:
 
@@ -179,7 +179,7 @@ f(I_N) &= \left\{\begin{array}{cl}
 
 on which ``X_{ad}I_{fd}`` is the field current coming from the generator and ``V_{h}`` is the terminal voltage, and ``A,B`` are the saturation coefficients computed using the ``E_1, E_2, S_e(E_1), S_e(E_2)`` data.
 
-## Excitation System ST8C ```[ST8C]```
+## Excitation System ST8C [`ST8C`](@ref)
 
 The model represents the 5-states IEEE Type ST8C Excitation System Model:
 
@@ -228,12 +228,11 @@ on which ``I_{fd}`` is the field current from the generator, ``V_{h}`` is the te
 
 ### Notes
 
-- The rectifier function ``f(I_N)`` models the characteristic of a three-phase full-wave rectifier
-- Terminal current feedforward (``K_{i2}``) is not currently implemented and must be set to 0.0
-- Voltage compensation is not implemented (``V_e = K_p``)
+  - The rectifier function ``f(I_N)`` models the characteristic of a three-phase full-wave rectifier
+  - Terminal current feedforward (``K_{i2}``) is not currently implemented and must be set to 0.0
+  - Voltage compensation is not implemented (``V_e = K_p``)
 
-
-## Excitation System ST6B ```[ST6B]```
+## Excitation System ST6B [`ST6B`](@ref)
 
 The model represents the 4-states IEEE Type ST6B Excitation System Model:
 
@@ -266,21 +265,20 @@ E_{fd} &= V_r V_m \\
 ```
 
 on which ``X_{ad} I_{fd}`` is the field current from the generator, ``V_{h}`` is the terminal voltage, and ``V_s`` is the PSS output signal. Finally, the derivative block implements a high-pass filter:
+
 ```math
 \text{PD output} = x_d + \frac{K_{da}}{T_{da}} u, \quad T_{da} \dot{x}_d = -\frac{K_{da}}{T_{da}} u - x_d
 ```
+
 while the current limiter ensures:
+
 ```math
 V_{r1} = \max((I_{lr} K_{ci} - X_{ad} I_{fd}) K_{lr}, V_{r_{min}})
 ```
 
 ### Notes
 
-- The derivative term uses a high-pass filter implementation
-- Current limiting is active when field current exceeds the reference value ``I_{lr}``
-- The exciter output is the minimum of voltage-limited and current-limited values
-- During initialization, ``I_{lr}`` is typically adjusted to match operating conditions
-
-
-
-
+  - The derivative term uses a high-pass filter implementation
+  - Current limiting is active when field current exceeds the reference value ``I_{lr}``
+  - The exciter output is the minimum of voltage-limited and current-limited values
+  - During initialization, ``I_{lr}`` is typically adjusted to match operating conditions

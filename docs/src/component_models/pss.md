@@ -2,11 +2,11 @@
 
 PSS are used to add an additional signal ``v_s`` to the input signal of the AVR: ``v_\text{ref} = v_\text{ref}^{\text{avr}} + v_s``.
 
-## Fixed PSS ```[PSSFixed]```
+## Fixed PSS [`PSSFixed`](@ref)
 
 This is a simple model that set the stabilization signal to be equal to a desired constant value ``v_s = v_{s}^{\text{fix}}``. The absence of PSS can be modelled using this component with ``v_s^{\text{fix}} = 0``.
 
-## Simple PSS ```[PSSSimple]```
+## Simple PSS [`PSSSimple`](@ref)
 
 This is the most basic PSS that can be implemented, on which the stabilization signal is  a proportional controller over the frequency and electrical power:
 
@@ -16,7 +16,7 @@ v_s = K_{\omega}(\omega - \omega_s) + K_p(\omega \tau_e - P_{\text{ref}}) \tag{1
 \end{align}
 ```
 
-## IEEE Stabilizer ```[IEEEST]```
+## IEEE Stabilizer [`IEEEST`](@ref)
 
 The 7th-order PSS model is:
 
@@ -33,6 +33,7 @@ T_6\dot{x}_7 &=  -\left(\frac{K_s T_5}{T_6} y_{LL2} + x_7 \right) \tag{2g}
 ```
 
 with
+
 ```math
 \begin{align*}
 y_f &= \frac{T_4}{T_2} x_2 + \left(T_3 - T_1 \frac{T_4}{T_2}\right) x_3 + \left(1 - \frac{T_4}{T_2}\right)x_4 \\
@@ -45,7 +46,7 @@ V_s &= \text{clamp}(y_{out}, \text{Ls}_\text{min}, \text{Ls}_\text{max})
 
 on which ``u`` is the input signal to the PSS, that depends on the flag. Currently, rotor speed, electric torque, mechanical torque and voltage magnitude are supported inputs.
 
-## STAB1 PSS ```[STAB1]```
+## STAB1 PSS [`STAB1`](@ref)
 
 The 3rd-order PSS model is:
 
@@ -58,6 +59,7 @@ T_4\dot{x}_3 &= \left(1 - \frac{T_2}{T_4}\right) y_{LL} - x_2 \tag{3c} \\
 ```
 
 with
+
 ```math
 \begin{align*}
 y_{LL} = x_2 + \frac{T_1}{T_3} x_1 \\

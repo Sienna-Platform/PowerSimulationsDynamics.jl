@@ -39,7 +39,7 @@ BDF and Rosenbrock methods.
 
 ```@raw html
 <img src="./assets/SoftwareLoop.jpg" width="65%"/>
-``` ⠀
+```
 
 ## About Sienna
 
