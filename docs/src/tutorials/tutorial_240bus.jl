@@ -1,6 +1,5 @@
 # # [PSSE 240 Bus Case system with Renewables](https://www.nrel.gov/grid/test-case-repository.html)
 #
-# **Originally Contributed by**: José Daniel Lara
 #
 # ## Introduction
 #

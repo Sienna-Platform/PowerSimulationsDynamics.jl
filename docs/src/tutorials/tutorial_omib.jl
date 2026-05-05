@@ -1,6 +1,5 @@
 # # One Machine against Infinite Bus (OMIB) Simulation
 #
-# **Originally Contributed by**: Rodrigo Henriquez-Auba and José Daniel Lara
 #
 # ## Introduction
 #

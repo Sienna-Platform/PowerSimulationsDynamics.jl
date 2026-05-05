@@ -1,6 +1,5 @@
 # # Tutorial Small Signal Analysis with Continuation Power Flow
 #
-# **Originally Contributed by**: Rodrigo Henriquez-Auba
 #
 # ## Introduction
 #

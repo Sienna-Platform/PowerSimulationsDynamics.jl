@@ -1,6 +1,5 @@
 # # Inverter Modeling simulation
 #
-# **Originally Contributed by**: José Daniel Lara
 #
 # ## Introduction
 #

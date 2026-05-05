@@ -1,6 +1,5 @@
 # # Tutorial Active Constant Power Load model
 #
-# **Originally Contributed by**: Rodrigo Henriquez-Auba
 #
 # ## Introduction
 #

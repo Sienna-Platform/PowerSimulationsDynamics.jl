@@ -1,6 +1,5 @@
 # # Line Modeling Simulations
 #
-# **Originally Contributed by**: Rodrigo Henriquez-Auba and José Daniel Lara
 #
 # ## Introduction
 #

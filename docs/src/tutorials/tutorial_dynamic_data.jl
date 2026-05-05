@@ -1,6 +1,5 @@
 # # Creating and Handling Data for Dynamic Simulations
 #
-# **Originally Contributed by**: Rodrigo Henriquez and José Daniel Lara
 #
 # ## Introduction
 #
