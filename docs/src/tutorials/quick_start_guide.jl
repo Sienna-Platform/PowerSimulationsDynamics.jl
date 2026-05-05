@@ -5,8 +5,7 @@
 # [Creating and Handling Data for Dynamic Simulations](@ref)
 #
 # For more details about loading data and adding more dynamic components check the
-# [Creating a System with Dynamic devices](https://nrel-sienna.github.io/PowerSystems.jl/stable/modeler_guide/system_dynamic_data/)
-# section of the documentation in [`PowerSystems.jl`](https://sienna-platform.github.io/PowerSystems.jl/stable/).
+# tutorial on [Adding Data for Dynamic Simulations](@extref) in [`PowerSystems.jl`](https://sienna-platform.github.io/PowerSystems.jl/stable/).
 #
 # For a detailed tutorial about this case visit [One Machine against Infinite Bus (OMIB) Simulation](@ref)
 #

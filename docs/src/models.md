@@ -48,8 +48,8 @@ For more details, check Brian Stott paper ["Power system dynamic response calcul
 
 ## Generator Models
 
-Here we discuss the structure and models used to model generators in `PowerSimulationsDynamics.jl`. See the [PowerSystems dynamic devices](https://sienna-platform.github.io/PowerSystems.jl/stable/modeler_guide/example_dynamic_data/)
-guide in [`PowerSystems.jl`](https://sienna-platform.github.io/PowerSystems.jl/stable/) for details.
+Here we discuss the structure and models used to model generators in `PowerSimulationsDynamics.jl`. See the explanation on [Dynamic Devices](@extref)
+in [`PowerSystems.jl`](https://sienna-platform.github.io/PowerSystems.jl/stable/) for details.
 
 Each generator is a data structure composed of the following components defined in [`PowerSystems.jl`](https://sienna-platform.github.io/PowerSystems.jl/stable/):
 
@@ -68,8 +68,8 @@ share values across components.
 
 ## Inverter Models
 
-Here we discuss the structure and models used to model inverters in `PowerSimulationsDynamics.jl`. See the [PowerSystems dynamic devices](https://sienna-platform.github.io/PowerSystems.jl/stable/modeler_guide/example_dynamic_data/)
-guide in [`PowerSystems.jl`](https://sienna-platform.github.io/PowerSystems.jl/stable/) for details. One of the key contributions in this software package is a separation of the
+Here we discuss the structure and models used to model inverters in `PowerSimulationsDynamics.jl`. See the explanation on [Dynamic Devices](@extref)
+in [`PowerSystems.jl`](https://sienna-platform.github.io/PowerSystems.jl/stable/) for details. One of the key contributions in this software package is a separation of the
 components in a way that resembles current practices for synchronoues machine modeling.
 
   - [`PowerSystems.DCSource`](@extref): Defines the dynamics of the DC side of the converter.
