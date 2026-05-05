@@ -196,10 +196,10 @@ end
             sim::Simulation,
     )
 
-Returns the Small Signal Output object that contains the eigenvalues and participation factors.
+Returns the small-signal output object that contains the eigenvalues and participation factors.
 
 # Arguments
-- `sim::Simulation` : Small Signal Output object that contains the eigenvalues and participation factors
+- **`sim`**: [`Simulation`](@ref) for a system **without** time delays
 """
 function small_signal_analysis(sim::Simulation{T}; kwargs...) where {T <: SimulationModel}
     inputs = get_simulation_inputs(sim)

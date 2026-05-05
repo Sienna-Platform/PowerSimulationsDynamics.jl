@@ -230,7 +230,7 @@ end
 Returns the jacobian function of the system model resulting from the system data.
 
 # Arguments:
-- `::SimulationModel` : Type of Simulation Model. `ResidualModel` or `MassMatrixModel`. See [Models Section](https://sienna-platform.github.io/PowerSimulationsDynamics.jl/stable/models/) for more details
+- `::SimulationModel` : Type of Simulation Model. [`ResidualModel`](@ref) or [`MassMatrixModel`](@ref).
 - `system`: [`PowerSystems.System`](@extref) — power system data
 - `sparse_retrieve_loop::Int` : Number of loops for sparsity detection. If 0, builds the Jacobian with a DenseMatrix
 """

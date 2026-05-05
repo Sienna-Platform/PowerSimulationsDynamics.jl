@@ -91,16 +91,16 @@ end
 Builds the simulation object and conducts the indexing process. The initial conditions are stored in the system.
 
 # Arguments:
-- `::SimulationModel` : Type of Simulation Model. `ResidualModel` or `MassMatrixModel`. See [Models Section](https://sienna-platform.github.io/PowerSimulationsDynamics.jl/stable/models/) for more details
+- `::SimulationModel` : Type of Simulation Model. [`ResidualModel`](@ref) or [`MassMatrixModel`](@ref).
 - `system`: [`PowerSystems.System`](@extref) — power system data
 - `simulation_folder::String` : Folder directory
 - `tspan::NTuple{2, Float64}` : Time span for simulation
 - `perturbations::Vector{<:Perturbation}` : Vector of Perturbations for the Simulation. Default: No Perturbations
 - `initialize_simulation::Bool` : Runs the initialization routine. If false, simulation runs based on the operating point stored in [`PowerSystems.System`](@extref)
 - `initial_conditions::Vector{Float64}` : Allows the user to pass a vector with the initial condition values desired in the simulation. If initialize_simulation = true, these values are used as a first guess and overwritten.
-- `frequency_reference` : Default `ReferenceBus`. Determines which frequency model is used for the network. Currently there are two options available:
-    - `ConstantFrequency` assumes that the network frequency is 1.0 per unit at all times.
-    - `ReferenceBus` will use the frequency state of a Dynamic Generator (rotor speed) or Dynamic Inverter (virtual speed) connected to the Reference Bus (defined in the Power Flow data) as the network frequency. If multiple devices are connected to such bus, the device with larger base power will be used as a reference. If a Voltage Source is connected to the Reference Bus, then a `ConstantFrequency` model will be used.
+- `frequency_reference` : Default [`ReferenceBus`](@ref). Determines which frequency model is used for the network. Currently there are two options available:
+    - [`ConstantFrequency`](@ref) assumes that the network frequency is 1.0 per unit at all times.
+    - [`ReferenceBus`](@ref) will use the frequency state of a Dynamic Generator (rotor speed) or Dynamic Inverter (virtual speed) connected to the Reference Bus (defined in the Power Flow data) as the network frequency. If multiple devices are connected to such bus, the device with larger base power will be used as a reference. If a Voltage Source is connected to the Reference Bus, then a [`ConstantFrequency`](@ref) model will be used.
 - `system_to_file::Bool` : Default `false`. Serializes the initialized system
 - `console_level::Logging` : Default `Logging.Warn`. Sets the level of logging output to the console. Can be set to `Logging.Error`, `Logging.Warn`, `Logging.Info` or `Logging.Debug`
 - `file_level::Logging` : Default `Logging.Info`. Sets the level of logging output to file. Can be set to `Logging.Error`, `Logging.Warn`, `Logging.Info` or `Logging.Debug`
@@ -148,16 +148,16 @@ end
 Builds the simulation object and conducts the indexing process. The original system is not modified and a copy its created and stored in the Simulation.
 
 # Arguments:
-- `::SimulationModel` : Type of Simulation Model. `ResidualModel` or `MassMatrixModel`. See [Models Section](https://sienna-platform.github.io/PowerSimulationsDynamics.jl/stable/models/) for more details
+- `::SimulationModel` : Type of Simulation Model. [`ResidualModel`](@ref) or [`MassMatrixModel`](@ref).
 - `system`: [`PowerSystems.System`](@extref) — power system data
 - `simulation_folder::String` : Folder directory
 - `tspan::NTuple{2, Float64}` : Time span for simulation
 - `perturbations::Vector{<:Perturbation}` : Vector of Perturbations for the Simulation. Default: No Perturbations
 - `initialize_simulation::Bool` : Runs the initialization routine. If false, simulation runs based on the operating point stored in [`PowerSystems.System`](@extref)
 - `initial_conditions::Vector{Float64}` : Allows the user to pass a vector with the initial condition values desired in the simulation. If initialize_simulation = true, these values are used as a first guess and overwritten.
-- `frequency_reference` : Default `ReferenceBus`. Determines which frequency model is used for the network. Currently there are two options available:
-    - `ConstantFrequency` assumes that the network frequency is 1.0 per unit at all times.
-    - `ReferenceBus` will use the frequency state of a Dynamic Generator (rotor speed) or Dynamic Inverter (virtual speed) connected to the Reference Bus (defined in the Power Flow data) as the network frequency. If multiple devices are connected to such bus, the device with larger base power will be used as a reference. If a Voltage Source is connected to the Reference Bus, then a `ConstantFrequency` model will be used.
+- `frequency_reference` : Default [`ReferenceBus`](@ref). Determines which frequency model is used for the network. Currently there are two options available:
+    - [`ConstantFrequency`](@ref) assumes that the network frequency is 1.0 per unit at all times.
+    - [`ReferenceBus`](@ref) will use the frequency state of a Dynamic Generator (rotor speed) or Dynamic Inverter (virtual speed) connected to the Reference Bus (defined in the Power Flow data) as the network frequency. If multiple devices are connected to such bus, the device with larger base power will be used as a reference. If a Voltage Source is connected to the Reference Bus, then a [`ConstantFrequency`](@ref) model will be used.
 - `system_to_file::Bool` : Default `false`. Serializes the initialized system
 - `console_level::Logging` : Default `Logging.Warn`. Sets the level of logging output to the console. Can be set to `Logging.Error`, `Logging.Warn`, `Logging.Info` or `Logging.Debug`
 - `file_level::Logging` : Default `Logging.Info`. Sets the level of logging output to file. Can be set to `Logging.Error`, `Logging.Warn`, `Logging.Info` or `Logging.Debug`
@@ -567,8 +567,8 @@ end
 Solves the time-domain dynamic simulation model.
 
 # Arguments
-- `sim::Simulation` : Initialized simulation object
-- `solver` : Solver used for numerical integration. Must be passed correctly depending on the Type of Simulation Model
+- **`sim`**: [`Simulation`](@ref) — initialized simulation object
+- **`solver`**: solver used for numerical integration; must match the formulation (e.g. solvers for [`ResidualModel`](@ref) vs [`MassMatrixModel`](@ref))
 - `enable_progress_bar::Bool` : Default: `true`. Enables progress bar for the integration routine.
 - Additional solver keyword arguments can be included. See [Common Solver Options](https://diffeq.sciml.ai/stable/basics/common_solver_opts/) in the `DifferentialEquations.jl` documentation for more details.
 """
@@ -586,6 +586,15 @@ function execute!(sim::Simulation, solver; kwargs...)
     return sim.status
 end
 
+"""
+    read_results(sim::Simulation)
+
+Return the [`SimulationResults`](@ref) stored in `sim` after [`execute!`](@ref) completes (or the last available results object).
+
+# Arguments
+
+- **`sim`**: [`Simulation`](@ref) to read from
+"""
 function read_results(sim::Simulation)
     return sim.results
 end
@@ -601,7 +610,7 @@ Function that returns the reference setpoints for all the dynamic devices.
 
 # Arguments
 
-- `sim::Simulation` : Simulation object that contains the initial condition and setpoints.
+- **`sim`**: [`Simulation`](@ref) — object that contains the initial condition and setpoints
 """
 function get_setpoints(sim::Simulation)
     return get_setpoints(get_simulation_inputs(sim))

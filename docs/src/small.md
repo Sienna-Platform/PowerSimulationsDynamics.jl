@@ -94,7 +94,7 @@ on which we can compute its eigenvalues to analyze local stability.
 
 ## Accessing the Jacobian function
 
-You can retrieve the Jacobian function for a simulation using the `get_jacobian` function as follows:
+You can retrieve the Jacobian function for a simulation using the [`get_jacobian`](@ref) function as follows:
 
 ```julia
 jacobian = get_jacobian(ResidualModel, system)
@@ -108,7 +108,7 @@ jacobian = get_jacobian(ResidualModel, system, 0)
 
 if you specify 0, the jacobian function will use a full matrix.
 
-The return of `get_jacobian` is known as a functor in Julia and can be used to make evaluations.
+The return of [`get_jacobian`](@ref) is known as a functor in Julia and can be used to make evaluations.
 Currently, any function can be evaluated with the following inputs:
 
 ```julia

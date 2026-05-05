@@ -126,7 +126,7 @@ A Branch Trip of Circuit 2 at time ``t = 1.0`` seconds, can be implemented as:
 b_trip = BranchTrip(1.0, Line, "Circuit2")
 ```
 
-**Note:** Islanding is currently not supported in `PowerSimulationsDynamics.jl`. If a `BranchTrip` isolates a generation unit, the system may diverge due to the isolated generator.
+**Note:** Islanding is currently not supported in `PowerSimulationsDynamics.jl`. If a [`BranchTrip`](@ref) isolates a generation unit, the system may diverge due to the isolated generator.
 
 ### Example 4: [`BranchImpedanceChange`](@ref)
 

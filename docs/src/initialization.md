@@ -26,7 +26,8 @@ inner vars. `PowerSimulationsDynamics.jl` handles all this initializations by de
 ## Initialization interface
 
 By default `PowerSimulationsDynamics.jl` initializes the system following the steps described below.
-it is possible to provide an initial guess for the initial conditions to speed up the initialization process.
+It is possible to provide an initial guess for the initial conditions to speed up the initialization process.
+The following uses [`Simulation`](@ref) with [`ResidualModel`](@ref) (other simulation models and kwargs are available in the API reference):
 
 ```julia
 Simulation(

@@ -9,7 +9,7 @@ abstract type Perturbation end
 
 A BranchTrip completely disconnects a branch from the system. Currently there is only support for static branches disconnection, [`PowerSystems.Line`](@extref) and [`PowerSystems.Transformer2W`](@extref).
 Future releases will provide support for a Dynamic Line disconnection.
-**Note:** Islanding is currently not supported in `PowerSimulationsDynamics.jl`. If a `BranchTrip` isolates a generation unit, the system may diverge due to the isolated generator.
+**Note:** Islanding is currently not supported in `PowerSimulationsDynamics.jl`. If a [`BranchTrip`](@ref) isolates a generation unit, the system may diverge due to the isolated generator.
 
 # Arguments:
 
