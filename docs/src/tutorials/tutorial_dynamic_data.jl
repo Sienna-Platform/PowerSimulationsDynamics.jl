@@ -4,10 +4,10 @@
 #
 # ## Introduction
 #
-# This tutorial briefly introduces how to create a system using `PowerSystems.jl` data
-# structures. For more details visit [`PowerSystems.jl` Documentation](https://nrel-sienna.github.io/PowerSystems.jl/stable/)
+# This tutorial briefly introduces how to create a system using [`PowerSystems.jl`](https://sienna-platform.github.io/PowerSystems.jl/stable/) data
+# structures. For more details visit [`PowerSystems` documentation](https://nrel-sienna.github.io/PowerSystems.jl/stable/)
 #
-# Start by calling `PowerSystems.jl` and `PowerSystemCaseBuilder.jl`:
+# Start by calling [`PowerSystems.jl`](https://sienna-platform.github.io/PowerSystems.jl/stable/) and `PowerSystemCaseBuilder.jl`:
 
 using PowerSystems
 using PowerSystemCaseBuilder
@@ -16,24 +16,23 @@ const PSY = PowerSystems;
 # !!! note
 #     `PowerSystemCaseBuilder.jl` is a helper library that makes it easier to reproduce
 #     examples in the documentation and tutorials. Normally you would pass your local files
-#     to create the system data instead of calling the function `build_system`.
-#     For more details visit [PowerSystemCaseBuilder Documentation](https://nrel-sienna.github.io/PowerSystems.jl/stable/tutorials/powersystembuilder/)
+#     to create the system data instead of calling the function [`PowerSystemCaseBuilder.build_system`](@extref).
 #
 # ## System description
 #
 # Next we need to define the different elements required to run a simulation. To run a
-# simulation in `PowerSimulationsDynamics`, it is required to define a `System` that
+# simulation in `PowerSimulationsDynamics`, it is required to define a [`PowerSystems.System`](@extref) that
 # contains the following components:
 #
 # ### Static Components
 #
 # We called static components to those that are used to run a Power Flow problem.
 #
-# - Vector of `Bus` elements, that define all the buses in the network.
-# - Vector of `Branch` elements, that define all the branches elements (that connect two buses) in the network.
-# - Vector of `StaticInjection` elements, that define all the devices connected to buses that can inject (or withdraw) power. These static devices, typically generators, in `PowerSimulationsDynamics` are used to solve the Power Flow problem that determines the active and reactive power provided for each device.
-# - Vector of `PowerLoad` elements, that define all the loads connected to buses that can withdraw current. These are also used to solve the Power Flow.
-# - Vector of `Source` elements, that define source components behind a reactance that can inject or withdraw current.
+# - Vector of [`PowerSystems.Bus`](@extref) elements, that define all the buses in the network.
+# - Vector of [`PowerSystems.ACBranch`](@extref) elements, that define all the branches elements (that connect two buses) in the network.
+# - Vector of [`PowerSystems.StaticInjection`](@extref) elements, that define all the devices connected to buses that can inject (or withdraw) power. These static devices, typically generators, in `PowerSimulationsDynamics` are used to solve the Power Flow problem that determines the active and reactive power provided for each device.
+# - Vector of [`PowerSystems.PowerLoad`](@extref) elements, that define all the loads connected to buses that can withdraw current. These are also used to solve the Power Flow.
+# - Vector of [`PowerSystems.Source`](@extref) elements, that define source components behind a reactance that can inject or withdraw current.
 # - The base of power used to define per unit values, in MVA as a `Float64` value.
 # - The base frequency used in the system, in Hz as a `Float64` value.
 #
@@ -41,8 +40,8 @@ const PSY = PowerSystems;
 #
 # Dynamic components are those that define differential equations to run a transient simulation.
 #
-# - Vector of `DynamicInjection` elements. These components must be attached to a `StaticInjection` that connects the power flow solution to the dynamic formulation of such device. `DynamicInjection` can be `DynamicGenerator` or `DynamicInverter`, and its specific formulation (i.e. differential equations) will depend on the specific components that define such device.
-# - (Optional) Selecting which of the `Lines` (of the `Branch` vector) elements must be modeled of `DynamicLines` elements, that can be used to model lines with differential equations.
+# - Vector of [`PowerSystems.DynamicInjection`](@extref) elements. These components must be attached to a [`PowerSystems.StaticInjection`](@extref) that connects the power flow solution to the dynamic formulation of such device. [`PowerSystems.DynamicInjection`](@extref) can be [`PowerSystems.DynamicGenerator`](@extref) or [`PowerSystems.DynamicInverter`](@extref), and its specific formulation (i.e. differential equations) will depend on the specific components that define such device.
+# - (Optional) Selecting which of the `Lines` (of the [`PowerSystems.ACBranch`](@extref) vector) elements must be modeled of `DynamicLines` elements, that can be used to model lines with differential equations.
 #
 # To start we will define the data structures for the network.
 #
@@ -117,7 +116,7 @@ tg_none() = TGFixed(1.0) #efficiency
 ## *PSS: No PSS*
 pss_none() = PSSFixed(0.0)
 
-# The next lines receives a static generator name, and creates a `DynamicGenerator` based on
+# The next lines receives a static generator name, and creates a [`PowerSystems.DynamicGenerator`](@extref) based on
 # that specific static generator, with the specific components defined previously. This is a
 # classic machine model without AVR, Turbine Governor and PSS.
 

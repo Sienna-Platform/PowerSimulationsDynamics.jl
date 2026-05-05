@@ -6,7 +6,7 @@
 #
 # For more details about loading data and adding more dynamic components check the
 # [Creating a System with Dynamic devices](https://nrel-sienna.github.io/PowerSystems.jl/stable/modeler_guide/system_dynamic_data/)
-# section of the documentation in `PowerSystems.jl`.
+# section of the documentation in [`PowerSystems.jl`](https://sienna-platform.github.io/PowerSystems.jl/stable/).
 #
 # For a detailed tutorial about this case visit [One Machine against Infinite Bus (OMIB) Simulation](@ref)
 #
@@ -22,7 +22,7 @@ using Plots
 
 omib_sys = build_system(PSIDSystems, "OMIB System")
 
-# ## Define the Simulation
+# ## Define the [`Simulation`](@ref)
 
 time_span = (0.0, 30.0)
 perturbation_trip = BranchTrip(1.0, Line, "BUS 1-BUS 2-i_1")

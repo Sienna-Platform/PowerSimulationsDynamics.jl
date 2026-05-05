@@ -6,14 +6,15 @@ make_tutorials()
 
 links = InterLinks(
     "PowerSystems" => "https://sienna-platform.github.io/PowerSystems.jl/stable/",
+    "PowerSystemCaseBuilder" => "https://nrel-sienna.github.io/PowerSystemCaseBuilder.jl/stable/",
 )
 
 makedocs(;
     modules = [PowerSimulationsDynamics],
-    format = Documenter.HTML(
+    format = Documenter.HTML(;
         prettyurls = haskey(ENV, "GITHUB_ACTIONS"),
         mathengine = Documenter.MathJax(),
-        ),
+    ),
     sitename = "PowerSimulationsDynamics.jl",
     plugins = [links],
     pages = Any[

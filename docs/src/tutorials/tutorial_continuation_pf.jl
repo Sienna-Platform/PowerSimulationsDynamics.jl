@@ -31,10 +31,9 @@ Logging.disable_logging(Logging.Warn);
 # !!! note
 #     `PowerSystemCaseBuilder.jl` is a helper library that makes it easier to reproduce
 #     examples in the documentation and tutorials. Normally you would pass your local files
-#     to create the system data instead of calling the function `build_system`.
-#     For more details visit [PowerSystemCaseBuilder Documentation](https://nrel-sienna.github.io/PowerSystems.jl/stable/tutorials/powersystembuilder/)
+#     to create the system data instead of calling the function [`PowerSystemCaseBuilder.build_system`](@extref).
 #
-# `PowerSystems` (abbreviated with `PSY`) is used to properly define the data structure and
+# [`PowerSystems.jl`](https://sienna-platform.github.io/PowerSystems.jl/stable/) (abbreviated with `PSY`) is used to properly define the data structure and
 # establish an equilibrium point initial condition with a power flow routine using `PowerFlows`.
 #
 # ## Load the system
@@ -156,7 +155,7 @@ for p in P_range
     set_active_power!(load, power)
     q_power = power * tan(acos(load_pf))
     set_reactive_power!(load, q_power)
-    ## Construct Simulation
+    ## Construct [`Simulation`](@ref)
     sim = Simulation(ResidualModel, sys, mktempdir(), (0.0, 1.0))
     if sim.status == PSID.BUILT
         ## Check small-signal stability
