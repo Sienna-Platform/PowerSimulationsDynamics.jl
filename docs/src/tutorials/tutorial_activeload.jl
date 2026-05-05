@@ -1,6 +1,5 @@
 # # Tutorial Active Constant Power Load model
 #
-#
 # ## Introduction
 #
 # This tutorial will introduce you to the functionality of `PowerSimulationsDynamics` and

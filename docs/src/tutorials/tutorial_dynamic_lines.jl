@@ -1,6 +1,5 @@
 # # Line Modeling Simulations
 #
-#
 # ## Introduction
 #
 # This tutorial will introduce an example of considering dynamic lines in

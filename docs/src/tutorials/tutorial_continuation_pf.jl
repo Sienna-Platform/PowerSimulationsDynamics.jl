@@ -1,6 +1,5 @@
 # # Tutorial Small Signal Analysis with Continuation Power Flow
 #
-#
 # ## Introduction
 #
 # This tutorial will introduce you to the functionality of `PowerSimulationsDynamics` and

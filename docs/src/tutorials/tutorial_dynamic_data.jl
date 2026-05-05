@@ -1,6 +1,5 @@
 # # Creating and Handling Data for Dynamic Simulations
 #
-#
 # ## Introduction
 #
 # This tutorial briefly introduces how to create a system using [`PowerSystems.jl`](https://sienna-platform.github.io/PowerSystems.jl/stable/) data

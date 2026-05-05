@@ -1,6 +1,5 @@
 # # One Machine against Infinite Bus (OMIB) Simulation
 #
-#
 # ## Introduction
 #
 # This tutorial will introduce you to the functionality of `PowerSimulationsDynamics`

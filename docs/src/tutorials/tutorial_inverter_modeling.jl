@@ -1,6 +1,5 @@
 # # Inverter Modeling simulation
 #
-#
 # ## Introduction
 #
 # This tutorial will introduce the modeling of an inverter with Virtual Inertia in a

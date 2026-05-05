@@ -1,6 +1,5 @@
 # # [PSSE 240 Bus Case system with Renewables](https://www.nrel.gov/grid/test-case-repository.html)
 #
-#
 # ## Introduction
 #
 # This tutorial will introduce the industry models of Renewable Energy the comparisons
