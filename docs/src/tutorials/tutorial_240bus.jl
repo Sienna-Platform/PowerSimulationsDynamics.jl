@@ -39,8 +39,7 @@ end
 # system that will be used to formulate the differential-algebraic system of equations. To
 # do so, it is required to specify the perturbation that will occur in the system. In this
 # case, we will use a [`ResidualModel`](@ref) formulation, for more details about the formulation
-# checkout the [Models Section](https://nrel-sienna.github.io/PowerSimulationsDynamics.jl/stable/models/)
-# in `PowerSimulationsDynamics.jl` documentation.
+# checkout the [Models](@ref) section.
 
 using Logging
 sim_ida = Simulation(
@@ -73,8 +72,7 @@ plot(v1101_ida)
 # ## Run the simulation using Rodas4()
 #
 # In this case, we will use a [`MassMatrixModel`](@ref) formulation, for more details about the
-# formulation checkout the [Models Section](https://nrel-sienna.github.io/PowerSimulationsDynamics.jl/stable/models/)
-# in `PowerSimulationsDynamics.jl` documentation
+# formulation checkout the [Models](@ref) section
 
 sim_rodas = Simulation(
     MassMatrixModel,

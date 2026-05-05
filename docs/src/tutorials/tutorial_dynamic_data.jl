@@ -5,7 +5,7 @@
 # ## Introduction
 #
 # This tutorial briefly introduces how to create a system using [`PowerSystems.jl`](https://sienna-platform.github.io/PowerSystems.jl/stable/) data
-# structures. For more details visit [`PowerSystems` documentation](https://nrel-sienna.github.io/PowerSystems.jl/stable/)
+# structures.
 #
 # Start by calling [`PowerSystems.jl`](https://sienna-platform.github.io/PowerSystems.jl/stable/) and `PowerSystemCaseBuilder.jl`:
 
@@ -52,7 +52,7 @@ const PSY = PowerSystems;
 # ## Static System creation
 #
 # To create the system you need to load data using `PowerSystemCaseBuilder.jl`. This system
-# was originally created from following [raw file](https://github.com/NREL-Sienna/PowerSystemsTestData/blob/master/psid_tests/data_tests/ThreeBusInverter.raw).
+# was originally created from following [raw file](https://github.com/sienna-platform/PowerSystemsTestData/blob/master/psid_tests/data_tests/ThreeBusInverter.raw).
 
 sys = build_system(PSIDSystems, "3 Bus Inverter Base"; force_build = true)
 

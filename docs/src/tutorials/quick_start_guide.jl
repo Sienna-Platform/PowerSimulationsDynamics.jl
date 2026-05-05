@@ -1,6 +1,6 @@
 # # Quick Start Guide
 #
-# The data for these tutorials is provided in [PowerSystemCaseBuilder](https://github.com/nrel-sienna/PowerSystemCaseBuilder.jl).
+# The data for these tutorials is provided in [`PowerSystemCaseBuilder.jl`](https://sienna-platform.github.io/PowerSystemCaseBuilder.jl/stable/).
 # If you want to build your own case, take a look at the tutorial
 # [Creating and Handling Data for Dynamic Simulations](@ref)
 #
