@@ -4,7 +4,7 @@ This component defines controllers for both active and reactive power. The joint
 on the fact that many novel control techniques can be based on joint control of active and reactive
 power.
 
-## Virtual Inertia and Q-droop [`OuterControl`](@ref)
+## Virtual Inertia and Q-droop [`PowerSystems.OuterControl`](@extref)
 
 The following model represent a virtual synchronous machine model to represent how active
 power is going to be deployed. The constructor is `OuterControl{VirtualInertia, ReactivePowerDroop}`.
@@ -33,7 +33,7 @@ In this case, the measurement of power are being done in the capacitor of the LC
 However, depending on the model, this measurements could be different depending on where
 is the point of common coupling.
 
-## Active Power Droop (P-droop) and Q-droop [`OuterControl`](@ref)
+## Active Power Droop (P-droop) and Q-droop [`PowerSystems.OuterControl`](@extref)
 
 The following model represent a ``P\text{-}f`` droop model to represent how active
 power is going to be deployed. The constructor is `OuterControl{ActivePowerDroop, ReactivePowerDroop}`.
@@ -63,7 +63,7 @@ In this case, the measurement of power are being done in the capacitor of the LC
 However, depending on the model, this measurements could be different depending on where
 is the point of common coupling.
 
-## Active and Reactive Virtual Oscillator Controllers [`OuterControl`](@ref)
+## Active and Reactive Virtual Oscillator Controllers [`PowerSystems.OuterControl`](@extref)
 
 The following model represents a Virtual Oscillator Controller for both active and reactive power
 to generate the voltage references that will be used in the Voltage Controller. The contructor is `OuterControl{ActiveVirtualOscillator, ReactiveVirtualOscillator}`
@@ -88,7 +88,7 @@ with
 \end{align}
 ```
 
-## Active and Reactive Power PI Controllers (Grid Following) [`OuterControl`](@ref)
+## Active and Reactive Power PI Controllers (Grid Following) [`PowerSystems.OuterControl`](@extref)
 
 The following model represents a PI controller for both active and reactive power to generate
 the current references that will be used in the Current Controller of the inner control
@@ -122,7 +122,7 @@ to the Grid-Forming model, it cannot work without a PLL. Since this Outer Contro
 a current reference, it can only be used with a current mode inner control (i.e. that receives
 a current reference instead of a voltage reference).
 
-## Active and Reactive Generic Renewable Controller Type AB [`OuterControl`](@ref)
+## Active and Reactive Generic Renewable Controller Type AB [`PowerSystems.OuterControl`](@extref)
 
 The following model represents an outer controller for both active and reactive power from generic industrial
 models REPCA and REECB to generate the current references that will be used in the Current Controller of the inner control

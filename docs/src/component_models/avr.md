@@ -2,11 +2,11 @@
 
 AVR are used to determine the voltage in the field winding ``v_f`` (or ``V_f``) in the model.
 
-## Fixed AVR [`AVRFixed`](@ref)
+## Fixed AVR [`PowerSystems.AVRFixed`](@extref)
 
 This is a simple model that set the field voltage to be equal to a desired constant value ``v_f = v_{\text{fix}}``.
 
-## Simple AVR [`AVRSimple`](@ref)
+## Simple AVR [`PowerSystems.AVRSimple`](@extref)
 
 This depicts the most basic AVR, on which the field voltage is an integrator over the difference of the measured voltage and a reference:
 
@@ -16,7 +16,7 @@ This depicts the most basic AVR, on which the field voltage is an integrator ove
 \end{align}
 ```
 
-## AVR Type I [`AVRTypeI`](@ref)
+## AVR Type I [`PowerSystems.AVRTypeI`](@extref)
 
 This AVR is a simplified version of the IEEE DC1 AVR model:
 
@@ -37,7 +37,7 @@ S_e(v_f) = A_e \exp(B_e|v_f|)
 \end{align*}
 ```
 
-## AVR Type II [`AVRTypeII`](@ref)
+## AVR Type II [`PowerSystems.AVRTypeII`](@extref)
 
 This model represents a static exciter with higher gains and faster response than the Type I:
 
@@ -59,7 +59,7 @@ S_e(v_f) &= A_e \exp(B_e|v_f|)
 \end{align*}
 ```
 
-## Excitation System AC1A [`ESAC1A`](@ref)
+## Excitation System AC1A [`PowerSystems.ESAC1A`](@extref)
 
 The model represents the 5-states IEEE Type AC1A Excitation System Model:
 
@@ -95,7 +95,7 @@ f(I_N) &= \left\{\begin{array}{cl}
 
 on which ``X_{ad}I_{fd}`` is the field current coming from the generator and ``V_{h}`` is the terminal voltage, and ``A,B`` are the saturation coefficients computed using the ``E_1, E_2, S_e(E_1), S_e(E_2)`` data.
 
-## Simplified Excitation System [`SEXS`](@ref)
+## Simplified Excitation System [`PowerSystems.SEXS`](@extref)
 
 The model for the 2 states excitation system SEXS:
 
@@ -117,7 +117,7 @@ V_{LL} &= V_r + \frac{T_a}{T_b}V_{in} \\
 
 on which ``V_h`` is the terminal voltage and ``V_s`` is the PSS output signal.
 
-## Excitation System ST1 [`EXST1`](@ref)
+## Excitation System ST1 [`PowerSystems.EXST1`](@extref)
 
 The model represents the 4-states IEEE Type ST1 Excitation System Model:
 
@@ -143,7 +143,7 @@ V_f &= V_r \\
 
 on which ``V_h`` is the terminal voltage.
 
-## Excitation System EXAC1 [`EXAC1`](@ref)
+## Excitation System EXAC1 [`PowerSystems.EXAC1`](@extref)
 
 The model represents the 5-states IEEE Type EXAC1 Excitation System Model:
 
@@ -179,7 +179,7 @@ f(I_N) &= \left\{\begin{array}{cl}
 
 on which ``X_{ad}I_{fd}`` is the field current coming from the generator and ``V_{h}`` is the terminal voltage, and ``A,B`` are the saturation coefficients computed using the ``E_1, E_2, S_e(E_1), S_e(E_2)`` data.
 
-## Excitation System ST8C [`ST8C`](@ref)
+## Excitation System ST8C [`PowerSystems.ST8C`](@extref)
 
 The model represents the 5-states IEEE Type ST8C Excitation System Model:
 
@@ -232,7 +232,7 @@ on which ``I_{fd}`` is the field current from the generator, ``V_{h}`` is the te
   - Terminal current feedforward (``K_{i2}``) is not currently implemented and must be set to 0.0
   - Voltage compensation is not implemented (``V_e = K_p``)
 
-## Excitation System ST6B [`ST6B`](@ref)
+## Excitation System ST6B [`PowerSystems.ST6B`](@extref)
 
 The model represents the 4-states IEEE Type ST6B Excitation System Model:
 

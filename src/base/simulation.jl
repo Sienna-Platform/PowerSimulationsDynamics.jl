@@ -81,7 +81,7 @@ end
 """
     function Simulation!
         ::SimulationModel
-        system::PowerSystems.System
+        system::[`PowerSystems.System`](@extref)
         simulation_folder::String
         tspan::NTuple{2, Float64},
         perturbations::Vector{<:Perturbation} = Vector{Perturbation}();
@@ -92,11 +92,11 @@ Builds the simulation object and conducts the indexing process. The initial cond
 
 # Arguments:
 - `::SimulationModel` : Type of Simulation Model. `ResidualModel` or `MassMatrixModel`. See [Models Section](https://sienna-platform.github.io/PowerSimulationsDynamics.jl/stable/models/) for more details
-- `system::PowerSystems.System` : System data
+- `system`: [`PowerSystems.System`](@extref) — power system data
 - `simulation_folder::String` : Folder directory
 - `tspan::NTuple{2, Float64}` : Time span for simulation
 - `perturbations::Vector{<:Perturbation}` : Vector of Perturbations for the Simulation. Default: No Perturbations
-- `initialize_simulation::Bool` : Runs the initialization routine. If false, simulation runs based on the operation point stored in System
+- `initialize_simulation::Bool` : Runs the initialization routine. If false, simulation runs based on the operating point stored in [`PowerSystems.System`](@extref)
 - `initial_conditions::Vector{Float64}` : Allows the user to pass a vector with the initial condition values desired in the simulation. If initialize_simulation = true, these values are used as a first guess and overwritten.
 - `frequency_reference` : Default `ReferenceBus`. Determines which frequency model is used for the network. Currently there are two options available:
     - `ConstantFrequency` assumes that the network frequency is 1.0 per unit at all times.
@@ -138,7 +138,7 @@ end
 """
     function Simulation
         ::SimulationModel
-        system::PowerSystems.System
+        system::[`PowerSystems.System`](@extref)
         simulation_folder::String
         tspan::NTuple{2, Float64},
         perturbations::Vector{<:Perturbation} = Vector{Perturbation}();
@@ -149,11 +149,11 @@ Builds the simulation object and conducts the indexing process. The original sys
 
 # Arguments:
 - `::SimulationModel` : Type of Simulation Model. `ResidualModel` or `MassMatrixModel`. See [Models Section](https://sienna-platform.github.io/PowerSimulationsDynamics.jl/stable/models/) for more details
-- `system::PowerSystems.System` : System data
+- `system`: [`PowerSystems.System`](@extref) — power system data
 - `simulation_folder::String` : Folder directory
 - `tspan::NTuple{2, Float64}` : Time span for simulation
 - `perturbations::Vector{<:Perturbation}` : Vector of Perturbations for the Simulation. Default: No Perturbations
-- `initialize_simulation::Bool` : Runs the initialization routine. If false, simulation runs based on the operation point stored in System
+- `initialize_simulation::Bool` : Runs the initialization routine. If false, simulation runs based on the operating point stored in [`PowerSystems.System`](@extref)
 - `initial_conditions::Vector{Float64}` : Allows the user to pass a vector with the initial condition values desired in the simulation. If initialize_simulation = true, these values are used as a first guess and overwritten.
 - `frequency_reference` : Default `ReferenceBus`. Determines which frequency model is used for the network. Currently there are two options available:
     - `ConstantFrequency` assumes that the network frequency is 1.0 per unit at all times.

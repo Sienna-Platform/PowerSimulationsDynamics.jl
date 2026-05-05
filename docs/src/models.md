@@ -48,16 +48,16 @@ For more details, check Brian Stott paper ["Power system dynamic response calcul
 
 ## Generator Models
 
-Here we discuss the structure and models used to model generators in `PowerSimulationsDynamics.jl`. See [`PowerSystems.jl` dynamic devices](https://sienna-platform.github.io/PowerSystems.jl/stable/modeler_guide/example_dynamic_data/)
-for details.
+Here we discuss the structure and models used to model generators in `PowerSimulationsDynamics.jl`. See the [PowerSystems dynamic devices](https://sienna-platform.github.io/PowerSystems.jl/stable/modeler_guide/example_dynamic_data/)
+guide in [`PowerSystems.jl`](https://sienna-platform.github.io/PowerSystems.jl/stable/) for details.
 
-Each generator is a data structure composed of the following components defined in `PowerSystems.jl`:
+Each generator is a data structure composed of the following components defined in [`PowerSystems.jl`](https://sienna-platform.github.io/PowerSystems.jl/stable/):
 
-  - [`Machine`](https://sienna-platform.github.io/PowerSystems.jl/stable/model_library/generated_Machine/#Machine): That defines the stator electro-magnetic dynamics.
-  - [`Shaft`](https://sienna-platform.github.io/PowerSystems.jl/stable/model_library/generated_Shaft/#Shaft): That describes the rotor electro-mechanical dynamics.
-  - [`Automatic Voltage Regulator`](https://sienna-platform.github.io/PowerSystems.jl/stable/model_library/generated_AVR/#AVR): Electromotive dynamics to model an AVR controller.
-  - [`Power System Stabilizer`](https://sienna-platform.github.io/PowerSystems.jl/stable/model_library/generated_PSS/#PSS): Control dynamics to define an stabilization signal for the AVR.
-  - [`Prime Mover and Turbine Governor`](https://sienna-platform.github.io/PowerSystems.jl/stable/model_library/generated_TurbineGov/#TurbineGov): Thermo-mechanical dynamics and associated controllers.
+  - [`PowerSystems.Machine`](@extref): That defines the stator electro-magnetic dynamics.
+  - [`PowerSystems.Shaft`](@extref): That describes the rotor electro-mechanical dynamics.
+  - [`PowerSystems.AVR`](@extref): Electromotive dynamics to model an AVR controller.
+  - [`PowerSystems.PSS`](@extref): Control dynamics to define an stabilization signal for the AVR.
+  - [`PowerSystems.TurbineGov`](@extref): Thermo-mechanical dynamics and associated controllers.
 
 The implementation of Synchronous generators as components uses the following structure to
 share values across components.
@@ -68,16 +68,16 @@ share values across components.
 
 ## Inverter Models
 
-Here we discuss the structure and models used to model inverters in `PowerSimulationsDynamics.jl`. See [`PowerSystems.jl` dynamic devices](https://sienna-platform.github.io/PowerSystems.jl/stable/modeler_guide/example_dynamic_data/)
-for details. One of the key contributions in this software package is a separation of the
+Here we discuss the structure and models used to model inverters in `PowerSimulationsDynamics.jl`. See the [PowerSystems dynamic devices](https://sienna-platform.github.io/PowerSystems.jl/stable/modeler_guide/example_dynamic_data/)
+guide in [`PowerSystems.jl`](https://sienna-platform.github.io/PowerSystems.jl/stable/) for details. One of the key contributions in this software package is a separation of the
 components in a way that resembles current practices for synchronoues machine modeling.
 
-  - [`DC Source`](https://sienna-platform.github.io/PowerSystems.jl/stable/model_library/generated_DCSource/#DCSource): Defines the dynamics of the DC side of the converter.
-  - [`Frequency Estimator`](https://sienna-platform.github.io/PowerSystems.jl/stable/model_library/generated_FrequencyEstimator/#FrequencyEstimator): That describes how the frequency of the grid can be estimated using the grid voltages. Typically a phase-locked loop (PLL).
-  - [`Outer Loop Control`](https://sienna-platform.github.io/PowerSystems.jl/stable/model_library/outer_control/#OuterControl): That describes the active and reactive power control dynamics.
-  - [`Inner Loop Control`](https://sienna-platform.github.io/PowerSystems.jl/stable/model_library/generated_InnerControl/#InnerControl): That can describe virtual impedance, voltage control and current control dynamics.
-  - [`Converter`](https://sienna-platform.github.io/PowerSystems.jl/stable/model_library/generated_Converter/#Converter): That describes the dynamics of the pulse width modulation (PWM) or space vector modulation (SVM).
-  - [`Filter`](https://sienna-platform.github.io/PowerSystems.jl/stable/model_library/generated_Filter/): Used to connect the converter output to the grid.
+  - [`PowerSystems.DCSource`](@extref): Defines the dynamics of the DC side of the converter.
+  - [`PowerSystems.FrequencyEstimator`](@extref): That describes how the frequency of the grid can be estimated using the grid voltages. Typically a phase-locked loop (PLL).
+  - [`PowerSystems.OuterControl`](@extref): That describes the active and reactive power control dynamics.
+  - [`PowerSystems.InnerControl`](@extref): That can describe virtual impedance, voltage control and current control dynamics.
+  - [`PowerSystems.Converter`](@extref): That describes the dynamics of the pulse width modulation (PWM) or space vector modulation (SVM).
+  - [`PowerSystems.Filter`](@extref): Used to connect the converter output to the grid.
 
 The following figure summarizes the components of a inverter and which variables they share:
 
@@ -92,4 +92,4 @@ these posibilities.
 
 ## Reference
 
-For models, check the library in [PowerSystems.jl](https://sienna-platform.github.io/PowerSystems.jl/stable/)
+For models, check the library in [`PowerSystems.jl`](https://sienna-platform.github.io/PowerSystems.jl/stable/).

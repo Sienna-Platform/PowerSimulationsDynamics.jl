@@ -92,7 +92,7 @@ I_\text{exp}^\text{im}  &= V_i \cdot P_0 \cdot \frac{V^{\alpha - 2}}{V_0^\alpha}
 
 ## Dynamic loads
 
-### 5th-order Single Cage Induction Machine [`SingleCageInductionMachine`](@ref)
+### 5th-order Single Cage Induction Machine [`PowerSystems.SingleCageInductionMachine`](@extref)
 
 The following model is used to model a 5th-order induction machine with a quadratic relationship speed-torque.
 Refer to "Analysis of Electric Machinery and Drive Systems" by Paul Krause, Oleg Wasynczuk and Scott Sudhoff for the equations derivation
@@ -132,7 +132,7 @@ I_i = \left(\frac{S_\text{motor}}{S_\text{base}}\right) (i_{qs} + v_{ds} B_{sh})
 \end{align*}
 ```
 
-### 3rd-order Single Cage Induction Machine [`SimplifiedSingleCageInductionMachine`](@ref)
+### 3rd-order Single Cage Induction Machine [`PowerSystems.SimplifiedSingleCageInductionMachine`](@extref)
 
 The following models approximates the stator fluxes dynamics of the 5th-order model by using algebraic equations.
 

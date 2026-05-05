@@ -2,13 +2,13 @@
 
 This component is used to estimate the frequency of the grid based on the voltage at the bus.
 
-## Fixed Frequency [`FixedFrequency`](@ref)
+## Fixed Frequency [`PowerSystems.FixedFrequency`](@extref)
 
 This is a simple model that set the measured frequency to a desired constant value (i.e. does not measure the frequency)
 ``\omega_{pll} = \omega_{\text{fix}}`` (usually ``\omega_{\text{fix}} = 1.0`` p.u.). Used by default when grid-forming
 inverters do not use frequency estimators.
 
-## Phase-Locked Loop (PLL) for VSM [`KauraPLL`](@ref)
+## Phase-Locked Loop (PLL) for VSM [`PowerSystems.KauraPLL`](@extref)
 
 The following equations present a PLL used to estimate the frequency and PLL angle of
 the grid. There are two reference frames considered in this inverter. Those are the VSM
@@ -41,7 +41,7 @@ on which ``v_r + jv_i`` is the voltage in the grid reference frame on which the 
 measuring (i.e. point of common coupling), that could be in the capacitor of an LCL filter
 or the last branch of such filter.
 
-## Reduced Order Phase-Locked Loop (PLL) [`ReducedOrderPLL`](@ref)
+## Reduced Order Phase-Locked Loop (PLL) [`PowerSystems.ReducedOrderPLL`](@extref)
 
 The following equations presents a simplified PLL used to estimate the frequency and PLL angle of the grid. The model attempts to steer the voltage in the q-axis to zero (i.e. lock the q-axis to zero) using a PI controller. With that the equations are given by:
 

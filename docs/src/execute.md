@@ -1,6 +1,6 @@
 # Executing a Simulation
 
-After constructing the System data from `PowerSystems.jl` with its dynamic components, a `Simulation` structure must be constructed. Check the API for [`Simulation`](@ref) and [`Simulation!`](@ref) for its construction and available arguments.
+After constructing a [`PowerSystems.System`](@extref) with its dynamic components (see [`PowerSystems.jl`](https://sienna-platform.github.io/PowerSystems.jl/stable/) documentation), a `Simulation` structure must be constructed. Check the API for [`Simulation`](@ref) and [`Simulation!`](@ref) for its construction and available arguments.
 
 Once a Simulation is constructed and properly initialized, the `execute!` command is used to run the Simulation. If no perturbation was included, then a steady state simulation will be run over the time span defined. See the API of [`execute!`](@ref) for more details.
 

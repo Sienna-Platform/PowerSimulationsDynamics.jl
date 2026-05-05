@@ -2,7 +2,7 @@
 
 This component can be used to model the dynamics of the switching process.
 
-## Average Model [`AverageConverter`](@ref)
+## Average Model [`PowerSystems.AverageConverter`](@extref)
 
 The average model outputs the desired reference signal since:
 
@@ -15,7 +15,7 @@ v_{q}^{\text{cv}} \approx m_{q} v_{\text{dc}} \approx \frac{v_{q}^{\text{ref-sig
 
 where ``m_{dq}`` is the modulation signal, and ``v_{dq}^{\text{ref-signal}}`` is the voltage reference signal from the inner loop control.
 
-## Generic Renewable Converter Type A [`RenewableEnergyConverterTypeA`](@ref)
+## Generic Renewable Converter Type A [`PowerSystems.RenewableEnergyConverterTypeA`](@extref)
 
 This block represents the [REGCA](https://www.powerworld.com/WebHelp/Content/TransientModels_HTML/Machine%20Model%20REGC_A.htm) model. The equations (without the limiters) are:
 
