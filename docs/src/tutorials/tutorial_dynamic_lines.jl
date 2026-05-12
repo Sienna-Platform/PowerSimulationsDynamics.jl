@@ -1,7 +1,5 @@
 # # Line Modeling Simulations
 #
-# **Originally Contributed by**: Rodrigo Henriquez-Auba and José Daniel Lara
-#
 # ## Introduction
 #
 # This tutorial will introduce an example of considering dynamic lines in
@@ -29,8 +27,7 @@ using Plots
 # !!! note
 #     `PowerSystemCaseBuilder.jl` is a helper library that makes it easier to reproduce
 #     examples in the documentation and tutorials. Normally you would pass your local files
-#     to create the system data instead of calling the function `build_system`.
-#     For more details visit [PowerSystemCaseBuilder Documentation](https://nrel-sienna.github.io/PowerSystems.jl/stable/tutorials/powersystembuilder/)
+#     to create the system data instead of calling the function [`PowerSystemCaseBuilder.build_system`](@extref).
 #
 # ### Step 2: Data creation
 #
@@ -72,7 +69,7 @@ Ybus_change = NetworkSwitch(
 #Time span of our simulation
 tspan = (0.0, 30.0)
 
-#Define Simulation
+#Define [`Simulation`](@ref)
 sim = Simulation(
     ResidualModel, #Type of model used
     threebus_sys, #system
@@ -144,7 +141,7 @@ Ybus_change_dyn = NetworkSwitch(
 #
 # Now, we construct the simulation:
 
-## Define Simulation
+## Define [`Simulation`](@ref)
 sim_dyn = Simulation(
     ResidualModel, #Type of model used
     threebus_sys_dyn, #system

@@ -1,3 +1,10 @@
+"""
+Container for the output of a dynamic simulation run.
+
+`SimulationResults` stores the solved trajectory together with lookup structures
+used by post-processing utilities (state maps, bus lookup, setpoints, and
+auxiliary pointers).
+"""
 struct SimulationResults
     global_index::MAPPING_DICT
     bus_lookup::Dict{Int, Int}

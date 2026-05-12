@@ -1,7 +1,5 @@
 # # Inverter Modeling simulation
 #
-# **Originally Contributed by**: José Daniel Lara
-#
 # ## Introduction
 #
 # This tutorial will introduce the modeling of an inverter with Virtual Inertia in a
@@ -28,8 +26,7 @@ using Plots
 # !!! note
 #     `PowerSystemCaseBuilder.jl` is a helper library that makes it easier to reproduce
 #     examples in the documentation and tutorials. Normally you would pass your local files
-#     to create the system data instead of calling the function `build_system`.
-#     For more details visit [PowerSystemCaseBuilder Documentation](https://nrel-sienna.github.io/PowerSystems.jl/stable/tutorials/powersystembuilder/)
+#     to create the system data instead of calling the function [`PowerSystemCaseBuilder.build_system`](@extref).
 #
 # Create the system using `PowerSystemCaseBuilder.jl`:
 
@@ -39,7 +36,7 @@ sys = build_system(PSIDSystems, "14 Bus Base Case")
 # in the documentation and tutorials. Normally you would pass your local files to create the
 # system data.
 #
-# Define Simulation Problem with a 20 second simulation period and the branch trip at t = 1.0:
+# Define [`Simulation`](@ref) Problem with a 20 second simulation period and the branch trip at t = 1.0:
 
 sim = Simulation(
     ResidualModel, #Type of model used
@@ -131,7 +128,7 @@ storage = EnergyReservoirStorage(;
 add_component!(sys, storage)
 
 # A good sanity check it running a power flow on the system to make sure all the components
-# are properly scaled and that the system is properly balanced. We can use `PowerSystems` to
+# are properly scaled and that the system is properly balanced. We can use [`PowerSystems.jl`](https://sienna-platform.github.io/PowerSystems.jl/stable/) to
 # perform this check. We can get the results back and perform a sanity check.
 
 res = solve_power_flow(ACPowerFlow(), sys)
@@ -174,7 +171,7 @@ add_component!(sys, inverter, storage)
 
 sys
 
-# Define Simulation problem using the same parameters:
+# Define [`Simulation`](@ref) problem using the same parameters:
 
 sim = Simulation(
     ResidualModel, #Type of model used

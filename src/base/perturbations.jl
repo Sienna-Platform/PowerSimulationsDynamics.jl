@@ -3,18 +3,18 @@ abstract type Perturbation end
 """
     mutable struct BranchTrip <: Perturbation
         time::Float64
-        branch_type::Type{<:PowerSystems.ACBranch}
+        branch_type::Type{<:[`PowerSystems.ACBranch`](@extref)}
         branch_name::String
     end
 
-A BranchTrip completely disconnects a branch from the system. Currently there is only support for static branches disconnection, `PowerSystems.Line` and `PowerSystems.Transformer2W`.
+A BranchTrip completely disconnects a branch from the system. Currently there is only support for static branches disconnection, [`PowerSystems.Line`](@extref) and [`PowerSystems.Transformer2W`](@extref).
 Future releases will provide support for a Dynamic Line disconnection.
-**Note:** Islanding is currently not supported in `PowerSimulationsDynamics.jl`. If a `BranchTrip` isolates a generation unit, the system may diverge due to the isolated generator.
+**Note:** Islanding is currently not supported in `PowerSimulationsDynamics.jl`. If a [`BranchTrip`](@ref) isolates a generation unit, the system may diverge due to the isolated generator.
 
 # Arguments:
 
 - `time::Float64` : Defines when the Branch Trip will happen. This time should be inside the time span considered in the Simulation
-- `branch_tipe::Type{<:PowerSystems.ACBranch}` : Type of branch disconnected
+- `branch_tipe::Type{<:PowerSystems.ACBranch}` : Branch type (subtype of [`PowerSystems.ACBranch`](@extref))
 - `branch_name::String` : User defined name for identifying the branch
 """
 mutable struct BranchTrip <: Perturbation
@@ -31,13 +31,13 @@ end
         multiplier::Float64
     end
 
-A BranchImpedanceChange change the impedance of a branch by a user defined multiplier. Currently there is only support for static branches disconnection, `PowerSystems.Line` and `PowerSystems.Transformer2W`.
+A BranchImpedanceChange change the impedance of a branch by a user defined multiplier. Currently there is only support for static branches disconnection, [`PowerSystems.Line`](@extref) and [`PowerSystems.Transformer2W`](@extref).
 Future releases will provide support for a Dynamic Line disconnection.
 
 # Arguments:
 
 - `time::Float64` : Defines when the Branch Impedance Change will happen. This time should be inside the time span considered in the Simulation
-- `branch_tipe::Type{<:PowerSystems.ACBranch}` : Type of branch modified
+- `branch_tipe::Type{<:PowerSystems.ACBranch}` : Branch type (subtype of [`PowerSystems.ACBranch`](@extref))
 - `branch_name::String` : User defined name for identifying the branch
 - `multiplier::Float64` : User defined value for impedance multiplier.
 """
@@ -376,7 +376,7 @@ end
 """
     mutable struct ControlReferenceChange <: Perturbation
         time::Float64
-        device::PowerSystems.DynamicInjection
+        device::[`PowerSystems.DynamicInjection`](@extref)
         signal::Symbol
         ref_value::Float64
     end
@@ -386,7 +386,7 @@ A ControlReferenceChange allows to change the reference setpoint provided by a g
 # Arguments:
 
 - `time::Float64` : Defines when the Control Reference Change will happen. This time should be inside the time span considered in the Simulation
-- `device::Type{<:PowerSystems.DynamicInjection}` : Dynamic device modified
+- `device::Type{<:PowerSystems.DynamicInjection}` : Dynamic device ([`PowerSystems.DynamicInjection`](@extref))
 - `signal::Symbol` : determines which reference setpoint will be modified. The accepted signals are:
     - `:P_ref`: Modifies the active power reference setpoint.
     - `:V_ref`: Modifies the voltage magnitude reference setpoint (if used).
@@ -488,7 +488,7 @@ A `SourceBusVoltageChange` allows to change the reference setpoint provided by a
 # Arguments:
 
 - `time::Float64` : Defines when the Control Reference Change will happen. This time should be inside the time span considered in the Simulation
-- `device::Type{<:PowerSystems.Source}` : Device modified
+- `device::Type{<:PowerSystems.Source}` : Voltage source device ([`PowerSystems.Source`](@extref))
 - `signal::Symbol` : determines which reference setpoint will be modified. The accepted signals are:
     - :V_ref Modifies the internal voltage magnitude reference setpoint.
     - :θ_ref  Modifies the internal voltage angle reference setpoint.
@@ -519,7 +519,7 @@ end
 """
     mutable struct GeneratorTrip <: Perturbation
         time::Float64
-        device::PowerSystems.DynamicInjection
+        device::[`PowerSystems.DynamicInjection`](@extref)
     end
 
 A `GeneratorTrip` allows to disconnect a Dynamic Generation unit from the system at a specified time.
@@ -527,7 +527,7 @@ A `GeneratorTrip` allows to disconnect a Dynamic Generation unit from the system
 # Arguments:
 
 - `time::Float64` : Defines when the Generator Trip will happen. This time should be inside the time span considered in the Simulation
-- `device::Type{<:PowerSystems.DynamicInjection}` : Device to be disconnected
+- `device::Type{<:PowerSystems.DynamicInjection}` : Device to disconnect ([`PowerSystems.DynamicInjection`](@extref))
 """
 mutable struct GeneratorTrip <: Perturbation
     time::Float64
@@ -552,7 +552,7 @@ end
 """
     mutable struct LoadChange <: Perturbation
         time::Float64
-        device::PowerSystems.ElectricLoad
+        device::[`PowerSystems.ElectricLoad`](@extref)
         signal::Symbol
         ref_value::Float64
     end
@@ -562,7 +562,7 @@ A LoadChange allows to change the active or reactive power setpoint from a load.
 # Arguments:
 
 - `time::Float64` : Defines when the Load Change will happen. This time should be inside the time span considered in the Simulation
-- `device::Type{<:PowerSystems.ElectricLoad}` : Dynamic device modified
+- `device::Type{<:PowerSystems.ElectricLoad}` : Load device ([`PowerSystems.ElectricLoad`](@extref))
 - `signal::Symbol` : determines which reference setpoint will be modified. The accepted signals are:
     - `:P_ref`: Modifies the active power reference setpoint.
     - `:Q_ref`: Modifies the reactive power reference setpoint.
@@ -715,7 +715,7 @@ end
 """
     mutable struct LoadTrip <: Perturbation
         time::Float64
-        device::PowerSystems.ElectricLoad
+        device::[`PowerSystems.ElectricLoad`](@extref)
     end
 
 A `LoadTrip` allows the user to disconnect a load from the system.
@@ -723,7 +723,7 @@ A `LoadTrip` allows the user to disconnect a load from the system.
 # Arguments:
 
 - `time::Float64` : Defines when the Generator Trip will happen. This time should be inside the time span considered in the Simulation
-- `device::Type{<:PowerSystems.ElectricLoad}` : Device to be disconnected
+- `device::Type{<:PowerSystems.ElectricLoad}` : Load to disconnect ([`PowerSystems.ElectricLoad`](@extref))
 """
 mutable struct LoadTrip <: Perturbation
     time::Float64

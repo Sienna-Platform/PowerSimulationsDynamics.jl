@@ -2,7 +2,7 @@
 
 The shaft component defines the rotating mass of the synchronous generator.
 
-## Rotor Mass Shaft ```[SingleMass]```
+## Rotor Mass Shaft [`PowerSystems.SingleMass`](@extref)
 
 This is the standard model, on which one single mass (typically the rotor) is used to model the entire inertia of the synchronous generator. Each generator's rotating frame use a reference frequency ``\omega_s``, that typically is the synchronous one (i.e. ``\omega_s = 1.0``). The model defines two differential equations for the rotor angle ``\delta`` and the rotor speed ``\omega``:
 
@@ -13,7 +13,7 @@ This is the standard model, on which one single mass (typically the rotor) is us
 \end{align}
 ```
 
-## Five-Mass Shaft ```[FiveMassShaft]```
+## Five-Mass Shaft [`PowerSystems.FiveMassShaft`](@extref)
 
 This model describes model connecting a high-pressure (hp) steam turbine, intermediate-pressure (ip) steam turbine, low-pressure (lp) steam pressure, rotor and exciter (ex) connected in series (in that order) in the same shaft using a spring-mass model:
 

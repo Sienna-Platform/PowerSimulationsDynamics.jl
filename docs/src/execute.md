@@ -1,12 +1,12 @@
 # Executing a Simulation
 
-After constructing the System data from `PowerSystems.jl` with its dynamic components, a `Simulation` structure must be constructed. Check the API for [`Simulation`](@ref) and [`Simulation!`](@ref) for its construction and available arguments.
+After constructing a [`PowerSystems.System`](@extref) with its dynamic components (see [`PowerSystems.jl`](https://sienna-platform.github.io/PowerSystems.jl/stable/) documentation), a [`Simulation`](@ref) structure must be constructed. Check the API for [`Simulation`](@ref) and [`Simulation!`](@ref) for its construction and available arguments.
 
-Once a Simulation is constructed and properly initialized, the `execute!` command is used to run the Simulation. If no perturbation was included, then a steady state simulation will be run over the time span defined. See the API of [`execute!`](@ref) for more details.
+Once a [`Simulation`](@ref) is constructed and properly initialized, the [`execute!`](@ref) command is used to run the simulation. If no perturbation was included, then a steady state simulation will be run over the time span defined. See the API of [`execute!`](@ref) for more details.
 
 ## Solvers
 
-Solvers must be chosen accordingly depending on the type of model used in the Simulation. For example, a Residual model can be executed using Sundials IDA solver:
+Solvers must be chosen accordingly depending on the type of model used in the [`Simulation`](@ref). For example, a [`ResidualModel`](@ref) can be executed using Sundials IDA solver:
 
 ```julia
 using Sundials
@@ -21,11 +21,12 @@ execute!(sim, IDA())
 ```
 
 Results can be explored using:
+
 ```julia
 results = read_results(sim)
 ```
 
-Similarly, a Mass Matrix model can be executed using `Rodas4` solver.
+Similarly, a [`MassMatrixModel`](@ref) can be executed using `Rodas4` solver.
 
 ```julia
 using OrdinaryDiffEq
@@ -41,7 +42,7 @@ execute!(sim2, Rodas4())
 
 ## Exploring the Solution
 
-Once a Simulation is executed and the results are stored via `results = read_results(sim)`, the following functions can be used to explore the Simulation solution:
+Once a [`Simulation`](@ref) is executed and the results are stored via `results = read_results(sim)` (see [`read_results`](@ref)), the following functions can be used to explore the [`SimulationResults`](@ref):
 
 ### Show initial conditions
 
@@ -69,12 +70,12 @@ The function [`get_setpoints`](@ref)`(sim)` can be used to obtain the reference 
 
 ## Keyword Arguments
 
-Any solver option available in `DifferentialEquations.jl` can be passed as keyword arguments in the `execute!` function. Please see the [Common Solver Options](https://diffeq.sciml.ai/stable/basics/common_solver_opts/) in the `DifferentialEquations.jl` documentation for more details.
+Any solver option available in `DifferentialEquations.jl` can be passed as keyword arguments in [`execute!`](@ref). Please see the [Common Solver Options](https://diffeq.sciml.ai/stable/basics/common_solver_opts/) in the `DifferentialEquations.jl` documentation for more details.
 
 Most common solver options used are `dtmax` to control the maximum dt for adaptive timestepping. `abstol` and `reltol` are also commonly used to control the tolerance in the adaptive timestepping. `saveat` is also used to store the results at a specified time stamps. For example, the following code is valid to further specify your solver options:
 
 ```julia
-execute!(sim, IDA(), dtmax = 0.01, abstol = 1e-9, reltol = 1e-6, saveat = 0.01)
+execute!(sim, IDA(); dtmax = 0.01, abstol = 1e-9, reltol = 1e-6, saveat = 0.01)
 ```
 
 In addition, the keyword argument `enable_progress_bar = false` can be used to disable the progress bar.

@@ -46,9 +46,9 @@ approximation:
 \left[\begin{array}{c}
  0 \\
   \Delta\dot{x}
-  \end{array}\right] = \underbrace{\left[\begin{array}
-  ~g(y_{eq},x_{eq},p) \\
-   f(y_{eq},x_{eq},p) \end{array}\right]}_{ =~ 0}
+  \end{array}\right] = \underbrace{\left[\begin{array}{c}
+  g(y_{eq},x_{eq},p) \\
+   f(y_{eq},x_{eq},p) \end{array}\right]}_{= 0}
  + J[y_{eq}, x_{eq}, p] \left[\begin{array}{c}
  \Delta y \\
   \Delta x
@@ -94,21 +94,21 @@ on which we can compute its eigenvalues to analyze local stability.
 
 ## Accessing the Jacobian function
 
-You can retrieve the Jacobian function for a simulation using the `get_jacobian` function as follows:
+You can retrieve the Jacobian function for a simulation using the [`get_jacobian`](@ref) function as follows:
 
 ```julia
-jacobian = function get_jacobian(ResidualModel, system)
+jacobian = get_jacobian(ResidualModel, system)
 ```
 
 optionally you can pass the number of iterations to check for sparsity as follows:
 
 ```julia
-jacobian = function get_jacobian(ResidualModel, system, 0)
+jacobian = get_jacobian(ResidualModel, system, 0)
 ```
 
 if you specify 0, the jacobian function will use a full matrix.
 
-The return of `get_jacobian` is known as a functor in Julia and can be used to make evaluations.
+The return of [`get_jacobian`](@ref) is known as a functor in Julia and can be used to make evaluations.
 Currently, any function can be evaluated with the following inputs:
 
 ```julia

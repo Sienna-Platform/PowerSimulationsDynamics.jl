@@ -12,11 +12,11 @@ For more information on solving such models, refer to the documentation for [Del
 
 The following models include time delays:
 
-* `DEGOV`
+  - `DEGOV`
 
 There is currently limited support for including models with time delays. The following limitations apply:
 
-* Only constant delays are supported (state dependent delays are not).
-* System models with delays must use `MassMatrixModel`  formulation (`ResidualModel` is not currently compatible).
-* System models with delays are not compatible with small signal analysis tools.
-* The system formulation with delays is not compatible with automatic differentiation for calculating the gradient with respect to time. The setting `autodiff=false` should be set when passing the solver (e.g. `MethodofSteps(Rodas5(autodiff=false))`).
+  - Only constant delays are supported (state dependent delays are not).
+  - System models with delays must use [`MassMatrixModel`](@ref) formulation ([`ResidualModel`](@ref) is not currently compatible).
+  - System models with delays are not compatible with small signal analysis tools.
+  - The system formulation with delays is not compatible with automatic differentiation for calculating the gradient with respect to time. The setting `autodiff=false` should be set when passing the solver (e.g. `MethodofSteps(Rodas5(autodiff=false))`).

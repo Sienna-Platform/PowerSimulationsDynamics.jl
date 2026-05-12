@@ -1,4 +1,17 @@
+"""
+Frequency-reference mode that keeps system frequency fixed at 1.0 p.u.
+
+Use this mode when the network frequency should not track a dynamic device
+state during simulation.
+"""
 struct ConstantFrequency end
+
+"""
+Frequency-reference mode that tracks the frequency state at the reference bus.
+
+If a dynamic injector at the slack bus provides a compatible frequency state,
+that state is used as the network frequency reference.
+"""
 struct ReferenceBus end
 
 function _get_frequency_state(d::DynamicWrapper{T}) where {T <: PSY.DynamicGenerator}

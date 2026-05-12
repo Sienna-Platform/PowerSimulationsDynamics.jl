@@ -1,6 +1,4 @@
-# # [PSSE 240 Bus Case system with Renewables](https://www.nrel.gov/grid/test-case-repository.html)
-#
-# **Originally Contributed by**: José Daniel Lara
+# # [PSSE 240 Bus Case system with Renewables](https://www.nlr.gov/grid/test-case-repository)
 #
 # ## Introduction
 #
@@ -19,8 +17,7 @@ using OrdinaryDiffEq
 # !!! note
 #     `PowerSystemCaseBuilder.jl` is a helper library that makes it easier to reproduce
 #     examples in the documentation and tutorials. Normally you would pass your local files
-#     to create the system data instead of calling the function `build_system`.
-#     For more details visit [PowerSystemCaseBuilder Documentation](https://nrel-sienna.github.io/PowerSystems.jl/stable/tutorials/powersystembuilder/)
+#     to create the system data instead of calling the function [`PowerSystemCaseBuilder.build_system`](@extref).
 #
 # ## Load the system and transform load data
 #
@@ -39,9 +36,8 @@ end
 # The next step is to create the simulation structure. This will create the indexing of our
 # system that will be used to formulate the differential-algebraic system of equations. To
 # do so, it is required to specify the perturbation that will occur in the system. In this
-# case, we will use a ResidualModel formulation, for more details about the formulation
-# checkout the [Models Section](https://nrel-sienna.github.io/PowerSimulationsDynamics.jl/stable/models/)
-# in `PowerSimulationsDynamics.jl` documentation.
+# case, we will use a [`ResidualModel`](@ref) formulation, for more details about the formulation
+# checkout the [Models](@ref) section.
 
 using Logging
 sim_ida = Simulation(
@@ -73,9 +69,8 @@ plot(v1101_ida)
 
 # ## Run the simulation using Rodas4()
 #
-# In this case, we will use a MassMatrixModel formulation, for more details about the
-# formulation checkout the [Models Section](https://nrel-sienna.github.io/PowerSimulationsDynamics.jl/stable/models/)
-# in `PowerSimulationsDynamics.jl` documentation
+# In this case, we will use a [`MassMatrixModel`](@ref) formulation, for more details about the
+# formulation checkout the [Models](@ref) section
 
 sim_rodas = Simulation(
     MassMatrixModel,

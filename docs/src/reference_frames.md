@@ -31,7 +31,7 @@ frame.
 The previously convention is not the standard one used for modeling inverters. Most of
 inverter and phase-lock loop (PLL) models follow the next convention:
 
- ```math
+```math
 \begin{align}
 v_d + jv_q &= (v_r + jv_i) e^{-j \delta} \tag{2a}  \\
 v_d &=  v_h \cos(\delta - \theta) \tag{2b} \\

@@ -2,7 +2,7 @@
 
 The machine component describes the stator-rotor electromagnetic dynamics.
 
-## Classical Model (Zero Order) ```[BaseMachine]```
+## Classical Model (Zero Order) [`PowerSystems.BaseMachine`](@extref)
 
 This is the classical order model that does not have differential equations in its machine model
 (``\delta`` and ``\omega`` are defined in the shaft):
@@ -14,7 +14,7 @@ p_e \approx \tau_e &= (v_q + r_a i_q)i_q + (v_d + r_ai_d)i_d \tag{1b}
 \end{align}
 ```
 
-## One d- One q- Model (2nd Order) ```[OneDOneQMachine]```
+## One d- One q- Model (2nd Order) [`PowerSystems.OneDOneQMachine`](@extref)
 
 This model includes two transient emf with their respective differential equations:
 
@@ -27,7 +27,7 @@ p_e \approx \tau_e &= (v_q + r_a i_q)i_q + (v_d + r_ai_d)i_d \tag{2d}
 \end{align}
 ```
 
-## Marconato Machine (6th Order) ```[MarconatoMachine]```
+## Marconato Machine (6th Order) [`PowerSystems.MarconatoMachine`](@extref)
 
 The Marconato model defines 6 differential equations, two for stator fluxes and 4 for transient and subtransient emfs:
 
@@ -54,7 +54,7 @@ with
 \end{align*}
 ```
 
-## Simplified Marconato Machine (4th Order) ```[SimpleMarconatoMachine]```
+## Simplified Marconato Machine (4th Order) [`PowerSystems.SimpleMarconatoMachine`](@extref)
 
 This model neglects the derivative of stator fluxes (``\dot{\psi}_d`` and  ``\dot{\psi}_q``) and assume that the rotor speed stays close to 1 pu (``\omega\psi_{d}=\psi_{d}`` and ``\omega\psi_{q}=\psi_{q}``) that allows to remove the stator fluxes variables from the Marconato model.
 
@@ -78,7 +78,7 @@ with
 \end{align*}
 ```
 
-## Anderson-Fouad Machine (6th Order) ```[AndersonFouadMachine]```
+## Anderson-Fouad Machine (6th Order) [`PowerSystems.AndersonFouadMachine`](@extref)
 
 The Anderson-Fouad model also defines 6 differential equations, two for stator fluxes and 4 for transient and subtransient emfs and is derived from the Marconato model by defining ``\gamma_d \approx \gamma_q \approx T_{AA} \approx 0``:
 
@@ -96,7 +96,7 @@ i_q &= \frac{1}{x_q''} (-e_d'' - \psi_q) \tag{5h} \\
 \end{align}
 ```
 
-## Simplified Anderson-Fouad Machine (4th Order) ```[SimpleAFMachine]```
+## Simplified Anderson-Fouad Machine (4th Order) [`PowerSystems.SimpleAFMachine`](@extref)
 
 Similar to the Simplified Marconato Model, this model neglects the derivative of stator fluxes (``\dot{\psi}_d`` and  ``\dot{\psi}_q``) and assume that the rotor speed stays close to 1 pu (``\omega \psi_d = \psi_d`` and ``\omega \psi_q = \psi_q``) that allows to remove the stator fluxes variables from the model:
 
@@ -111,7 +111,7 @@ p_e \approx \tau_e &= (v_q + r_a i_q)i_q + (v_d + r_ai_d)i_d \tag{6f}
 \end{align}
 ```
 
-## Round Rotor Machine (4th Order) ```[RoundRotorQuadratic, RoundRotorExponential]```
+## Round Rotor Machine (4th Order) [`PowerSystems.RoundRotorQuadratic`](@extref), [`PowerSystems.RoundRotorExponential`](@extref)
 
 This model represents the traditional round rotor models GENROU/GENROE models implemented in PSLF/PSSE/PowerWorld.
 Similar to the Simplified Marconato Model, this model neglects the derivative of stator fluxes (``\dot{\psi}_d`` and  ``\dot{\psi}_q``). Round rotor machines must satisfy ``x_d'' = x_q''``.
@@ -163,8 +163,7 @@ and for the GENROE model the function used is:
 The parameters ``A`` and ``B`` for each function are computed using the two points given
 ``(1.0, \text{Se}(1.0))`` and ``(1.2, \text{Se}(1.2))``.
 
-
-## Salient Pole Machine (3rd Order) ```[SalientPoleQuadratic, SalientPoleExponential]```
+## Salient Pole Machine (3rd Order) [`PowerSystems.SalientPoleQuadratic`](@extref), [`PowerSystems.SalientPoleExponential`](@extref)
 
 This model represents the traditional round rotor models GENSAL/GENSAE models implemented in PSLF/PSSE/PowerWorld.
 Similar to the GENROU Model, this model neglects the derivative of stator fluxes (``\dot{\psi}_d`` and  ``\dot{\psi}_q``).
@@ -210,8 +209,7 @@ and for the GENSAE model the function used is:
 The parameters ``A`` and ``B`` for each function are computed using the two points given
 ``(1.0, \text{Se}(1.0))`` and ``(1.2, \text{Se}(1.2))``.
 
-
-## SauerPai Machine (6th Order) ```[SauerPaiMachine]```
+## SauerPai Machine (6th Order) [`PowerSystems.SauerPaiMachine`](@extref)
 
 The Sauer Pai model defines 6 differential equations as follows:
 

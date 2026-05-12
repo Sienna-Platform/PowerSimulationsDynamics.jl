@@ -2,11 +2,11 @@
 
 This section describes how mechanical power is modified to provide primary frequency control with synchronous generators. It is assumed that ``\tau_{\text{ref}} = P_{\text{ref}}`` since they are decided at nominal frequency ``ω = 1``.
 
-## Fixed TG ```[TGFixed]```
+## Fixed TG [`PowerSystems.TGFixed`](@extref)
 
 This a simple model that set the mechanical torque to be equal to a proportion of the desired reference ``\tau_m = \eta P_{\text{ref}}``. To set the mechanical torque to be equal to the desired power, the value of ``\eta`` is set to 1.
 
-## TG Type I ```[TGTypeI]```
+## TG Type I [`PowerSystems.TGTypeI`](@extref)
 
 This turbine governor is described by a droop controller and a low-pass filter to model the governor and two lead-lag blocks to model the servo and reheat of the turbine governor.
 
@@ -27,7 +27,7 @@ p_{\text{in}} = P_{\text{ref}} + \frac{1}{R}(\omega_s - 1.0)
 \end{align*}
 ```
 
-## TG Type II ```[TGTypeII]```
+## TG Type II [`PowerSystems.TGTypeII`](@extref)
 
 This turbine governor is a simplified model of the Type I.
 
@@ -38,7 +38,7 @@ This turbine governor is a simplified model of the Type I.
 \end{align}
 ```
 
-## TG Simple ```[TGSimple]```
+## TG Simple [`PowerSystems.TGSimple`](@extref)
 
 This turbine governor represents a simple first-order model with droop control. It's a 1-state model suitable for basic frequency response studies.
 
@@ -48,10 +48,9 @@ T_m \dot{\tau}_m &= \left(P_{\text{ref}} + d_t (\omega_{\text{ref}} - \omega)\ri
 \end{align}
 ```
 
-
 The `TGSimple` uses a linear relationship between frequency deviation and power output and a first order lag response with time constant ``T_m``. It is suitable for studies where detailed turbine dynamics are not critical since provides basic primary frequency response through droop control.
 
-## TGOV1 ```[SteamTurbineGov1]```
+## TGOV1 [`PowerSystems.SteamTurbineGov1`](@extref)
 
 This represents a classical Steam-Turbine Governor, known as TGOV1.
 
@@ -76,7 +75,7 @@ x_{g1}^\text{sat} &= \left\{ \begin{array}{cl}
 \end{align}
 ```
 
-## GAST ```[GasTG]```
+## GAST [`PowerSystems.GasTG`](@extref)
 
 This turbine governor represents the Gas Turbine representation, known as GAST.
 
@@ -102,7 +101,7 @@ x_{g1}^\text{sat} &= \left\{ \begin{array}{cl}
 \end{align}
 ```
 
-## HYGOV ```[HydroTurbineGov]```
+## HYGOV [`PowerSystems.HydroTurbineGov`](@extref)
 
 This represents a classical hydro governor, known as HYGOV.
 
@@ -126,7 +125,7 @@ h &= \left(\frac{x_{g4}}{x_{g3}}\right)^2 \tag{6g}\\
 \end{align}
 ```
 
-## DEGOV ```[DEGOV]```
+## DEGOV [`PowerSystems.DEGOV`](@extref)
 
 This turbine governor represents the IEEE Type DEGOV Diesel Engine Governor Model. It's a 5-state model commonly used for diesel generators.
 
@@ -155,7 +154,7 @@ P_m &= T_d y_{delay} \cdot \omega \\
 
 Note that the model includes a time delay ``T_d`` applied to the final actuator output `x_{a3}`.
 
-## DEGOV1 ```[DEGOV1]```
+## DEGOV1 [`PowerSystems.DEGOV1`](@extref)
 
 This is an enhanced version of the DEGOV model with optional droop control. It's a 5-state or 6-state model depending on the droop flag.
 
@@ -195,10 +194,10 @@ P_m &= x_{g5}(T_d) \cdot \omega \\
 
 ### Notes
 
-- When droop flag = 0: feedback comes from actuator output (speed droop)
-- When droop flag = 1: feedback comes from electrical power (load droop)
+  - When droop flag = 0: feedback comes from actuator output (speed droop)
+  - When droop flag = 1: feedback comes from electrical power (load droop)
 
-## WPIDHY ```[WPIDHY]```
+## WPIDHY [`PowerSystems.WPIDHY`](@extref)
 
 This model represents a Woodward PID Hydro Turbine Governor, a 7-state model designed for hydro turbine control.
 
@@ -234,10 +233,10 @@ P_m &= \text{clamp}(x_{g7}, P_{min}, P_{max}) - D(\omega - \omega_{sys}) \\
 
 Note that this model includes:
 
-- Includes nonlinear gate-to-power mapping function
-- Water inertia modeled with lead-lag compensation
+  - Includes nonlinear gate-to-power mapping function
+  - Water inertia modeled with lead-lag compensation
 
-## PIDGOV ```[PIDGOV]```
+## PIDGOV [`PowerSystems.PIDGOV`](@extref)
 
 This model represents a PID Turbine Governor, typically used for hydro applications. It's a 7-state model with configurable feedback.
 
@@ -273,9 +272,7 @@ P_m &= x_{g7} - D_{turb}(\omega - \omega_{sys}) \\
 
 Note that this model includes:
 
-- Configurable feedback: electrical power or gate position
-- Modified integrator with rate limiting for gate servo
-- Water column dynamics with surge tank effects
-- Nonlinear gate-to-power characteristic curve
-
-
+  - Configurable feedback: electrical power or gate position
+  - Modified integrator with rate limiting for gate servo
+  - Water column dynamics with surge tank effects
+  - Nonlinear gate-to-power characteristic curve

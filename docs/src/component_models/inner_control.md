@@ -4,7 +4,7 @@ This component defines voltage and current controllers to generate the reference
 for the converter. Although in many controls the current and voltage control are separate blocks
 we propose a more general control approach that considers them as a joint control logic.
 
-## Integrated Virtual Impedance, Voltage and Current Controller ```[VoltageModeControl]```
+## Integrated Virtual Impedance, Voltage and Current Controller [`PowerSystems.VoltageModeControl`](@extref)
 
 The following model receives both the outer loop control frequency and reference voltage
 signal to generate the reference signal for the converters. The virtual impedance plays a
@@ -55,8 +55,7 @@ i_{d,\text{cv}} + ji_{q,\text{cv}} = (i_{r,\text{cv}} + ji_{i,\text{cv}})e^{-j\d
 \end{align*}
 ```
 
-
-## Current Mode Controller ```[CurrentModeControl]```
+## Current Mode Controller [`PowerSystems.CurrentModeControl`](@extref)
 
 The following model receives the current reference (in ``dq`` axis) from an outer loop controller
 that outputs current references such as the PI outer controller used for grid following inverters.
@@ -88,7 +87,7 @@ i_{d,\text{cv}} + ji_{q,\text{cv}} = (i_{r,\text{cv}} + ji_{i,\text{cv}})e^{-j\t
 
 In here ``\theta_{olc}`` is the outer-loop angle. In the case of grid-following models, this angle is equal to the angle provided from the PLL.
 
-## Generic Renewable Inner Controller Type B ```[RECurrentControlB]```
+## Generic Renewable Inner Controller Type B [`PowerSystems.RECurrentControlB`](@extref)
 
 This models the inner control part of the [REECB](https://www.powerworld.com/WebHelp/Content/TransientModels_HTML/Exciter%20REEC_B.htm) model. The equations (without limiters) when `Q_Flag = 1` are:
 

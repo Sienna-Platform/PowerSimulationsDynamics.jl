@@ -27,7 +27,7 @@ get_delays(
     Float64[PSY.get_Td(PSY.get_prime_mover(dynamic_injector))]
 
 """
-Wraps DynamicInjection devices from PowerSystems to handle changes in controls and connection
+Wraps [`PowerSystems.DynamicInjection`](@extref) devices from [`PowerSystems.jl`](https://sienna-platform.github.io/PowerSystems.jl/stable/) to handle changes in controls and connection
 status, and allocate the required indexes of the state space.
 """
 struct DynamicWrapper{T <: PSY.DynamicInjection}
