@@ -195,10 +195,10 @@ plot!(
     ),
 )
 
-Logging.disable_logging(Logging.Debug); #hide
-
 # This results is consistent with most of the literature for dynamic generator models
 # supplying constant power loads, on which by increasing the active power of the load,
 # produce critical eigenvalues which cross the ``j\omega`` axis at some point. This is
 # called a Hopf Bifurcation, in this case a subcritical one since the limit cycles are
 # unstable.
+
+Logging.disable_logging(Logging.Debug); #hide
