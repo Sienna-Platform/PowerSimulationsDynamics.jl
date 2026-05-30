@@ -23,7 +23,6 @@ gr()
 
 ## Disable Logging to avoid excessive information
 using Logging
-Logging.disable_logging(Logging.Info);
 Logging.disable_logging(Logging.Warn);
 
 # !!! note
@@ -195,6 +194,8 @@ plot!(
         label = "GENROU SSA",
     ),
 )
+
+Logging.disable_logging(Logging.Debug); #hide
 
 # This results is consistent with most of the literature for dynamic generator models
 # supplying constant power loads, on which by increasing the active power of the load,
