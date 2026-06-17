@@ -176,7 +176,10 @@ end
 const REPO = normpath(joinpath(@__DIR__, "..", "..", "..", ".."))
 const SEXS_DIR = joinpath(REPO, "test", "benchmarks", "psse", "SEXS")
 
-sys = PSY.System(joinpath(SEXS_DIR, "ThreeBusMulti.raw"), joinpath(SEXS_DIR, "ThreeBus_SEXS.dyr"))
+sys = PSY.System(
+    joinpath(SEXS_DIR, "ThreeBusMulti.raw"),
+    joinpath(SEXS_DIR, "ThreeBus_SEXS.dyr"),
+)
 for l in PSY.get_components(PSY.StandardLoad, sys)
     PSID.transform_load_to_constant_impedance(l)
 end
