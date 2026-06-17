@@ -54,7 +54,10 @@ makedocs(;
         ],
         "Branch Models" => Any["Network" => "component_models/network.md",],
         "Load Models" => Any["Load Models" => "component_models/loads.md",],
-        "Code Base Developer Guide" => Any["Developer Guide" => "code_base_developer_guide/developer.md",],
+        "Code Base Developer Guide" => Any[
+            "Developer Guide" => "code_base_developer_guide/developer.md",
+            "Adding a New Model" => "code_base_developer_guide/adding_a_model.md",
+        ],
         "Public API Reference" => "api/public.md",
         "Internal API Reference" => "api/internal.md",
     ],
