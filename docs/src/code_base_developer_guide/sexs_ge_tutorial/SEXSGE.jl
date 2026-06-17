@@ -1,6 +1,4 @@
 #=
-Resume this session with:
-claude --resume 900deee7-82ad-41b5-ab98-85fbf53fd4d4
 SEXSGE.jl — a hand-written stand-in for a PowerSystems-generated component struct.
 
 IMPORTANT:
