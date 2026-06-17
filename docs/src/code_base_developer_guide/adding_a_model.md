@@ -14,6 +14,7 @@ The full, runnable code for this guide lives next to this page in
   - `sexs_ge_tutorial.jl` — the three dynamics methods plus a build/swap/run demo.
 
 !!! note "Script vs. source"
+    
     To keep everything in one place, this guide implements the model **from a script**: the
     struct and the three methods are defined at top level and extend PSID/PowerSystems
     functions directly. This is perfect for prototyping and for following along, but it is
@@ -27,14 +28,16 @@ The full, runnable code for this guide lives next to this page in
 `SEXS_GE` extends the standard [`SEXS`](https://sienna-platform.github.io/PowerSystems.jl/stable/)
 model with a voltage transducer, a PI regulator block, and a separate field-voltage limit.
 
+```@raw html
 <img src="../assets/sexs_ge_diagram.svg" width="100%"/>
+```
 
 The four numbered blocks are the four differential states of the model
 (``V_m``, ``V_r``, ``V_i``, ``V_f``); their numbers match the `Block N` comments in
-the ODE right-hand side ([Step 3](#Step-3-—-The-ODE-right-hand-side)). The terminal
+the ODE right-hand side ([Step 3](#Step-3-%E2%80%94-The-ODE-right-hand-side)). The terminal
 voltage magnitude ``E_c = \sqrt{V_R^2 + V_I^2}`` enters the transducer, the summing
 junction forms ``e = V_{ref} - V_m + V_s``, and the trailing limiter is the output clamp
-on the field voltage that produces ``E_{fd}``. 
+on the field voltage that produces ``E_{fd}``.
 
 **Parameters:** `Ta_Tb, Tb, K, Te, Tr, Kc, Tc`, regulator limits `V_lim = (Emin, Emax)`,
 field-voltage limits `Efd_lim = (Efd_min, Efd_max)`, and `V_ref`. The lead-lag numerator time
@@ -42,14 +45,15 @@ constant is `Ta = Ta_Tb · Tb`.
 
 **States (4, all differential):**
 
-| State | Block | Mass-matrix diagonal |
-|-------|-------|----------------------|
-| `Vm`  | transducer ``1/(1+sT_r)``        | `Tr` |
-| `Vr`  | lead-lag ``(1+sT_a)/(1+sT_b)``    | `Tb` |
+| State | Block                                | Mass-matrix diagonal |
+|:----- |:------------------------------------ |:-------------------- |
+| `Vm`  | transducer ``1/(1+sT_r)``            | `Tr`                 |
+| `Vr`  | lead-lag ``(1+sT_a)/(1+sT_b)``       | `Tb`                 |
 | `Vi`  | PI integrator ``K_c(1+sT_c)/(sT_c)`` | **none (default 1)** |
-| `Vf`  | forward lag ``K/(1+sT_e)``        | `Te` |
+| `Vf`  | forward lag ``K/(1+sT_e)``           | `Te`                 |
 
 !!! tip "The PI block"
+    
     ``K_c(1+sT_c)/(sT_c) = K_c + K_c/(sT_c)`` is a PI controller with proportional gain
     ``k_p = K_c`` and integral gain ``k_i = K_c/T_c``. It is realized with
     `pi_block`, so ``dV_i/dt = V_{LL}`` and the block output is ``K_c V_{LL} + (K_c/T_c)V_i``.
@@ -86,7 +90,19 @@ end
 A keyword constructor fills the bookkeeping fields with the state list and types:
 
 ```julia
-SEXSGE(; Ta_Tb, Tb, K, Te, Tr, Kc, Tc, V_lim, Efd_lim, V_ref = 1.0, ext = Dict{String, Any}()) =
+SEXSGE(;
+    Ta_Tb,
+    Tb,
+    K,
+    Te,
+    Tr,
+    Kc,
+    Tc,
+    V_lim,
+    Efd_lim,
+    V_ref = 1.0,
+    ext = Dict{String, Any}(),
+) =
     SEXSGE(Ta_Tb, Tb, K, Te, Tr, Kc, Tc, V_lim, Efd_lim, V_ref, ext,
         [:Vm, :Vr, :Vi, :Vf], 4,
         fill(PSY.StateTypes.Differential, 4),
@@ -107,6 +123,7 @@ PSY.get_internal(value::SEXSGE) = value.internal
 See `SEXSGE.jl` for the complete struct and getter list.
 
 !!! note "Where this goes in the package"
+    
     Component structs are **not hand-written** in PowerSystems. They are **generated** from a
     JSON descriptor: you add the model's parameters and states to the descriptor and run the
     code generator, which writes `src/models/generated/SEXS_GE.jl` (struct, constructors, and
@@ -136,6 +153,7 @@ Note there is **no** entry for `Vi`: the PI integrator's time constant is folded
 integral gain, so its diagonal stays at the default value of 1.
 
 !!! note "Where this goes in the package"
+    
     Add this method to
     `src/models/generator_models/avr_models.jl`, next to the other
     `mass_matrix_avr_entries!` methods.
@@ -159,14 +177,21 @@ function PSID.mdl_avr_ode!(
     local_ix = PSID.get_local_state_ix(dynamic_device, SEXSGE)
 
     internal_states = @view device_states[local_ix]
-    Vm, Vr, Vi, Vf = internal_states[1], internal_states[2], internal_states[3], internal_states[4]
+    Vm, Vr, Vi, Vf =
+        internal_states[1], internal_states[2], internal_states[3], internal_states[4]
 
     V_th = sqrt(inner_vars[PSID.VR_gen_var]^2 + inner_vars[PSID.VI_gen_var]^2)  # Ec
     Vs = inner_vars[PSID.V_pss_var]                                            # PSS output
 
     avr = PSY.get_avr(dynamic_device)
-    Ta_Tb = get_Ta_Tb(avr); Tb = get_Tb(avr); Ta = Tb * Ta_Tb
-    Te = get_Te(avr); Tr = get_Tr(avr); K = get_K(avr); Kc = get_Kc(avr); Tc = get_Tc(avr)
+    Ta_Tb = get_Ta_Tb(avr)
+    Tb = get_Tb(avr)
+    Ta = Tb * Ta_Tb
+    Te = get_Te(avr)
+    Tr = get_Tr(avr)
+    K = get_K(avr)
+    Kc = get_Kc(avr)
+    Tc = get_Tc(avr)
     Emin, Emax = get_V_lim(avr)
     Efd_min, Efd_max = get_Efd_lim(avr)
 
@@ -203,6 +228,7 @@ A few conventions worth internalizing:
     with the rest of the device through the `inner_vars` vector.
 
 !!! note "Where this goes in the package"
+    
     Add this method to
     `src/models/generator_models/avr_models.jl`, alongside the `SEXS` ODE.
 
@@ -226,8 +252,12 @@ function PSID.initialize_avr!(
     Vm = sqrt(inner_vars[PSID.VR_gen_var]^2 + inner_vars[PSID.VI_gen_var]^2)
 
     avr = PSY.get_avr(dynamic_device)
-    Ta_Tb = get_Ta_Tb(avr); Tb = get_Tb(avr); Ta = Tb * Ta_Tb
-    K = get_K(avr); Kc = get_Kc(avr); Tc = get_Tc(avr)
+    Ta_Tb = get_Ta_Tb(avr)
+    Tb = get_Tb(avr)
+    Ta = Tb * Ta_Tb
+    K = get_K(avr)
+    Kc = get_Kc(avr)
+    Tc = get_Tc(avr)
     Emin, Emax = get_V_lim(avr)
 
     function f!(out, x)
@@ -259,11 +289,13 @@ end
 ```
 
 !!! warning "Initialization is the usual culprit"
+    
     When a new model misbehaves, initialization is the first place to look. Always verify the
     initialized states against hand-derived steady-state values before trusting a transient.
     `show_states_initial_value(sim)` prints them.
 
 !!! note "Where this goes in the package"
+    
     Add this method to
     `src/initialization/generator_components/init_avr.jl`, next to the `SEXS` initializer.
 
@@ -279,8 +311,10 @@ for l in PSY.get_components(PSY.StandardLoad, sys)
     PSID.transform_load_to_constant_impedance(l)
 end
 
-static = first(s for s in PSY.get_components(PSY.StaticInjection, sys)
-               if PSY.get_dynamic_injector(s) isa PSY.DynamicGenerator)
+static = first(
+    s for s in PSY.get_components(PSY.StaticInjection, sys)
+    if PSY.get_dynamic_injector(s) isa PSY.DynamicGenerator
+)
 old_dyn = PSY.get_dynamic_injector(static)
 old_avr = PSY.get_avr(old_dyn)
 
@@ -328,6 +362,7 @@ To turn this prototype into a real contribution:
  4. **Docs** — document the model in `docs/src/component_models/avr.md`.
 
 !!! tip "Run the full example"
+    
     The complete, runnable script is at
     [`sexs_ge_tutorial/sexs_ge_tutorial.jl`](https://github.com/Sienna-Platform/PowerSimulationsDynamics.jl/tree/main/docs/src/code_base_developer_guide/sexs_ge_tutorial).
     Run it from the test environment so PSID's solver and `NLsolve` dependencies are available:
