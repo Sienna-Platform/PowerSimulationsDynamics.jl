@@ -27,18 +27,14 @@ The full, runnable code for this guide lives next to this page in
 `SEXS_GE` extends the standard [`SEXS`](https://sienna-platform.github.io/PowerSystems.jl/stable/)
 model with a voltage transducer, a PI regulator block, and a separate field-voltage limit.
 
-```
-        Ec                e = Vref−Vm+Vs                          PI: Kc(1+sTc)/(sTc)
-     ┌──────────┐      ┌──►(+)        ┌────────────────┐        ┌─────────────────────┐
-Ec──►│ 1/(1+sTr) │─►Vm─┤   ▲(−)  e──► │ (1+sTa)/(1+sTb) │─►V_LL─►│ Kc·V_LL + (Kc/Tc)·Vi │─►u
-     └──────────┘ state│             └────────────────┘        └─────────────────────┘ │
-        state Vm        │ Vref(+), Vs(+)   state Vr                  state Vi (∫V_LL)    │
-                                                                                         ▼
-                          ┌──────────────┐                    ┌──────────────────────────┐
-                  Efd ◄───│ clamp         │◄── Vf_out ◄────────│ K/(1+sTe), non-windup     │
-                   =Vf_sat│[Efdmin,Efdmax]│                    │ limits [Emin,Emax], stateVf│◄─u
-                          └──────────────┘                    └──────────────────────────┘
-```
+<img src="../assets/sexs_ge_diagram.svg" width="100%"/>
+
+The four numbered blocks are the four differential states of the model
+(``V_m``, ``V_r``, ``V_i``, ``V_f``); their numbers match the `Block N` comments in
+the ODE right-hand side ([Step 3](#Step-3-—-The-ODE-right-hand-side)). The terminal
+voltage magnitude ``E_c = \sqrt{V_R^2 + V_I^2}`` enters the transducer, the summing
+junction forms ``e = V_{ref} - V_m + V_s``, and the trailing limiter is the output clamp
+on the field voltage that produces ``E_{fd}``. 
 
 **Parameters:** `Ta_Tb, Tb, K, Te, Tr, Kc, Tc`, regulator limits `V_lim = (Emin, Emax)`,
 field-voltage limits `Efd_lim = (Efd_min, Efd_max)`, and `V_ref`. The lead-lag numerator time
