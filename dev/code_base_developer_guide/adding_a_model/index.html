@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Adding a New Model · PowerSimulationsDynamics.jl</title><meta name="title" content="Adding a New Model · PowerSimulationsDynamics.jl"/><meta property="og:title" content="Adding a New Model · PowerSimulationsDynamics.jl"/><meta property="twitter:title" content="Adding a New Model · PowerSimulationsDynamics.jl"/><meta name="description" content="Documentation for PowerSimulationsDynamics.jl."/><meta property="og:description" content="Documentation for PowerSimulationsDynamics.jl."/><meta property="twitter:description" content="Documentation for PowerSimulationsDynamics.jl."/><script data-outdated-warner src="../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../search_index.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../../"><img src="../../assets/logo.png" alt="PowerSimulationsDynamics.jl logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../../">PowerSimulationsDynamics.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../">Welcome Page</a></li><li><a class="tocitem" href="../../tutorials/generated_quick_start_guide/">Quick Start Guide</a></li><li><a class="tocitem" href="../../execute/">Simulation Execution</a></li><li><span class="tocitem">Tutorials</span><ul><li><a class="tocitem" href="../../tutorials/generated_tutorial_dynamic_data/">Create Dynamic Data</a></li><li><a class="tocitem" href="../../tutorials/generated_tutorial_omib/">OMIB</a></li><li><a class="tocitem" href="../../tutorials/generated_tutorial_dynamic_lines/">Dynamic Lines Simulation</a></li><li><a class="tocitem" href="../../tutorials/generated_tutorial_inverter_modeling/">Inverter Modeling</a></li><li><a class="tocitem" href="../../tutorials/generated_tutorial_240bus/">240 WECC solver comparison</a></li><li><a class="tocitem" href="../../tutorials/generated_tutorial_continuation_pf/">Small-Signal Analysis</a></li><li><a class="tocitem" href="../../tutorials/generated_tutorial_activeload/">Active Load Model</a></li></ul></li><li><a class="tocitem" href="../../models/">Models</a></li><li><a class="tocitem" href="../../initialization/">Initialization</a></li><li><a class="tocitem" href="../../small/">Small Signal</a></li><li><a class="tocitem" href="../../reference_frames/">Reference Frames</a></li><li><a class="tocitem" href="../../perturbations/">Perturbations</a></li><li><a class="tocitem" href="../../time_delays/">Time Delays</a></li><li><a class="tocitem" href="../../generic/">Industrial Renewable Models</a></li><li><span class="tocitem">Generator Component Library</span><ul><li><a class="tocitem" href="../../component_models/machines/">Machine</a></li><li><a class="tocitem" href="../../component_models/shafts/">Shaft</a></li><li><a class="tocitem" href="../../component_models/avr/">AVR</a></li><li><a class="tocitem" href="../../component_models/pss/">PSS</a></li><li><a class="tocitem" href="../../component_models/turbine_gov/">Turbine and Governor</a></li></ul></li><li><span class="tocitem">CIG Component Library</span><ul><li><a class="tocitem" href="../../component_models/converter/">Converter</a></li><li><a class="tocitem" href="../../component_models/dc_source/">DC Sources</a></li><li><a class="tocitem" href="../../component_models/filters/">Filter</a></li><li><a class="tocitem" href="../../component_models/freq_esti/">Frequency Estimators</a></li><li><a class="tocitem" href="../../component_models/inner_control/">Inner Control</a></li><li><a class="tocitem" href="../../component_models/outer_control/">Outer Control</a></li></ul></li><li><span class="tocitem">Branch Models</span><ul><li><a class="tocitem" href="../../component_models/network/">Network</a></li></ul></li><li><span class="tocitem">Load Models</span><ul><li><a class="tocitem" href="../../component_models/loads/">Load Models</a></li></ul></li><li><span class="tocitem">Code Base Developer Guide</span><ul><li><a class="tocitem" href="../developer/">Developer Guide</a></li><li class="is-active"><a class="tocitem" href>Adding a New Model</a><ul class="internal"><li><a class="tocitem" href="#The-model"><span>The model</span></a></li><li><a class="tocitem" href="#Step-1-—-The-component-struct"><span>Step 1 — The component struct</span></a></li><li><a class="tocitem" href="#Step-2-—-Mass-matrix-entries"><span>Step 2 — Mass-matrix entries</span></a></li><li><a class="tocitem" href="#Step-3-—-The-ODE-right-hand-side"><span>Step 3 — The ODE right-hand side</span></a></li><li><a class="tocitem" href="#Step-4-—-Initialization"><span>Step 4 — Initialization</span></a></li><li><a class="tocitem" href="#Step-5-—-Run-it"><span>Step 5 — Run it</span></a></li><li><a class="tocitem" href="#Production-checklist"><span>Production checklist</span></a></li></ul></li></ul></li><li><a class="tocitem" href="../../api/public/">Public API Reference</a></li><li><a class="tocitem" href="../../api/internal/">Internal API Reference</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Code Base Developer Guide</a></li><li class="is-active"><a href>Adding a New Model</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Adding a New Model</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/Sienna-Platform/PowerSimulationsDynamics.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/Sienna-Platform/PowerSimulationsDynamics.jl/blob/main/docs/src/code_base_developer_guide/adding_a_model.md" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Adding-a-New-Model:-the-SEXS_GE-Exciter"><a class="docs-heading-anchor" href="#Adding-a-New-Model:-the-SEXS_GE-Exciter">Adding a New Model: the <code>SEXS_GE</code> Exciter</a><a id="Adding-a-New-Model:-the-SEXS_GE-Exciter-1"></a><a class="docs-heading-anchor-permalink" href="#Adding-a-New-Model:-the-SEXS_GE-Exciter" title="Permalink"></a></h1><p>This guide walks through everything needed to add a <strong>new dynamic model</strong> to <code>PowerSimulationsDynamics.jl</code> (PSID), using the GE Simplified Excitation System (<code>SEXS_GE</code>) as a worked example. <code>SEXS_GE</code> is a good teaching case because it is a small model that nonetheless exercises every moving part of a PSID component: a multi-state block diagram, the mass-matrix formulation, the ODE right-hand side, and a non-trivial initialization.</p><p>The full, runnable code for this guide lives next to this page in <a href="https://github.com/Sienna-Platform/PowerSimulationsDynamics.jl/tree/main/docs/src/code_base_developer_guide/sexs_ge_tutorial"><code>sexs_ge_tutorial/</code></a>:</p><ul><li><code>SEXSGE.jl</code> — the component struct,</li><li><code>sexs_ge_tutorial.jl</code> — the three dynamics methods plus a build/swap/run demo.</li></ul><div class="admonition is-info" id="Script-vs.-source-287d253d15a83fd3"><header class="admonition-header">Script vs. source<a class="admonition-anchor" href="#Script-vs.-source-287d253d15a83fd3" title="Permalink"></a></header><div class="admonition-body"><p>To keep everything in one place, this guide implements the model <strong>from a script</strong>: the struct and the three methods are defined at top level and extend PSID/PowerSystems functions directly. This is perfect for prototyping and for following along, but it is <strong>not</strong> how a model is contributed to the packages. Throughout, &quot;Where this goes in the package&quot; boxes point at the canonical home for each piece. The script approach also has to reach into non-exported PSID internals (<code>PSID.Vf_var</code>, <code>PSID.lead_lag_mass_matrix</code>, …); inside the package those names are already in scope.</p></div></div><h2 id="The-model"><a class="docs-heading-anchor" href="#The-model">The model</a><a id="The-model-1"></a><a class="docs-heading-anchor-permalink" href="#The-model" title="Permalink"></a></h2><p><code>SEXS_GE</code> extends the standard <a href="https://sienna-platform.github.io/PowerSystems.jl/stable/"><code>SEXS</code></a> model with a voltage transducer, a PI regulator block, and a separate field-voltage limit.</p><img src="../assets/sexs_ge_diagram.svg" width="100%"/><p>The four numbered blocks are the four differential states of the model (<span>$V_m$</span>, <span>$V_r$</span>, <span>$V_i$</span>, <span>$V_f$</span>); their numbers match the <code>Block N</code> comments in the ODE right-hand side (<a href="#Step-3-%E2%80%94-The-ODE-right-hand-side">Step 3</a>). The terminal voltage magnitude <span>$E_c = \sqrt{V_R^2 + V_I^2}$</span> enters the transducer, the summing junction forms <span>$e = V_{ref} - V_m + V_s$</span>, and the trailing limiter is the output clamp on the field voltage that produces <span>$E_{fd}$</span>.</p><p><strong>Parameters:</strong> <code>Ta_Tb, Tb, K, Te, Tr, Kc, Tc</code>, regulator limits <code>V_lim = (Emin, Emax)</code>, field-voltage limits <code>Efd_lim = (Efd_min, Efd_max)</code>, and <code>V_ref</code>. The lead-lag numerator time constant is <code>Ta = Ta_Tb · Tb</code>.</p><p><strong>States (4, all differential):</strong></p><table><tr><th style="text-align: left">State</th><th style="text-align: left">Block</th><th style="text-align: left">Mass-matrix diagonal</th></tr><tr><td style="text-align: left"><code>Vm</code></td><td style="text-align: left">transducer <span>$1/(1+sT_r)$</span></td><td style="text-align: left"><code>Tr</code></td></tr><tr><td style="text-align: left"><code>Vr</code></td><td style="text-align: left">lead-lag <span>$(1+sT_a)/(1+sT_b)$</span></td><td style="text-align: left"><code>Tb</code></td></tr><tr><td style="text-align: left"><code>Vi</code></td><td style="text-align: left">PI integrator <span>$K_c(1+sT_c)/(sT_c)$</span></td><td style="text-align: left"><strong>none (default 1)</strong></td></tr><tr><td style="text-align: left"><code>Vf</code></td><td style="text-align: left">forward lag <span>$K/(1+sT_e)$</span></td><td style="text-align: left"><code>Te</code></td></tr></table><div class="admonition is-success" id="The-PI-block-a92bef8aed9554bc"><header class="admonition-header">The PI block<a class="admonition-anchor" href="#The-PI-block-a92bef8aed9554bc" title="Permalink"></a></header><div class="admonition-body"><p><span>$K_c(1+sT_c)/(sT_c) = K_c + K_c/(sT_c)$</span> is a PI controller with proportional gain <span>$k_p = K_c$</span> and integral gain <span>$k_i = K_c/T_c$</span>. It is realized with <code>pi_block</code>, so <span>$dV_i/dt = V_{LL}$</span> and the block output is <span>$K_c V_{LL} + (K_c/T_c)V_i$</span>. Because <code>Tc</code> lives in the gain <code>ki</code>, the integrator state <code>Vi</code> gets <strong>no</strong> mass-matrix entry.</p></div></div><h2 id="Step-1-—-The-component-struct"><a class="docs-heading-anchor" href="#Step-1-—-The-component-struct">Step 1 — The component struct</a><a id="Step-1-—-The-component-struct-1"></a><a class="docs-heading-anchor-permalink" href="#Step-1-—-The-component-struct" title="Permalink"></a></h2><p>A dynamic component is a <code>PowerSystems</code> struct. New models subtype the appropriate abstract type — here <code>PSY.AVR</code>. The struct carries its parameters plus four bookkeeping fields (<code>states</code>, <code>n_states</code>, <code>states_types</code>, <code>internal</code>) that PSID uses to wire the model into the system&#39;s state vector.</p><pre><code class="language-julia hljs">mutable struct SEXSGE &lt;: PSY.AVR
+    Ta_Tb::Float64
+    Tb::Float64
+    K::Float64
+    Te::Float64
+    Tr::Float64
+    Kc::Float64
+    Tc::Float64
+    V_lim::PSY.MinMax       # (Emin, Emax)
+    Efd_lim::PSY.MinMax     # (Efd_min, Efd_max)
+    V_ref::Float64
+    ext::Dict{String, Any}
+    states::Vector{Symbol}
+    n_states::Int
+    states_types::Vector{PSY.StateTypes}
+    internal::PSY.InfrastructureSystemsInternal
+end</code></pre><p>A keyword constructor fills the bookkeeping fields with the state list and types:</p><pre><code class="language-julia hljs">SEXSGE(;
+    Ta_Tb,
+    Tb,
+    K,
+    Te,
+    Tr,
+    Kc,
+    Tc,
+    V_lim,
+    Efd_lim,
+    V_ref = 1.0,
+    ext = Dict{String, Any}(),
+) =
+    SEXSGE(Ta_Tb, Tb, K, Te, Tr, Kc, Tc, V_lim, Efd_lim, V_ref, ext,
+        [:Vm, :Vr, :Vi, :Vf], 4,
+        fill(PSY.StateTypes.Differential, 4),
+        PSY.InfrastructureSystemsInternal())</code></pre><p>PSID&#39;s wrapper machinery reads the state list through <code>PSY.get_states</code>, <code>PSY.get_n_states</code>, and <code>PSY.get_states_types</code>, so those getters must extend the PowerSystems functions:</p><pre><code class="language-julia hljs">PSY.get_states(value::SEXSGE) = value.states
+PSY.get_n_states(value::SEXSGE) = value.n_states
+PSY.get_states_types(value::SEXSGE) = value.states_types
+PSY.get_internal(value::SEXSGE) = value.internal
+# ... plus a getter per parameter (get_Tr, get_Kc, get_Tc, ...)</code></pre><p>See <code>SEXSGE.jl</code> for the complete struct and getter list.</p><div class="admonition is-info" id="Where-this-goes-in-the-package-7d319da2563f1aa"><header class="admonition-header">Where this goes in the package<a class="admonition-anchor" href="#Where-this-goes-in-the-package-7d319da2563f1aa" title="Permalink"></a></header><div class="admonition-body"><p>Component structs are <strong>not hand-written</strong> in PowerSystems. They are <strong>generated</strong> from a JSON descriptor: you add the model&#39;s parameters and states to the descriptor and run the code generator, which writes <code>src/models/generated/SEXS_GE.jl</code> (struct, constructors, and every getter/setter). Never edit a generated file by hand. We write <code>SEXSGE.jl</code> manually here only so the model is self-contained in a script.</p></div></div><h2 id="Step-2-—-Mass-matrix-entries"><a class="docs-heading-anchor" href="#Step-2-—-Mass-matrix-entries">Step 2 — Mass-matrix entries</a><a id="Step-2-—-Mass-matrix-entries-1"></a><a class="docs-heading-anchor-permalink" href="#Step-2-—-Mass-matrix-entries" title="Permalink"></a></h2><p>PSID writes the dynamics in semi-explicit form <span>$M \dot{x} = f(x)$</span>. For a first-order block with time constant <span>$T$</span>, the entry <span>$T$</span> goes on the mass-matrix diagonal for that state. A zero time constant becomes an algebraic equation automatically (the diagonal entry is 0).</p><pre><code class="language-julia hljs">function PSID.mass_matrix_avr_entries!(
+    mass_matrix,
+    avr::SEXSGE,
+    global_index::Base.ImmutableDict{Symbol, Int64},
+)
+    mass_matrix[global_index[:Vm], global_index[:Vm]] = get_Tr(avr)
+    mass_matrix[global_index[:Vr], global_index[:Vr]] = get_Tb(avr)
+    mass_matrix[global_index[:Vf], global_index[:Vf]] = get_Te(avr)
+    return
+end</code></pre><p>Note there is <strong>no</strong> entry for <code>Vi</code>: the PI integrator&#39;s time constant is folded into the integral gain, so its diagonal stays at the default value of 1.</p><div class="admonition is-info" id="Where-this-goes-in-the-package-7cd1c1649deac80"><header class="admonition-header">Where this goes in the package<a class="admonition-anchor" href="#Where-this-goes-in-the-package-7cd1c1649deac80" title="Permalink"></a></header><div class="admonition-body"><p>Add this method to <code>src/models/generator_models/avr_models.jl</code>, next to the other <code>mass_matrix_avr_entries!</code> methods.</p></div></div><h2 id="Step-3-—-The-ODE-right-hand-side"><a class="docs-heading-anchor" href="#Step-3-—-The-ODE-right-hand-side">Step 3 — The ODE right-hand side</a><a id="Step-3-—-The-ODE-right-hand-side-1"></a><a class="docs-heading-anchor-permalink" href="#Step-3-—-The-ODE-right-hand-side" title="Permalink"></a></h2><p><code>mdl_avr_ode!</code> computes <span>$f(x)$</span> for the AVR states and publishes the field voltage to the machine through <code>inner_vars</code>. The body is a one-to-one transcription of the block diagram, using PSID&#39;s <a href="https://github.com/Sienna-Platform/PowerSimulationsDynamics.jl/blob/main/src/models/common_controls.jl">common control blocks</a>.</p><pre><code class="language-julia hljs">function PSID.mdl_avr_ode!(
+    device_states::AbstractArray{&lt;:PSID.ACCEPTED_REAL_TYPES},
+    output_ode::AbstractArray{&lt;:PSID.ACCEPTED_REAL_TYPES},
+    inner_vars::AbstractArray{&lt;:PSID.ACCEPTED_REAL_TYPES},
+    dynamic_device::PSID.DynamicWrapper{PSY.DynamicGenerator{M, S, SEXSGE, TG, P}},
+    h,
+    t,
+) where {M &lt;: PSY.Machine, S &lt;: PSY.Shaft, TG &lt;: PSY.TurbineGov, P &lt;: PSY.PSS}
+    V0_ref = PSID.get_V_ref(dynamic_device)
+    local_ix = PSID.get_local_state_ix(dynamic_device, SEXSGE)
+
+    internal_states = @view device_states[local_ix]
+    Vm, Vr, Vi, Vf =
+        internal_states[1], internal_states[2], internal_states[3], internal_states[4]
+
+    V_th = sqrt(inner_vars[PSID.VR_gen_var]^2 + inner_vars[PSID.VI_gen_var]^2)  # Ec
+    Vs = inner_vars[PSID.V_pss_var]                                            # PSS output
+
+    avr = PSY.get_avr(dynamic_device)
+    Ta_Tb = get_Ta_Tb(avr)
+    Tb = get_Tb(avr)
+    Ta = Tb * Ta_Tb
+    Te = get_Te(avr)
+    Tr = get_Tr(avr)
+    K = get_K(avr)
+    Kc = get_Kc(avr)
+    Tc = get_Tc(avr)
+    Emin, Emax = get_V_lim(avr)
+    Efd_min, Efd_max = get_Efd_lim(avr)
+
+    # Block 1 — voltage transducer  Vm = Ec / (1 + sTr)
+    _, dVm = PSID.low_pass_mass_matrix(V_th, Vm, 1.0, Tr)
+    # Summing junction
+    e = V0_ref - Vm + Vs
+    # Block 2 — lead-lag (1 + sTa)/(1 + sTb)
+    V_LL, dVr = PSID.lead_lag_mass_matrix(e, Vr, 1.0, Ta, Tb)
+    # Block 3 — PI  Kc(1 + sTc)/(sTc)  -&gt;  kp = Kc, ki = Kc/Tc
+    u_pi, dVi = PSID.pi_block(V_LL, Vi, Kc, Kc / Tc)
+    # Block 4 — forward lag with non-windup limits  K/(1 + sTe), [Emin, Emax]
+    Vf_out, dVf = PSID.low_pass_nonwindup_mass_matrix(u_pi, Vf, K, Te, Emin, Emax)
+    # Output clamp on the field voltage
+    Vf_sat = clamp(Vf_out, Efd_min, Efd_max)
+
+    output_ode[local_ix[1]] = dVm
+    output_ode[local_ix[2]] = dVr
+    output_ode[local_ix[3]] = dVi
+    output_ode[local_ix[4]] = dVf
+
+    inner_vars[PSID.Vf_var] = Vf_sat
+    return
+end</code></pre><p>A few conventions worth internalizing:</p><ul><li>Every control block has a <code>*_mass_matrix</code> variant that returns the <strong>unscaled</strong> derivative (the <span>$1/T$</span> is supplied by the mass matrix). Pair these with <code>mass_matrix_avr_entries!</code>.</li><li>States are read from a <code>@view</code> into the global <code>device_states</code> vector, in the same order as the <code>states</code> list.</li><li>The terminal voltage magnitude <code>Ec</code>, the PSS signal, and the field voltage are exchanged with the rest of the device through the <code>inner_vars</code> vector.</li></ul><div class="admonition is-info" id="Where-this-goes-in-the-package-f3a3a072ba0abbb3"><header class="admonition-header">Where this goes in the package<a class="admonition-anchor" href="#Where-this-goes-in-the-package-f3a3a072ba0abbb3" title="Permalink"></a></header><div class="admonition-body"><p>Add this method to <code>src/models/generator_models/avr_models.jl</code>, alongside the <code>SEXS</code> ODE.</p></div></div><h2 id="Step-4-—-Initialization"><a class="docs-heading-anchor" href="#Step-4-—-Initialization">Step 4 — Initialization</a><a id="Step-4-—-Initialization-1"></a><a class="docs-heading-anchor-permalink" href="#Step-4-—-Initialization" title="Permalink"></a></h2><p>Initialization places every state at its steady-state value for the power-flow operating point, and solves for <code>V_ref</code>. For <code>SEXS_GE</code> there is a clean simplification: the integrator forces its own input to zero at equilibrium, so <span>$V_{LL} = 0$</span> and therefore <span>$V_{ref} = V_m = E_c$</span> (the terminal voltage). The remaining states follow in closed form (<span>$V_r = 0$</span>, <span>$V_f = V_{f0}$</span>, <span>$V_i = V_{f0}\,T_c/(K\,K_c)$</span>). We still solve with <code>NLsolve</code> to match the style of the other AVRs in <code>init_avr.jl</code>.</p><pre><code class="language-julia hljs">function PSID.initialize_avr!(
+    device_states,
+    static::PSY.StaticInjection,
+    dynamic_device::PSID.DynamicWrapper{PSY.DynamicGenerator{M, S, SEXSGE, TG, P}},
+    inner_vars::AbstractVector,
+) where {M &lt;: PSY.Machine, S &lt;: PSY.Shaft, TG &lt;: PSY.TurbineGov, P &lt;: PSY.PSS}
+    Vf0 = inner_vars[PSID.Vf_var]
+    Vm = sqrt(inner_vars[PSID.VR_gen_var]^2 + inner_vars[PSID.VI_gen_var]^2)
+
+    avr = PSY.get_avr(dynamic_device)
+    Ta_Tb = get_Ta_Tb(avr)
+    Tb = get_Tb(avr)
+    Ta = Tb * Ta_Tb
+    K = get_K(avr)
+    Kc = get_Kc(avr)
+    Tc = get_Tc(avr)
+    Emin, Emax = get_V_lim(avr)
+
+    function f!(out, x)
+        V_ref, Vr, Vi, Vf = x[1], x[2], x[3], x[4]
+        e = V_ref - Vm                      # Vs = 0 at initialization
+        V_LL = Vr + (Ta / Tb) * e
+        u_pi = Kc * V_LL + (Kc / Tc) * Vi
+        out[1] = (1.0 - Ta / Tb) * e - Vr   # lead-lag steady state
+        out[2] = V_LL                       # PI integrator input must vanish
+        out[3] = K * u_pi - Vf              # forward lag steady state
+        out[4] = Vf - Vf0                   # field voltage matches the machine
+    end
+    x0 = [1.0, 0.0, Vf0 * Tc / (K * Kc), Vf0]
+    sol = NLsolve.nlsolve(f!, x0; ftol = PSID.STRICT_NLSOLVE_F_TOLERANCE)
+    if !NLsolve.converged(sol)
+        @warn(&quot;Initialization of SEXSGE AVR in $(PSY.get_name(static)) failed&quot;)
+    else
+        V_ref, Vr, Vi, Vf = sol.zero[1], sol.zero[2], sol.zero[3], sol.zero[4]
+        if (Vf &gt; Emax + PSID.BOUNDS_TOLERANCE) || (Vf &lt; Emin - PSID.BOUNDS_TOLERANCE)
+            @error(&quot;Field voltage Vf = $Vf outside regulator limits [$Emin, $Emax].&quot;)
+        end
+        PSY.set_V_ref!(avr, V_ref)
+        PSID.set_V_ref(dynamic_device, V_ref)
+        avr_states = @view device_states[PSID.get_local_state_ix(dynamic_device, SEXSGE)]
+        avr_states[1], avr_states[2], avr_states[3], avr_states[4] = Vm, Vr, Vi, Vf
+    end
+    return
+end</code></pre><div class="admonition is-warning" id="Initialization-is-the-usual-culprit-4b9e457d37dc560d"><header class="admonition-header">Initialization is the usual culprit<a class="admonition-anchor" href="#Initialization-is-the-usual-culprit-4b9e457d37dc560d" title="Permalink"></a></header><div class="admonition-body"><p>When a new model misbehaves, initialization is the first place to look. Always verify the initialized states against hand-derived steady-state values before trusting a transient. <code>show_states_initial_value(sim)</code> prints them.</p></div></div><div class="admonition is-info" id="Where-this-goes-in-the-package-4f6710409f6fa7b9"><header class="admonition-header">Where this goes in the package<a class="admonition-anchor" href="#Where-this-goes-in-the-package-4f6710409f6fa7b9" title="Permalink"></a></header><div class="admonition-body"><p>Add this method to <code>src/initialization/generator_components/init_avr.jl</code>, next to the <code>SEXS</code> initializer.</p></div></div><h2 id="Step-5-—-Run-it"><a class="docs-heading-anchor" href="#Step-5-—-Run-it">Step 5 — Run it</a><a id="Step-5-—-Run-it-1"></a><a class="docs-heading-anchor-permalink" href="#Step-5-—-Run-it" title="Permalink"></a></h2><p>We reuse the <code>SEXS</code> validation system and change <strong>only</strong> the exciter, so the comparison is honest. We read the existing dynamic generator, rebuild it with a <code>SEXS_GE</code> AVR (copying the shared <code>SEXS</code> parameters and adding the GE-specific ones), and swap it back in.</p><pre><code class="language-julia hljs">sys = PSY.System(&quot;ThreeBusMulti.raw&quot;, &quot;ThreeBus_SEXS.dyr&quot;)
+for l in PSY.get_components(PSY.StandardLoad, sys)
+    PSID.transform_load_to_constant_impedance(l)
+end
+
+static = first(
+    s for s in PSY.get_components(PSY.StaticInjection, sys)
+    if PSY.get_dynamic_injector(s) isa PSY.DynamicGenerator
+)
+old_dyn = PSY.get_dynamic_injector(static)
+old_avr = PSY.get_avr(old_dyn)
+
+new_avr = SEXSGE(;
+    Ta_Tb = PSY.get_Ta_Tb(old_avr), Tb = PSY.get_Tb(old_avr),
+    K = PSY.get_K(old_avr), Te = PSY.get_Te(old_avr),
+    Tr = 0.02, Kc = 1.0, Tc = 10.0,
+    V_lim = PSY.get_V_lim(old_avr), Efd_lim = (min = -50.0, max = 50.0),
+    V_ref = PSY.get_V_ref(old_avr),
+)
+new_dyn = PSY.DynamicGenerator(;
+    name = PSY.get_name(old_dyn), ω_ref = PSY.get_ω_ref(old_dyn),
+    machine = PSY.get_machine(old_dyn), shaft = PSY.get_shaft(old_dyn),
+    avr = new_avr, prime_mover = PSY.get_prime_mover(old_dyn),
+    pss = PSY.get_pss(old_dyn), base_power = PSY.get_base_power(old_dyn),
+)
+PSY.replace_dynamic_injector!(sys, static, new_dyn)   # remove old, attach new (same name)
+
+sim = PSID.Simulation!(
+    PSID.ResidualModel, sys, mktempdir(), (0.0, 20.0),
+    PSID.BranchTrip(1.0, PSY.Line, &quot;BUS 1-BUS 2-i_1&quot;),
+)
+PSID.show_states_initial_value(sim)            # initialization checkpoint
+@assert PSID.small_signal_analysis(sim).stable
+PSID.execute!(sim, Sundials.IDA(); dtmax = 0.005, saveat = 0.005)
+results = PSID.read_results(sim)</code></pre><p>With the demo parameters above, the model initializes to <span>$V_i \approx 1.08$</span>, <span>$V_f \approx 2.15$</span> (matching the closed-form values), is small-signal stable, and the <code>IDA</code> run finalizes cleanly. The field voltage responds to the line trip and the terminal voltage dips and recovers.</p><h2 id="Production-checklist"><a class="docs-heading-anchor" href="#Production-checklist">Production checklist</a><a id="Production-checklist-1"></a><a class="docs-heading-anchor-permalink" href="#Production-checklist" title="Permalink"></a></h2><p>To turn this prototype into a real contribution:</p><ol><li><strong>PowerSystems</strong> — add the model to the JSON descriptor and regenerate the struct; export it; add a PSS/E <code>.dyr</code> parser entry if the model has a standard record.</li><li><strong>PowerSimulationsDynamics</strong> — move the three methods into <code>src/models/generator_models/avr_models.jl</code> and <code>src/initialization/generator_components/init_avr.jl</code>.</li><li><strong>Tests</strong> — add a validation case (see <code>test/test_case26_SEXS.jl</code> for the pattern): initialization, small-signal eigenvalues, and a transient compared against a reference.</li><li><strong>Docs</strong> — document the model in <code>docs/src/component_models/avr.md</code>.</li></ol><div class="admonition is-success" id="Run-the-full-example-e61c9a15a42f1190"><header class="admonition-header">Run the full example<a class="admonition-anchor" href="#Run-the-full-example-e61c9a15a42f1190" title="Permalink"></a></header><div class="admonition-body"><p>The complete, runnable script is at <a href="https://github.com/Sienna-Platform/PowerSimulationsDynamics.jl/tree/main/docs/src/code_base_developer_guide/sexs_ge_tutorial"><code>sexs_ge_tutorial/sexs_ge_tutorial.jl</code></a>. Run it from the test environment so PSID&#39;s solver and <code>NLsolve</code> dependencies are available: <code>julia --project=test docs/src/code_base_developer_guide/sexs_ge_tutorial/sexs_ge_tutorial.jl</code>.</p></div></div></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../developer/">« Developer Guide</a><a class="docs-footer-nextpage" href="../../api/public/">Public API Reference »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.15.0 on <span class="colophon-date" title="Saturday 20 June 2026 21:42">Saturday 20 June 2026</span>. Using Julia version 1.12.6.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
