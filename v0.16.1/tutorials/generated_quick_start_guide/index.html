@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Quick Start Guide · PowerSimulationsDynamics.jl</title><meta name="title" content="Quick Start Guide · PowerSimulationsDynamics.jl"/><meta property="og:title" content="Quick Start Guide · PowerSimulationsDynamics.jl"/><meta property="twitter:title" content="Quick Start Guide · PowerSimulationsDynamics.jl"/><meta name="description" content="Documentation for PowerSimulationsDynamics.jl."/><meta property="og:description" content="Documentation for PowerSimulationsDynamics.jl."/><meta property="twitter:description" content="Documentation for PowerSimulationsDynamics.jl."/><script data-outdated-warner src="../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../search_index.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../../"><img src="../../assets/logo.png" alt="PowerSimulationsDynamics.jl logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../../">PowerSimulationsDynamics.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../">Welcome Page</a></li><li class="is-active"><a class="tocitem" href>Quick Start Guide</a><ul class="internal"><li><a class="tocitem" href="#Loading-data"><span>Loading data</span></a></li><li><a class="tocitem" href="#Define-the-[Simulation](@ref)"><span>Define the <code>Simulation</code></span></a></li><li><a class="tocitem" href="#Explore-initial-conditions-for-the-simulation"><span>Explore initial conditions for the simulation</span></a></li><li><a class="tocitem" href="#Obtain-small-signal-results-for-initial-conditions"><span>Obtain small signal results for initial conditions</span></a></li><li><a class="tocitem" href="#Execute-the-simulation"><span>Execute the simulation</span></a></li><li><a class="tocitem" href="#Make-a-plot-of-the-results"><span>Make a plot of the results</span></a></li></ul></li><li><a class="tocitem" href="../../execute/">Simulation Execution</a></li><li><span class="tocitem">Tutorials</span><ul><li><a class="tocitem" href="../generated_tutorial_dynamic_data/">Create Dynamic Data</a></li><li><a class="tocitem" href="../generated_tutorial_omib/">OMIB</a></li><li><a class="tocitem" href="../generated_tutorial_dynamic_lines/">Dynamic Lines Simulation</a></li><li><a class="tocitem" href="../generated_tutorial_inverter_modeling/">Inverter Modeling</a></li><li><a class="tocitem" href="../generated_tutorial_240bus/">240 WECC solver comparison</a></li><li><a class="tocitem" href="../generated_tutorial_continuation_pf/">Small-Signal Analysis</a></li><li><a class="tocitem" href="../generated_tutorial_activeload/">Active Load Model</a></li></ul></li><li><a class="tocitem" href="../../models/">Models</a></li><li><a class="tocitem" href="../../initialization/">Initialization</a></li><li><a class="tocitem" href="../../small/">Small Signal</a></li><li><a class="tocitem" href="../../reference_frames/">Reference Frames</a></li><li><a class="tocitem" href="../../perturbations/">Perturbations</a></li><li><a class="tocitem" href="../../time_delays/">Time Delays</a></li><li><a class="tocitem" href="../../generic/">Industrial Renewable Models</a></li><li><span class="tocitem">Generator Component Library</span><ul><li><a class="tocitem" href="../../component_models/machines/">Machine</a></li><li><a class="tocitem" href="../../component_models/shafts/">Shaft</a></li><li><a class="tocitem" href="../../component_models/avr/">AVR</a></li><li><a class="tocitem" href="../../component_models/pss/">PSS</a></li><li><a class="tocitem" href="../../component_models/turbine_gov/">Turbine and Governor</a></li></ul></li><li><span class="tocitem">CIG Component Library</span><ul><li><a class="tocitem" href="../../component_models/converter/">Converter</a></li><li><a class="tocitem" href="../../component_models/dc_source/">DC Sources</a></li><li><a class="tocitem" href="../../component_models/filters/">Filter</a></li><li><a class="tocitem" href="../../component_models/freq_esti/">Frequency Estimators</a></li><li><a class="tocitem" href="../../component_models/inner_control/">Inner Control</a></li><li><a class="tocitem" href="../../component_models/outer_control/">Outer Control</a></li></ul></li><li><span class="tocitem">Branch Models</span><ul><li><a class="tocitem" href="../../component_models/network/">Network</a></li></ul></li><li><span class="tocitem">Load Models</span><ul><li><a class="tocitem" href="../../component_models/loads/">Load Models</a></li></ul></li><li><span class="tocitem">Code Base Developer Guide</span><ul><li><a class="tocitem" href="../../code_base_developer_guide/developer/">Developer Guide</a></li><li><a class="tocitem" href="../../code_base_developer_guide/adding_a_model/">Adding a New Model</a></li></ul></li><li><a class="tocitem" href="../../api/public/">Public API Reference</a></li><li><a class="tocitem" href="../../api/internal/">Internal API Reference</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Quick Start Guide</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Quick Start Guide</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/Sienna-Platform/PowerSimulationsDynamics.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/Sienna-Platform/PowerSimulationsDynamics.jl/blob/main/docs/src/tutorials/quick_start_guide.jl" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Quick-Start-Guide"><a class="docs-heading-anchor" href="#Quick-Start-Guide">Quick Start Guide</a><a id="Quick-Start-Guide-1"></a><a class="docs-heading-anchor-permalink" href="#Quick-Start-Guide" title="Permalink"></a></h1><p><em>To follow along, you can download this tutorial as a <a href="https://sienna-platform.github.io/PowerSimulationsDynamics.jl/v0.16.1/tutorials/quick_start_guide.jl">Julia script (.jl)</a> or <a href="https://sienna-platform.github.io/PowerSimulationsDynamics.jl/v0.16.1/tutorials/generated_quick_start_guide.ipynb">Jupyter notebook (.ipynb)</a>.</em></p><p>The data for these tutorials is provided in <a href="https://sienna-platform.github.io/PowerSystemCaseBuilder.jl/stable/"><code>PowerSystemCaseBuilder.jl</code></a>. If you want to build your own case, take a look at the tutorial <a href="../generated_tutorial_dynamic_data/#Creating-and-Handling-Data-for-Dynamic-Simulations">Creating and Handling Data for Dynamic Simulations</a></p><p>For more details about loading data and adding more dynamic components check the tutorial on <a href="https://sienna-platform.github.io/PowerSystems.jl/stable/tutorials/generated_add_dynamic_data/#Adding-Data-for-Dynamic-Simulations">Adding Data for Dynamic Simulations</a> in <a href="https://sienna-platform.github.io/PowerSystems.jl/stable/"><code>PowerSystems.jl</code></a>.</p><p>For a detailed tutorial about this case visit <a href="../generated_tutorial_omib/#One-Machine-against-Infinite-Bus-(OMIB)-Simulation">One Machine against Infinite Bus (OMIB) Simulation</a></p><h2 id="Loading-data"><a class="docs-heading-anchor" href="#Loading-data">Loading data</a><a id="Loading-data-1"></a><a class="docs-heading-anchor-permalink" href="#Loading-data" title="Permalink"></a></h2><p>Data can be loaded from a pss/e raw file and a pss/e dyr file.</p><pre><code class="language-julia hljs">using PowerSystems
+using PowerSimulationsDynamics
+using PowerSystemCaseBuilder
+using Sundials
+using Plots
+
+omib_sys = build_system(PSIDSystems, &quot;OMIB System&quot;)</code></pre><table>
+  <thead>
+    <tr class = "title">
+      <td colspan = "2" style = "font-size: x-large; font-weight: bold; text-align: center;">System</td>
+    </tr>
+    <tr class = "columnLabelRow">
+      <th style = "font-weight: bold; text-align: left;">Property</th>
+      <th style = "font-weight: bold; text-align: left;">Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">Name</td>
+      <td style = "text-align: left;"></td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">Description</td>
+      <td style = "text-align: left;"></td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">System Units Base</td>
+      <td style = "text-align: left;">SYSTEM_BASE</td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">Base Power</td>
+      <td style = "text-align: left;">100.0</td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">Base Frequency</td>
+      <td style = "text-align: left;">60.0</td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">Num Components</td>
+      <td style = "text-align: left;">10</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr class = "title">
+      <td colspan = "2" style = "font-size: x-large; font-weight: bold; text-align: center;">Static Components</td>
+    </tr>
+    <tr class = "columnLabelRow">
+      <th style = "font-weight: bold; text-align: left;">Type</th>
+      <th style = "font-weight: bold; text-align: left;">Count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">ACBus</td>
+      <td style = "text-align: left;">2</td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">Arc</td>
+      <td style = "text-align: left;">1</td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">Area</td>
+      <td style = "text-align: left;">1</td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">Line</td>
+      <td style = "text-align: left;">2</td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">LoadZone</td>
+      <td style = "text-align: left;">1</td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">Source</td>
+      <td style = "text-align: left;">1</td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">ThermalStandard</td>
+      <td style = "text-align: left;">1</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr class = "title">
+      <td colspan = "2" style = "font-size: x-large; font-weight: bold; text-align: center;">Dynamic Components</td>
+    </tr>
+    <tr class = "columnLabelRow">
+      <th style = "font-weight: bold; text-align: left;">Type</th>
+      <th style = "font-weight: bold; text-align: left;">Count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">DynamicGenerator{BaseMachine, SingleMass, AVRFixed, TGFixed, PSSFixed}</td>
+      <td style = "text-align: left;">1</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="Define-the-[Simulation](@ref)"><a class="docs-heading-anchor" href="#Define-the-[Simulation](@ref)">Define the <a href="../../api/public/#PowerSimulationsDynamics.Simulation-Union{Tuple{T}, Tuple{Type{T}, System, String, Tuple{Float64, Float64}}, Tuple{Type{T}, System, String, Tuple{Float64, Float64}, Vector{&lt;:PowerSimulationsDynamics.Perturbation}}} where T&lt;:PowerSimulationsDynamics.SimulationModel"><code>Simulation</code></a></a><a id="Define-the-[Simulation](@ref)-1"></a><a class="docs-heading-anchor-permalink" href="#Define-the-[Simulation](@ref)" title="Permalink"></a></h2><pre><code class="language-julia hljs">time_span = (0.0, 30.0)
+perturbation_trip = BranchTrip(1.0, Line, &quot;BUS 1-BUS 2-i_1&quot;)
+sim = Simulation!(ResidualModel, omib_sys, pwd(), time_span, perturbation_trip)</code></pre><table>
+  <thead>
+    <tr class = "title">
+      <td colspan = "2" style = "font-size: x-large; font-weight: bold; text-align: center;">Simulation Summary</td>
+    </tr>
+    <tr class = "columnLabelRow">
+      <th style = "font-weight: bold; text-align: left;">Property</th>
+      <th style = "font-weight: bold; text-align: left;">Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">Status</td>
+      <td style = "text-align: left;">BUILT</td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">Simulation Type</td>
+      <td style = "text-align: left;">Residual Model</td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">Initialized?</td>
+      <td style = "text-align: left;">Yes</td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">Multimachine system?</td>
+      <td style = "text-align: left;">No</td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">Time Span</td>
+      <td style = "text-align: left;">(0.0, 30.0)</td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">Number of States</td>
+      <td style = "text-align: left;">6</td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">Number of Perturbations</td>
+      <td style = "text-align: left;">1</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="Explore-initial-conditions-for-the-simulation"><a class="docs-heading-anchor" href="#Explore-initial-conditions-for-the-simulation">Explore initial conditions for the simulation</a><a id="Explore-initial-conditions-for-the-simulation-1"></a><a class="docs-heading-anchor-permalink" href="#Explore-initial-conditions-for-the-simulation" title="Permalink"></a></h2><pre><code class="language-julia hljs">x0_init = read_initial_conditions(sim)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Dict{String, Any} with 5 entries:
+  &quot;generator-102-1&quot; =&gt; Dict(:ω=&gt;1.0, :δ=&gt;0.168525)
+  &quot;V_R&quot;             =&gt; Dict(102=&gt;1.03973, 101=&gt;1.05)
+  &quot;Vm&quot;              =&gt; Dict(102=&gt;1.04, 101=&gt;1.05)
+  &quot;θ&quot;               =&gt; Dict(102=&gt;0.0228958, 101=&gt;0.0)
+  &quot;V_I&quot;             =&gt; Dict(102=&gt;0.0238095, 101=&gt;0.0)</code></pre><pre><code class="language-julia hljs">show_states_initial_value(sim)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Voltage Variables
+====================
+BUS 1
+====================
+Vm 1.05
+θ 0.0
+====================
+BUS 2
+====================
+Vm 1.04
+θ 0.0229
+====================
+====================
+Differential States
+generator-102-1
+====================
+δ 0.1685
+ω 1.0
+====================</code></pre><h2 id="Obtain-small-signal-results-for-initial-conditions"><a class="docs-heading-anchor" href="#Obtain-small-signal-results-for-initial-conditions">Obtain small signal results for initial conditions</a><a id="Obtain-small-signal-results-for-initial-conditions-1"></a><a class="docs-heading-anchor-permalink" href="#Obtain-small-signal-results-for-initial-conditions" title="Permalink"></a></h2><p>Show eigenvalues for operating point</p><pre><code class="language-julia hljs">small_sig = small_signal_analysis(sim)
+summary_eigenvalues(small_sig)</code></pre><table>
+  <thead>
+    <tr class = "columnLabelRow">
+      <th style = "font-weight: bold; text-align: right;">Most Associated</th>
+      <th style = "font-weight: bold; text-align: right;">Part. Factor</th>
+      <th style = "font-weight: bold; text-align: right;">Real Part</th>
+      <th style = "font-weight: bold; text-align: right;">Imag. Part</th>
+      <th style = "font-weight: bold; text-align: right;">Damping [%]</th>
+      <th style = "font-weight: bold; text-align: right;">Freq [Hz]</th>
+    </tr>
+    <tr class = "columnLabelRow">
+      <th style = "text-align: right;">Any</th>
+      <th style = "text-align: right;">Any</th>
+      <th style = "text-align: right;">Any</th>
+      <th style = "text-align: right;">Any</th>
+      <th style = "text-align: right;">Any</th>
+      <th style = "text-align: right;">Any</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class = "dataRow">
+      <td style = "text-align: right;">generator-102-1 δ</td>
+      <td style = "text-align: right;">0.5</td>
+      <td style = "text-align: right;">-0.15883100381194412</td>
+      <td style = "text-align: right;">-13.264252847627334</td>
+      <td style = "text-align: right;">1.197350652434714</td>
+      <td style = "text-align: right;">2.111222750120555</td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: right;">generator-102-1 δ</td>
+      <td style = "text-align: right;">0.5</td>
+      <td style = "text-align: right;">-0.15883100381194412</td>
+      <td style = "text-align: right;">13.264252847627334</td>
+      <td style = "text-align: right;">1.197350652434714</td>
+      <td style = "text-align: right;">2.111222750120555</td>
+    </tr>
+  </tbody>
+</table>
+<h2 id="Execute-the-simulation"><a class="docs-heading-anchor" href="#Execute-the-simulation">Execute the simulation</a><a id="Execute-the-simulation-1"></a><a class="docs-heading-anchor-permalink" href="#Execute-the-simulation" title="Permalink"></a></h2><pre><code class="language-julia hljs">execute!(sim, IDA(); dtmax = 0.02, saveat = 0.02, enable_progress_bar = false)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">SIMULATION_FINALIZED::BUILD_STATUS = 6</code></pre><h2 id="Make-a-plot-of-the-results"><a class="docs-heading-anchor" href="#Make-a-plot-of-the-results">Make a plot of the results</a><a id="Make-a-plot-of-the-results-1"></a><a class="docs-heading-anchor-permalink" href="#Make-a-plot-of-the-results" title="Permalink"></a></h2><pre><code class="language-julia hljs">results = read_results(sim)
+angle = get_state_series(results, (&quot;generator-102-1&quot;, :δ));
+plot(angle; xlabel = &quot;time&quot;, ylabel = &quot;rotor angle [rad]&quot;, label = &quot;gen-102-1&quot;)</code></pre><img src="57488c26.svg" alt="Example block output"/></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../">« Welcome Page</a><a class="docs-footer-nextpage" href="../../execute/">Simulation Execution »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.15.0 on <span class="colophon-date" title="Saturday 20 June 2026 23:52">Saturday 20 June 2026</span>. Using Julia version 1.12.6.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
