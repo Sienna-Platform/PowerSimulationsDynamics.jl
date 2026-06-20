@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Quick Start Guide · PowerSimulationsDynamics.jl</title><script data-outdated-warner src="../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.039/juliamono-regular.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.11/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL=".."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../assets/documenter.js"></script><script src="../siteinfo.js"></script><script src="../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../"><img src="../assets/logo.png" alt="PowerSimulationsDynamics.jl logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../">PowerSimulationsDynamics.jl</a></span></div><form class="docs-search" action="../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../">Welcome Page</a></li><li class="is-active"><a class="tocitem" href>Quick Start Guide</a><ul class="internal"><li><a class="tocitem" href="#Loading-data"><span>Loading data</span></a></li><li><a class="tocitem" href="#Define-the-Simulation"><span>Define the Simulation</span></a></li><li><a class="tocitem" href="#Explore-initial-conditions-for-the-simulation"><span>Explore initial conditions for the simulation</span></a></li><li><a class="tocitem" href="#Obtain-small-signal-results-for-initial-conditions"><span>Obtain small signal results for initial conditions</span></a></li><li><a class="tocitem" href="#Execute-the-simulation"><span>Execute the simulation</span></a></li><li><a class="tocitem" href="#Make-a-plot-of-the-results"><span>Make a plot of the results</span></a></li></ul></li><li><a class="tocitem" href="../execute/">Simulation Execution</a></li><li><a class="tocitem" href="../tutorials_page/">Tutorials</a></li><li><a class="tocitem" href="../models/">Models</a></li><li><a class="tocitem" href="../initialization/">Initialization</a></li><li><a class="tocitem" href="../small/">Small Signal</a></li><li><a class="tocitem" href="../reference_frames/">Reference Frames</a></li><li><a class="tocitem" href="../perturbations/">Perturbations</a></li><li><a class="tocitem" href="../generic/">Industrial Renewable Models</a></li><li><span class="tocitem">Generator Component Library</span><ul><li><a class="tocitem" href="../component_models/machines/">Machine</a></li><li><a class="tocitem" href="../component_models/shafts/">Shaft</a></li><li><a class="tocitem" href="../component_models/avr/">AVR</a></li><li><a class="tocitem" href="../component_models/pss/">PSS</a></li><li><a class="tocitem" href="../component_models/turbine_gov/">Turbine and Governor</a></li></ul></li><li><span class="tocitem">CIG Component Library</span><ul><li><a class="tocitem" href="../component_models/converter/">Converter</a></li><li><a class="tocitem" href="../component_models/dc_source/">DC Sources</a></li><li><a class="tocitem" href="../component_models/filters/">Filter</a></li><li><a class="tocitem" href="../component_models/freq_esti/">Frequency Estimators</a></li><li><a class="tocitem" href="../component_models/inner_control/">Inner Control</a></li><li><a class="tocitem" href="../component_models/outer_control/">Outer Control</a></li></ul></li><li><span class="tocitem">Branch Models</span><ul><li><a class="tocitem" href="../component_models/network/">Network</a></li></ul></li><li><span class="tocitem">Code Base Developer Guide</span><ul><li><a class="tocitem" href="../code_base_developer_guide/developer/">Developer Guide</a></li></ul></li><li><a class="tocitem" href="../api/public/">Public API Reference</a></li><li><a class="tocitem" href="../api/internal/">Internal API Reference</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href>Quick Start Guide</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Quick Start Guide</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/NREL-SIIP/PowerSimulationsDynamics.jl/blob/master/docs/src/quick_start_guide.md" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="Quick-Start-Guide"><a class="docs-heading-anchor" href="#Quick-Start-Guide">Quick Start Guide</a><a id="Quick-Start-Guide-1"></a><a class="docs-heading-anchor-permalink" href="#Quick-Start-Guide" title="Permalink"></a></h1><p>You can access example data in the <a href="https://github.com/NREL-SIIP/PowerSystemsTestData">Power Systems Test Data Repository</a>, the data can be downloaded with the <code>PowerSystems.jl</code> submodule <code>UtilsData</code>. Some systems are already provided in <a href="https://github.com/NREL-SIIP/PowerSystemCaseBuilder.jl">PowerSystemCaseBuilder</a>.</p><h2 id="Loading-data"><a class="docs-heading-anchor" href="#Loading-data">Loading data</a><a id="Loading-data-1"></a><a class="docs-heading-anchor-permalink" href="#Loading-data" title="Permalink"></a></h2><p>Data can be loaded from a pss/e raw file and a pss/e dyr file.</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; using PowerSystems, PowerSimulationsDynamics, PowerSystemCaseBuilder, Sundials, Plots, Logging</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; logger = configure_logging(console_level = Logging.Error, file_level = Logging.Info)</code><code class="nohighlight hljs ansi" style="display:block;">MultiLogger(Base.CoreLogging.AbstractLogger[Logging.ConsoleLogger(IOContext(Base.PipeEndpoint(RawFD(4294967295) closed, 0 bytes waiting)), Error, Logging.default_metafmt, true, 0, Dict{Any, Int64}()), InfrastructureSystems.ProgressLogger(TerminalLoggers.TerminalLogger(IOContext(Base.PipeEndpoint(RawFD(4294967295) closed, 0 bytes waiting)), LogLevel(-1), TerminalLoggers.default_metafmt, true, 0, false, 0, Dict{Any, Int64}(), TerminalLoggers.StickyMessages(IOContext(Base.PipeEndpoint(RawFD(4294967295) closed, 0 bytes waiting)), false, Pair{Any, String}[]), LeftChildRightSiblingTrees.Node{TerminalLoggers.ProgressBar}[], ReentrantLock(nothing, Base.GenericCondition{Base.Threads.SpinLock}(Base.InvasiveLinkedList{Task}(nothing, nothing), Base.Threads.SpinLock(0)), 0))), InfrastructureSystems.FileLogger(Base.CoreLogging.SimpleLogger(IOStream(&lt;file power-systems.log&gt;), Info, Dict{Any, Int64}()))], nothing, Dict{Symbol, Base.CoreLogging.LogLevel}(), InfrastructureSystems.LogSuppressionTracker(Dict{Symbol, InfrastructureSystems.LogEventSuppressionStats}()))</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; omib_sys = PowerSystemCaseBuilder.build_system(
+                       PowerSystemCaseBuilder.PSSETestSystems,
+                       &quot;psse_OMIB_sys&quot;,
+                       )</code><code class="nohighlight hljs ansi" style="display:block;">┌ Info: Building new system psse_OMIB_sys from raw data
+└   sys_descriptor.raw_data = &quot;/home/runner/.julia/packages/PowerSystemCaseBuilder/U2gst/data&quot;
+[ Info: The PSS(R)E parser currently supports buses, loads, shunts, generators, branches, transformers, and dc lines
+[ Info: The PSS(R)E parser currently supports buses, loads, shunts, generators, branches, transformers, and dc lines
+[ Info: angmin and angmax values are 0, widening these values on branch 1 to +/- 60.0 deg.
+[ Info: angmin and angmax values are 0, widening these values on branch 2 to +/- 60.0 deg.
+[ Info: the voltage setpoint on generator 1 does not match the value at bus 101
+[ Info: the voltage setpoint on generator 2 does not match the value at bus 102
+┌ Info: Constructing System from Power Models
+│   data[&quot;name&quot;] = &quot;omib&quot;
+└   data[&quot;source_type&quot;] = &quot;pti&quot;
+[ Info: Reading bus data
+[ Info: Reading generator data
+[ Info: Reading branch data
+[ Info: Reading branch data
+[ Info: Reading DC Line data
+[ Info: Reading storage data
+[ Info: Generators provided in .dyr, without a generator in .raw file will be skipped.
+┌ Warning: struct DynamicGenerator does not exist in validation configuration file, validation skipped
+└ @ InfrastructureSystems ~/.julia/packages/InfrastructureSystems/FWgY0/src/validation.jl:51
+[ Info: Machine at bus 101, id 1 has zero inertia. Modeling it as Voltage Source
+[ Info: Serialized System to /home/runner/.julia/packages/PowerSystemCaseBuilder/U2gst/data/serialized_system/ForecastOnly/psse_OMIB_sys.json
+System
+┌───────────────────┬─────────────┐
+│ Property          │ Value       │
+├───────────────────┼─────────────┤
+│ System Units Base │ SYSTEM_BASE │
+│ Base Power        │ 100.0       │
+│ Base Frequency    │ 60.0        │
+│ Num Components    │ 11          │
+└───────────────────┴─────────────┘
+
+Static Components
+┌─────────────────┬───────┬────────────────────────┬───────────────┐
+│ Type            │ Count │ Has Static Time Series │ Has Forecasts │
+├─────────────────┼───────┼────────────────────────┼───────────────┤
+│ Arc             │ 1     │ false                  │ false         │
+│ Area            │ 1     │ false                  │ false         │
+│ Bus             │ 2     │ false                  │ false         │
+│ Line            │ 2     │ false                  │ false         │
+│ LoadZone        │ 1     │ false                  │ false         │
+│ PowerLoad       │ 1     │ false                  │ false         │
+│ Source          │ 1     │ false                  │ false         │
+│ ThermalStandard │ 1     │ false                  │ false         │
+└─────────────────┴───────┴────────────────────────┴───────────────┘
+
+Dynamic Components
+┌────────────────────────────────────────────────────────────────────────┬──────
+│ Type                                                                   │ Cou ⋯
+├────────────────────────────────────────────────────────────────────────┼──────
+│ DynamicGenerator{BaseMachine, SingleMass, AVRFixed, TGFixed, PSSFixed} │ 1   ⋯
+└────────────────────────────────────────────────────────────────────────┴──────
+                                                                1 column omitted</code></pre><p>For more details about loading data and adding more dynamic components check the <a href="https://nrel-siip.github.io/PowerSystems.jl/stable/modeler_guide/system_dynamic_data/">Creating a System with Dynamic devices</a> section of the documentation in <code>PowerSystems.jl</code>.</p><h2 id="Define-the-Simulation"><a class="docs-heading-anchor" href="#Define-the-Simulation">Define the Simulation</a><a id="Define-the-Simulation-1"></a><a class="docs-heading-anchor-permalink" href="#Define-the-Simulation" title="Permalink"></a></h2><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; time_span = (0.0, 30.0)</code><code class="nohighlight hljs ansi" style="display:block;">(0.0, 30.0)</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; perturbation_trip = BranchTrip(1.0, Line, &quot;BUS 1-BUS 2-i_1&quot;)</code><code class="nohighlight hljs ansi" style="display:block;">BranchTrip(1.0, Line, &quot;BUS 1-BUS 2-i_1&quot;)</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; sim = Simulation!(ResidualModel, omib_sys, pwd(), time_span, perturbation_trip)</code><code class="nohighlight hljs ansi" style="display:block;">[ Info: Unit System changed to UnitSystem.DEVICE_BASE = 1
+┌ Info: 
+│  ─────────────────────────────────────────────────────────────────────────────
+│                                                     Time         Allocations  
+│                                                ──────────────   ──────────────
+│                 Total measured:                     18.9s          1.74GiB    
+│ 
+│  Section                               ncalls     time   %tot     alloc   %tot
+│  ─────────────────────────────────────────────────────────────────────────────
+│  Build Simulation                           1    18.7s   100%   1.72GiB  100% 
+│    Make DiffEq Problem                      1   75.8ms  0.41%   3.89MiB  0.22%
+│    Build Perturbations                      1    722ms  3.86%    120MiB  6.80%
+│    Initial Condition NLsolve refine...      1    1.85s  9.92%   46.8MiB  2.66%
+│    Make Model Function                      1   96.6ms  0.52%   15.6MiB  0.89%
+│    Calculate Jacobian                       1    6.67s  35.7%   0.95GiB  55.3%
+│    Pre-initialization                       1    4.63s  24.8%    233MiB  13.3%
+│      Initialize Dynamic Injectors           1    445ms  2.38%   53.2MiB  3.02%
+│      Initialize Static Injectors            1    2.50s  13.4%   85.9MiB  4.88%
+│      Power Flow solution                    1    1.68s  9.02%   94.2MiB  5.35%
+│    Build Simulation Inputs                  1    4.63s  24.8%    368MiB  20.9%
+│      Wrap Static Injectors                  1    191ms  1.02%   5.95MiB  0.34%
+│      Calculate MM, DAE_vector, Tota...      1    118ms  0.63%   24.8MiB  1.41%
+│      Wrap Dynamic Injectors                 1    2.02s  10.8%    256MiB  14.5%
+│      Wrap Branches                          1   25.5μs  0.00%   3.88KiB  0.00%
+│  ─────────────────────────────────────────────────────────────────────────────
+└ 
+Simulation Summary
+┌─────────────────────────┬────────────────┐
+│ Property                │ Value          │
+├─────────────────────────┼────────────────┤
+│ Simulation Type         │ Residual Model │
+│ Initialized?            │ Yes            │
+│ Multimachine system?    │ No             │
+│ Time Span               │ (0.0, 30.0)    │
+│ Number of States        │ 6              │
+│ Number of Perturbations │ 1              │
+└─────────────────────────┴────────────────┘</code></pre><h2 id="Explore-initial-conditions-for-the-simulation"><a class="docs-heading-anchor" href="#Explore-initial-conditions-for-the-simulation">Explore initial conditions for the simulation</a><a id="Explore-initial-conditions-for-the-simulation-1"></a><a class="docs-heading-anchor-permalink" href="#Explore-initial-conditions-for-the-simulation" title="Permalink"></a></h2><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; x0_init = read_initial_conditions(sim)</code><code class="nohighlight hljs ansi" style="display:block;">Dict{String, Any} with 5 entries:
+  &quot;generator-102-1&quot; =&gt; Dict(:ω=&gt;1.0, :δ=&gt;0.539921)
+  &quot;V_R&quot;             =&gt; Dict(102=&gt;1.03973, 101=&gt;1.05)
+  &quot;Vm&quot;              =&gt; Dict(102=&gt;1.04, 101=&gt;1.05)
+  &quot;θ&quot;               =&gt; Dict(102=&gt;0.0228958, 101=&gt;-4.67827e-9)
+  &quot;V_I&quot;             =&gt; Dict(102=&gt;0.0238095, 101=&gt;-4.91218e-9)</code></pre><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; show_states_initial_value(sim)</code><code class="nohighlight hljs ansi" style="display:block;">Voltage Variables
+====================
+BUS 1
+====================
+Vm 1.05
+θ -0.0
+====================
+BUS 2
+====================
+Vm 1.04
+θ 0.0229
+====================
+====================
+Differential States
+generator-102-1
+====================
+δ 0.5399
+ω 1.0
+====================</code></pre><h2 id="Obtain-small-signal-results-for-initial-conditions"><a class="docs-heading-anchor" href="#Obtain-small-signal-results-for-initial-conditions">Obtain small signal results for initial conditions</a><a id="Obtain-small-signal-results-for-initial-conditions-1"></a><a class="docs-heading-anchor-permalink" href="#Obtain-small-signal-results-for-initial-conditions" title="Permalink"></a></h2><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt;     small_sig = small_signal_analysis(sim)</code><code class="nohighlight hljs ansi" style="display:block;">The system is small signal stable</code></pre><p>Show eigenvalues for operating point</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt;     small_sig.eigenvalues</code><code class="nohighlight hljs ansi" style="display:block;">2-element Vector{ComplexF64}:
+ -0.15883100381194415 - 6.213869164314339im
+ -0.15883100381194415 + 6.213869164314339im</code></pre><p>Show reduced jacobian for operating point</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt;     small_sig.reduced_jacobian</code><code class="nohighlight hljs ansi" style="display:block;">2×2 SparseArrays.SparseMatrixCSC{Float64, Int64} with 3 stored entries:
+   ⋅        376.991
+ -0.102489   -0.317662</code></pre><p>Explore participation factors. In this case for state ω</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt;     part_factors = small_sig.participation_factors</code><code class="nohighlight hljs ansi" style="display:block;">Dict{String, Dict{Symbol, Array{Float64, N} where N}} with 1 entry:
+  &quot;generator-102-1&quot; =&gt; Dict(:ω=&gt;[0.5, 0.5], :δ=&gt;[0.5, 0.5])</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt;     part_factors[&quot;generator-102-1&quot;][:ω]</code><code class="nohighlight hljs ansi" style="display:block;">2-element Vector{Float64}:
+ 0.5
+ 0.5</code></pre><p>This means that the state ω of the generator at bus 102, participates 50% in eigenvalue 1 and 50% in eigenvalue 2.</p><h2 id="Execute-the-simulation"><a class="docs-heading-anchor" href="#Execute-the-simulation">Execute the simulation</a><a id="Execute-the-simulation-1"></a><a class="docs-heading-anchor-permalink" href="#Execute-the-simulation" title="Permalink"></a></h2><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt;     execute!(sim, IDA(), dtmax = 0.02, saveat = 0.02, enable_progress_bar = false)</code><code class="nohighlight hljs ansi" style="display:block;">SIMULATION_FINALIZED::BUILD_STATUS = 6</code></pre><h2 id="Make-a-plot-of-the-results"><a class="docs-heading-anchor" href="#Make-a-plot-of-the-results">Make a plot of the results</a><a id="Make-a-plot-of-the-results-1"></a><a class="docs-heading-anchor-permalink" href="#Make-a-plot-of-the-results" title="Permalink"></a></h2><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; results = read_results(sim)</code><code class="nohighlight hljs ansi" style="display:block;">Simulation Results Summary
+┌────────────────────────────┬─────────────┐
+│ Property                   │ Value       │
+├────────────────────────────┼─────────────┤
+│ System Base Power [MVA]    │ 100.0       │
+│ System Base Frequency [Hz] │ 60.0        │
+│ Time Span                  │ (0.0, 30.0) │
+│ Total Time Steps           │ 1503        │
+│ Number of States           │ 6           │
+│ Total solve time           │ 4.193704985 │
+└────────────────────────────┴─────────────┘</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; angle = get_state_series(results, (&quot;generator-102-1&quot;, :δ));</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; plot(angle, xlabel = &quot;time&quot;, ylabel = &quot;rotor angle [rad]&quot;, label = &quot;gen-102-1&quot;);</code><code class="nohighlight hljs ansi" style="display:block;"></code></pre><p><img src="../assets/f-plot.svg" alt="plot"/></p><p>If you miss PSS/e&#39;s plotting aesthetics and want something that resembles that, you can use <a href="https://github.com/Evizero/UnicodePlots.jl"><code>UnicodePlots</code></a>.</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; using UnicodePlots</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; unicodeplots()</code><code class="nohighlight hljs ansi" style="display:block;">Plots.UnicodePlotsBackend()</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; plot(angle, xlabel = &quot;time&quot;, ylabel = &quot;rotor angle [rad]&quot;, label = &quot;gen-102-1&quot;);</code><code class="nohighlight hljs ansi" style="display:block;"></code></pre><p><img src="../assets/unicode.png" alt="plot"/></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../">« Welcome Page</a><a class="docs-footer-nextpage" href="../execute/">Simulation Execution »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.10 on <span class="colophon-date" title="Saturday 13 November 2021 00:01">Saturday 13 November 2021</span>. Using Julia version 1.6.3.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

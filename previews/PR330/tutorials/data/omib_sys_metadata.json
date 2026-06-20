@@ -1,0 +1,42 @@
+{
+    "name": "",
+    "description": "",
+    "frequency": 60,
+    "time_series_resolution_milliseconds": 0,
+    "component_counts": [
+        {
+            "type": "Arc",
+            "count": 1
+        },
+        {
+            "type": "Area",
+            "count": 1
+        },
+        {
+            "type": "Bus",
+            "count": 2
+        },
+        {
+            "type": "DynamicGenerator",
+            "count": 1
+        },
+        {
+            "type": "Line",
+            "count": 2
+        },
+        {
+            "type": "LoadZone",
+            "count": 1
+        },
+        {
+            "type": "Source",
+            "count": 1
+        },
+        {
+            "type": "ThermalStandard",
+            "count": 1
+        }
+    ],
+    "time_series_counts": [
+    ]
+}

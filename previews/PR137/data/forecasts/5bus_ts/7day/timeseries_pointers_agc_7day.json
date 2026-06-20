@@ -1,0 +1,67 @@
+[
+    {
+        "simulation": "AGC",
+        "resolution": 6,
+        "category": "Generator",
+        "component_name": "SolarBusC",
+        "module": "PowerSystems",
+        "type": "SingleTimeSeries",
+        "name": "max_active_power",
+        "scaling_factor_multiplier": "get_max_active_power",
+        "scaling_factor_multiplier_module": "PowerSystems",
+        "normalization_factor": 1.8329972808018467,
+        "data_file": "./agc_solar.csv"
+    },
+    {
+        "simulation": "AGC",
+        "resolution": 6,
+        "category": "Generator",
+        "component_name": "WindBusA",
+        "module": "PowerSystems",
+        "type": "SingleTimeSeries",
+        "name": "max_active_power",
+        "scaling_factor_multiplier": "get_max_active_power",
+        "scaling_factor_multiplier_module": "PowerSystems",
+        "normalization_factor": 100.0443887066016,
+        "data_file": "./agc_wind.csv"
+    },
+    {
+        "simulation": "AGC",
+        "resolution": 6,
+        "category": "ElectricLoad",
+        "component_name": "bus2",
+        "module": "PowerSystems",
+        "type": "SingleTimeSeries",
+        "name": "max_active_power",
+        "scaling_factor_multiplier": "get_max_active_power",
+        "scaling_factor_multiplier_module": "PowerSystems",
+        "normalization_factor": 1142.845,
+        "data_file": "./agc_load.csv"
+    },
+    {
+        "simulation": "AGC",
+        "resolution": 6,
+        "category": "ElectricLoad",
+        "component_name": "bus3",
+        "module": "PowerSystems",
+        "type": "SingleTimeSeries",
+        "name": "max_active_power",
+        "scaling_factor_multiplier": "get_max_active_power",
+        "scaling_factor_multiplier_module": "PowerSystems",
+        "normalization_factor": 1142.845,
+        "data_file": "./agc_load.csv"
+    },
+    {
+        "simulation": "AGC",
+        "resolution": 6,
+        "category": "ElectricLoad",
+        "component_name": "bus4",
+        "module": "PowerSystems",
+        "type": "SingleTimeSeries",
+        "name": "max_active_power",
+        "scaling_factor_multiplier": "get_max_active_power",
+        "scaling_factor_multiplier_module": "PowerSystems",
+        "normalization_factor": 1142.845,
+        "data_file": "./agc_load.csv"
+    }
+]

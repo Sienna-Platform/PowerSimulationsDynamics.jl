@@ -1,0 +1,47 @@
+{
+    "name": "",
+    "description": "",
+    "frequency": 60,
+    "time_series_resolutions_milliseconds": [
+    ],
+    "component_counts": [
+        {
+            "type": "ACBus",
+            "count": 3
+        },
+        {
+            "type": "Arc",
+            "count": 3
+        },
+        {
+            "type": "Area",
+            "count": 1
+        },
+        {
+            "type": "DynamicGenerator{OneDOneQMachine, SingleMass, AVRTypeI, TGFixed, PSSFixed}",
+            "count": 1
+        },
+        {
+            "type": "DynamicInverter{AverageConverter, OuterControl{VirtualInertia, ReactivePowerDroop}, VoltageModeControl, FixedDCSource, KauraPLL, LCLFilter, Nothing}",
+            "count": 1
+        },
+        {
+            "type": "Line",
+            "count": 3
+        },
+        {
+            "type": "LoadZone",
+            "count": 1
+        },
+        {
+            "type": "StandardLoad",
+            "count": 3
+        },
+        {
+            "type": "ThermalStandard",
+            "count": 2
+        }
+    ],
+    "time_series_counts": [
+    ]
+}

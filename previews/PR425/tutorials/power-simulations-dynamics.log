@@ -1,0 +1,65 @@
+┌ Warning: 2026-05-30T04:25:49.163 [7605:1]: Setting the system unit base from DEVICE_BASE to SYSTEM_BASE for matrix construction
+└ @ PowerNetworkMatrices /home/runner/.julia/packages/PowerNetworkMatrices/ffrVU/src/Ybus.jl:840
+┌ Info: 2026-05-30T04:25:49.163 [7605:1]: Unit System changed to UnitSystem.SYSTEM_BASE = 0
+└ @ PowerSystems /home/runner/.julia/packages/PowerSystems/uwQkn/src/base.jl:583
+┌ Info: 2026-05-30T04:25:49.198 [7605:1]: Finding subnetworks via iterative union find
+└ @ PowerNetworkMatrices /home/runner/.julia/packages/PowerNetworkMatrices/ffrVU/src/connectivity_checks.jl:150
+┌ Info: 2026-05-30T04:25:49.539 [7605:1]: The reference Bus has a Source connected to it. The frequency reference model will change to ConstantFrequency
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/frequency_reference.jl:83
+┌ Info: 2026-05-30T04:25:49.539 [7605:1]: Pre-Initializing Simulation States
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/simulation.jl:265
+┌ Info: 2026-05-30T04:25:49.540 [7605:1]: Finding subnetworks via iterative union find
+└ @ PowerNetworkMatrices /home/runner/.julia/packages/PowerNetworkMatrices/ffrVU/src/connectivity_checks.jl:150
+┌ Info: 2026-05-30T04:25:49.540 [7605:1]: Finding subnetworks via iterative union find
+└ @ PowerNetworkMatrices /home/runner/.julia/packages/PowerNetworkMatrices/ffrVU/src/connectivity_checks.jl:150
+┌ Info: 2026-05-30T04:25:49.540 [7605:1]: Validating connectivity with depth first search (network traversal)
+└ @ PowerNetworkMatrices /home/runner/.julia/packages/PowerNetworkMatrices/ffrVU/src/system_utils.jl:19
+┌ Info: 2026-05-30T04:25:49.540 [7605:1]: Finding subnetworks via iterative union find
+└ @ PowerNetworkMatrices /home/runner/.julia/packages/PowerNetworkMatrices/ffrVU/src/connectivity_checks.jl:150
+┌ Info: 2026-05-30T04:25:49.540 [7605:1]: Finding subnetworks via iterative union find
+└ @ PowerNetworkMatrices /home/runner/.julia/packages/PowerNetworkMatrices/ffrVU/src/connectivity_checks.jl:150
+┌ Info: 2026-05-30T04:25:49.540 [7605:1]: Initial residual size: 1.0697213619904653 L2, 0.6337508428739508 L∞
+└ @ PowerFlows /home/runner/.julia/packages/PowerFlows/Uwsxl/src/power_flow_setup.jl:162
+┌ Info: 2026-05-30T04:25:49.540 [7605:1]: Final residual size: 5.3487528165032725e-11 L2, 3.934641501501801e-11 L∞.
+└ @ PowerFlows /home/runner/.julia/packages/PowerFlows/Uwsxl/src/power_flow_method.jl:688
+┌ Info: 2026-05-30T04:25:49.540 [7605:1]: The PowerFlows.TrustRegionACPowerFlow solver converged after 2 iterations.
+└ @ PowerFlows /home/runner/.julia/packages/PowerFlows/Uwsxl/src/power_flow_method.jl:690
+┌ Warning: 2026-05-30T04:25:49.540 [7605:1]: Reactive power at ref bus is outside limits.
+└ @ PowerFlows /home/runner/.julia/packages/PowerFlows/Uwsxl/src/post_processing.jl:210
+┌ Info: 2026-05-30T04:25:49.541 [7605:1]: Unit System changed to UnitSystem.DEVICE_BASE = 1
+└ @ PowerSystems /home/runner/.julia/packages/PowerSystems/uwQkn/src/base.jl:583
+┌ Info: 2026-05-30T04:25:50.778 [7605:1]: Residual from initial guess: max = 3.652855970275193e-7 at 5, total = 7.588853772750181e-7
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/nlsolve_wrapper.jl:115
+┌ Info: 2026-05-30T04:25:50.778 [7605:1]: Initialization non-linear solve succeeded with a tolerance of 1.0e-9 using solver trust_region. Saving solution.
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/nlsolve_wrapper.jl:82
+┌ Info: 2026-05-30T04:25:50.778 [7605:1]: Attaching Perturbations
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/simulation.jl:299
+┌ Info: 2026-05-30T04:25:50.779 [7605:1]: Simulations status = BUILT
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/simulation.jl:462
+┌ Info: 2026-05-30T04:25:50.779 [7605:1]: 
+│ ──────────────────────────────────────────────────────────────────────────────────────
+│                                                            Time          Allocations  
+│                                                      ───────────────   ───────────────
+│                    Total measured:                        1.74s            86.2MiB    
+│ 
+│ Section                                      ncalls     time    %tot     alloc    %tot
+│ ──────────────────────────────────────────────────────────────────────────────────────
+│ Build Simulation                                  1    1.74s  100.0%   86.2MiB  100.0%
+│   Build Simulation Inputs                         1    500ms   28.7%   23.9MiB   27.7%
+│     Wrap Branches                                 1    335ms   19.2%   14.1MiB   16.3%
+│     Wrap Dynamic Injectors                        1    328μs    0.0%   33.0KiB    0.0%
+│     Calculate MM, DAE_vector, Total Shunts        1   34.5μs    0.0%   2.61KiB    0.0%
+│     Wrap Static Injectors                         1   66.8μs    0.0%   6.08KiB    0.0%
+│   Pre-initialization                              1   10.7ms    0.6%    428KiB    0.5%
+│     Power Flow solution                           1   1.21ms    0.1%    278KiB    0.3%
+│     Initialize Static Injectors                   1   74.9μs    0.0%   3.48KiB    0.0%
+│     Initialize Dynamic Injectors                  1    249μs    0.0%    130KiB    0.1%
+│     Initialize Dynamic Branches                   1   9.17ms    0.5%   5.00KiB    0.0%
+│   Calculate Jacobian                              1    1.23s   70.6%   61.7MiB   71.5%
+│   Make Model Function                             1   8.54μs    0.0%      928B    0.0%
+│   Initial Condition NLsolve refinement            1    689μs    0.0%    249KiB    0.3%
+│   Build Perturbations                             1   31.1μs    0.0%   9.48KiB    0.0%
+│   Make DiffEq Problem                             1    184μs    0.0%   10.0KiB    0.0%
+│ ──────────────────────────────────────────────────────────────────────────────────────
+│ 
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/simulation.jl:487

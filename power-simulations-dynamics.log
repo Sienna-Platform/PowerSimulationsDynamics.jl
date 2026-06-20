@@ -1,0 +1,44 @@
+┌ Info: 2021-09-28T17:05:42.385 [22826:1]: Validating connectivity with Goderya algorithm
+└ @ PowerSystems /Users/jdlara/.julia/packages/PowerSystems/a9ndT/src/utils/network_calculations/ybus_calculations.jl:296
+┌ Info: 2021-09-28T17:05:42.385 [22826:1]: The System has no islands
+└ @ PowerSystems /Users/jdlara/.julia/packages/PowerSystems/a9ndT/src/utils/network_calculations/ybus_calculations.jl:242
+┌ Debug: 2021-09-28T17:05:42.385 [22826:1]: System doesn't contain Dynamic Branches
+└ @ PowerSimulationsDynamics /Users/jdlara/.julia/dev/PowerSimulationsDynamics/src/base/simulation_inputs.jl:202
+┌ Debug: 2021-09-28T17:05:42.386 [22826:1]: Wrapping generator-101-1
+└ @ PowerSimulationsDynamics /Users/jdlara/.julia/dev/PowerSimulationsDynamics/src/base/simulation_inputs.jl:143
+┌ Debug: 2021-09-28T17:05:42.386 [22826:1]: ix_range=7:17 ode_range=1:11 inner_vars_range= 1:9
+└ @ PowerSimulationsDynamics /Users/jdlara/.julia/dev/PowerSimulationsDynamics/src/base/simulation_inputs.jl:152
+┌ Debug: 2021-09-28T17:05:42.386 [22826:1]: Using default mass matrix entries GasTG
+└ @ PowerSimulationsDynamics /Users/jdlara/.julia/dev/PowerSimulationsDynamics/src/models/generator_models/tg_models.jl:6
+┌ Debug: 2021-09-28T17:05:42.386 [22826:1]: Using default mass matrix entries PSSFixed
+└ @ PowerSimulationsDynamics /Users/jdlara/.julia/dev/PowerSimulationsDynamics/src/models/generator_models/pss_models.jl:6
+┌ Debug: 2021-09-28T17:05:42.386 [22826:1]: Using default mass matrix entries RoundRotorQuadratic
+└ @ PowerSimulationsDynamics /Users/jdlara/.julia/dev/PowerSimulationsDynamics/src/models/generator_models/machine_models.jl:6
+┌ Debug: 2021-09-28T17:05:42.386 [22826:1]: Using default mass matrix entries SingleMass
+└ @ PowerSimulationsDynamics /Users/jdlara/.julia/dev/PowerSimulationsDynamics/src/models/generator_models/shaft_models.jl:6
+┌ Debug: 2021-09-28T17:05:42.386 [22826:1]: Simulation Inputs Created
+└ @ PowerSimulationsDynamics /Users/jdlara/.julia/dev/PowerSimulationsDynamics/src/base/simulation.jl:180
+┌ Warning: 2021-09-28T17:05:42.386 [22826:1]: Initial Conditions set to flat start
+└ @ PowerSimulationsDynamics /Users/jdlara/.julia/dev/PowerSimulationsDynamics/src/base/simulation.jl:196
+┌ Warning: 2021-09-28T17:05:42.386 [22826:1]: No Pre-initialization conducted. If this is unexpected, check the initialization keywords
+└ @ PowerSimulationsDynamics /Users/jdlara/.julia/dev/PowerSimulationsDynamics/src/base/simulation.jl:230
+┌ Debug: 2021-09-28T17:05:42.386 [22826:1]: injection ode size = 11 branches ode size = 0
+└ @ PowerSimulationsDynamics /Users/jdlara/.julia/dev/PowerSimulationsDynamics/src/base/caches.jl:25
+┌ Debug: 2021-09-28T17:05:42.386 [22826:1]: Evaluating Jacobian Function
+└ @ PowerSimulationsDynamics /Users/jdlara/.julia/dev/PowerSimulationsDynamics/src/base/jacobian.jl:47
+┌ Debug: 2021-09-28T17:05:42.387 [22826:1]: Evaluating Jacobian Function
+└ @ PowerSimulationsDynamics /Users/jdlara/.julia/dev/PowerSimulationsDynamics/src/base/jacobian.jl:47
+┌ Debug: 2021-09-28T17:05:42.387 [22826:1]: Evaluating Jacobian Function
+└ @ PowerSimulationsDynamics /Users/jdlara/.julia/dev/PowerSimulationsDynamics/src/base/jacobian.jl:47
+┌ Debug: 2021-09-28T17:05:42.387 [22826:1]: Evaluating Jacobian Function
+└ @ PowerSimulationsDynamics /Users/jdlara/.julia/dev/PowerSimulationsDynamics/src/base/jacobian.jl:47
+┌ Debug: 2021-09-28T17:05:42.387 [22826:1]: injection ode size = 11 branches ode size = 0
+└ @ PowerSimulationsDynamics /Users/jdlara/.julia/dev/PowerSimulationsDynamics/src/base/caches.jl:83
+┌ Info: 2021-09-28T17:05:42.387 [22826:1]: Simulation already initialized. Refinement not executed
+└ @ PowerSimulationsDynamics /Users/jdlara/.julia/dev/PowerSimulationsDynamics/src/base/nlsolve_wrapper.jl:81
+┌ Info: 2021-09-28T17:05:42.387 [22826:1]: Attaching Perturbations
+└ @ PowerSimulationsDynamics /Users/jdlara/.julia/dev/PowerSimulationsDynamics/src/base/simulation.jl:245
+┌ Debug: 2021-09-28T17:05:42.387 [22826:1]: The simulation has no perturbations
+└ @ PowerSimulationsDynamics /Users/jdlara/.julia/dev/PowerSimulationsDynamics/src/base/simulation.jl:247
+┌ Info: 2021-09-28T17:05:42.387 [22826:1]: Simulations status = BUILT
+└ @ PowerSimulationsDynamics /Users/jdlara/.julia/dev/PowerSimulationsDynamics/src/base/simulation.jl:328

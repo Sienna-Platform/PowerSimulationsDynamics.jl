@@ -1,0 +1,123 @@
+┌ Info: 2022-04-02T20:05:30.515 [2945:1]: Validating connectivity with Goderya algorithm
+└ @ PowerSystems /home/runner/.julia/packages/PowerSystems/PPZ5R/src/utils/network_calculations/ybus_calculations.jl:308
+┌ Info: 2022-04-02T20:05:30.739 [2945:1]: The System has no islands
+└ @ PowerSystems /home/runner/.julia/packages/PowerSystems/PPZ5R/src/utils/network_calculations/ybus_calculations.jl:254
+┌ Debug: 2022-04-02T20:05:30.739 [2945:1]: System doesn't contain Dynamic Branches
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/simulation_inputs.jl:210
+┌ Debug: 2022-04-02T20:05:30.943 [2945:1]: Wrapping generator-102-1
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/simulation_inputs.jl:151
+┌ Debug: 2022-04-02T20:05:30.987 [2945:1]: ix_range=5:6 ode_range=1:2 inner_vars_range= 1:9
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/simulation_inputs.jl:160
+┌ Debug: 2022-04-02T20:05:32.279 [2945:1]: Using default mass matrix entries TGFixed
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/models/generator_models/tg_models.jl:6
+┌ Debug: 2022-04-02T20:05:32.280 [2945:1]: Using default mass matrix entries PSSFixed
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/models/generator_models/pss_models.jl:6
+┌ Debug: 2022-04-02T20:05:32.280 [2945:1]: Using default mass matrix entries AVRFixed
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/models/generator_models/avr_models.jl:6
+┌ Debug: 2022-04-02T20:05:32.280 [2945:1]: Using default mass matrix entries BaseMachine
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/models/generator_models/machine_models.jl:6
+┌ Debug: 2022-04-02T20:05:32.280 [2945:1]: Using default mass matrix entries SingleMass
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/models/generator_models/shaft_models.jl:6
+┌ Info: 2022-04-02T20:05:32.488 [2945:1]: The reference Bus has a Source connected to it. The frequency reference model will change to ConstantFrequency
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/frequency_reference.jl:70
+┌ Debug: 2022-04-02T20:05:32.499 [2945:1]: Simulation Inputs Created
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/simulation.jl:221
+┌ Info: 2022-04-02T20:05:32.499 [2945:1]: Pre-Initializing Simulation States
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/simulation.jl:263
+┌ Debug: 2022-04-02T20:05:32.499 [2945:1]: Start state intialization routine
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/simulation_initialization.jl:161
+┌ Info: 2022-04-02T20:05:32.499 [2945:1]: Unit System changed to UnitSystem.SYSTEM_BASE = 0
+└ @ PowerSystems /home/runner/.julia/packages/PowerSystems/PPZ5R/src/base.jl:346
+┌ Info: 2022-04-02T20:05:32.499 [2945:1]: Validating connectivity with Goderya algorithm
+└ @ PowerSystems /home/runner/.julia/packages/PowerSystems/PPZ5R/src/utils/network_calculations/ybus_calculations.jl:308
+┌ Info: 2022-04-02T20:05:32.499 [2945:1]: The System has no islands
+└ @ PowerSystems /home/runner/.julia/packages/PowerSystems/PPZ5R/src/utils/network_calculations/ybus_calculations.jl:254
+┌ Debug: 2022-04-02T20:05:33.696 [2945:1]: Reactive Power Distribution BUS 2
+└ @ PowerFlows /home/runner/.julia/packages/PowerFlows/SXykU/src/post_processing.jl:238
+┌ Debug: 2022-04-02T20:05:33.767 [2945:1]: Only one generator in the bus
+└ @ PowerFlows /home/runner/.julia/packages/PowerFlows/SXykU/src/post_processing.jl:243
+┌ Info: 2022-04-02T20:05:34.256 [2945:1]: PowerFlow solve converged, the results have been stored in the system
+└ @ PowerFlows /home/runner/.julia/packages/PowerFlows/SXykU/src/nlsolve_powerflow.jl:45
+┌ Info: 2022-04-02T20:05:34.256 [2945:1]: Unit System changed to UnitSystem.DEVICE_BASE = 1
+└ @ PowerSystems /home/runner/.julia/packages/PowerSystems/PPZ5R/src/base.jl:346
+┌ Debug: 2022-04-02T20:05:34.256 [2945:1]: Updating bus voltage magnitude and angle to match power flow result
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/simulation_initialization.jl:20
+┌ Debug: 2022-04-02T20:05:34.265 [2945:1]: BUS 1 V_r = 1.05, V_i = 0.0
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/simulation_initialization.jl:26
+┌ Debug: 2022-04-02T20:05:34.265 [2945:1]: BUS 2 V_r = 1.0397274193633474, V_i = 0.023809523809476176
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/simulation_initialization.jl:26
+┌ Debug: 2022-04-02T20:05:34.265 [2945:1]: Updating Source internal voltage magnitude and angle
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/simulation_initialization.jl:32
+┌ Debug: 2022-04-02T20:05:36.777 [2945:1]: Updating Dynamic Injection Component Initial Guess
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/simulation_initialization.jl:75
+┌ Debug: 2022-04-02T20:05:36.786 [2945:1]: Initializing generator-102-1 - DynamicGenerator{BaseMachine, SingleMass, AVRFixed, TGFixed, PSSFixed}
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/simulation_initialization.jl:84
+┌ Debug: 2022-04-02T20:05:37.615 [2945:1]: δ
+│   residual[ix] = 0.0
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/simulation_initialization.jl:65
+┌ Debug: 2022-04-02T20:05:37.635 [2945:1]: ω
+│   residual[ix] = -1.5500095912412842e-14
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/simulation_initialization.jl:65
+┌ Debug: 2022-04-02T20:05:37.679 [2945:1]: nothing
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/simulation_initialization.jl:91
+┌ Debug: 2022-04-02T20:05:37.679 [2945:1]: No Dynamic Branches in the system
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/simulation_initialization.jl:176
+┌ Debug: 2022-04-02T20:05:37.840 [2945:1]: injection ode size = 2 branches ode size = 0
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/caches.jl:25
+┌ Debug: 2022-04-02T20:05:42.765 [2945:1]: Evaluating Jacobian Function
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/jacobian.jl:98
+┌ Debug: 2022-04-02T20:05:43.762 [2945:1]: Evaluating Jacobian Function
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/jacobian.jl:98
+┌ Debug: 2022-04-02T20:05:43.762 [2945:1]: Evaluating Jacobian Function
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/jacobian.jl:98
+┌ Debug: 2022-04-02T20:05:44.302 [2945:1]: Evaluating Jacobian Function
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/jacobian.jl:98
+┌ Debug: 2022-04-02T20:05:44.420 [2945:1]: injection ode size = 2 branches ode size = 0
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/caches.jl:83
+┌ Debug: 2022-04-02T20:05:46.146 [2945:1]: Residual is zero with tolerance 1.0e-9
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/nlsolve_wrapper.jl:78
+┌ Debug: 2022-04-02T20:05:46.146 [2945:1]: nothing
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/nlsolve_wrapper.jl:95
+┌ Info: 2022-04-02T20:05:46.146 [2945:1]: Residual from initial guess: max = 4.2092551666428335e-11 at 4, total = 9.411131735555515e-11
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/nlsolve_wrapper.jl:97
+┌ Debug: 2022-04-02T20:05:46.146 [2945:1]: Start NLSolve System Run with trust_region and F_tol = 1.0e-9
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/nlsolve_wrapper.jl:141
+┌ Debug: 2022-04-02T20:05:46.196 [2945:1]: Evaluating Jacobian Function
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/jacobian.jl:98
+┌ Info: 2022-04-02T20:05:46.196 [2945:1]: Initialization non-linear solve succeeded with a tolerance of 1.0e-9 using solver trust_region. Saving solution.
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/nlsolve_wrapper.jl:65
+┌ Debug: 2022-04-02T20:05:46.196 [2945:1]: Write initial guess vector using trust_region with tol = 1.0e-9 convergence = true
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/nlsolve_wrapper.jl:146
+┌ Info: 2022-04-02T20:05:46.196 [2945:1]: Attaching Perturbations
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/simulation.jl:286
+┌ Debug: 2022-04-02T20:05:46.341 [2945:1]: BranchTrip(1.0, Line, "BUS 1-BUS 2-i_1")
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/simulation.jl:297
+┌ Info: 2022-04-02T20:05:46.887 [2945:1]: Simulations status = BUILT
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/simulation.jl:406
+┌ Debug: 2022-04-02T20:05:56.111 [2945:1]: status before execute
+│   sim.status = BUILT
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/simulation.jl:464
+┌ Debug: 2022-04-02T20:06:00.974 [2945:1]: Evaluating Jacobian Function
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/jacobian.jl:98
+┌ Debug: 2022-04-02T20:06:00.980 [2945:1]: Evaluating Jacobian Function
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/jacobian.jl:98
+┌ Debug: 2022-04-02T20:06:00.980 [2945:1]: Evaluating Jacobian Function
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/jacobian.jl:98
+┌ Debug: 2022-04-02T20:06:00.980 [2945:1]: Evaluating Jacobian Function
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/jacobian.jl:98
+┌ Debug: 2022-04-02T20:06:00.981 [2945:1]: Evaluating Jacobian Function
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/jacobian.jl:98
+┌ Debug: 2022-04-02T20:06:00.981 [2945:1]: Tripping line BUS 1-BUS 2-i_1
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/perturbations.jl:97
+┌ Debug: 2022-04-02T20:06:01.087 [2945:1]: Evaluating Jacobian Function
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/jacobian.jl:98
+┌ Debug: 2022-04-02T20:06:01.087 [2945:1]: Evaluating Jacobian Function
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/jacobian.jl:98
+┌ Debug: 2022-04-02T20:06:01.087 [2945:1]: Evaluating Jacobian Function
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/jacobian.jl:98
+┌ Debug: 2022-04-02T20:06:01.087 [2945:1]: Evaluating Jacobian Function
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/jacobian.jl:98
+┌ Debug: 2022-04-02T20:06:01.087 [2945:1]: Evaluating Jacobian Function
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/jacobian.jl:98
+┌ Debug: 2022-04-02T20:06:01.087 [2945:1]: Evaluating Jacobian Function
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/jacobian.jl:98

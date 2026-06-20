@@ -1,0 +1,10 @@
+GEN UID,Bus ID,Gen ID,Unit Type,Fuel,Category,MW Inj,MVAR Inj,PMax MW,PMin MW,QMax MVAR,QMin MVAR,Min Down Time Hr,Min Up Time Hr,Ramp Rate MW/Min,Non Fuel Start Cost $,Non Fuel Shutdown Cost $,Fuel Price $/MMBTU,Output_pct_0,Output_pct_1,Output_pct_2,HR_avg_0,HR_incr_1,HR_incr_2,var_cost_0,var_cost_1,var_cost_2,VOM,Base MVA
+Solitude,3,4,CT,NATURAL_GAS,gas_ct,22,26,35,17,26,-26,4,4,15,0,0,1000,0,0.5,1,0,30,35,0,30,32.5,0,35
+Park City,1,5,CC,NATURAL_GAS,gas_cc,11,8.5,11,3.3,8.5,-8.5,4,4,15,0,0,1000,0,1,NA,0,15,NA,0,15,NA,0,11
+Alta,1,6,CT,NATURAL_GAS,gas_ct,2.6,2,2.6,0.333,2,-2,4,4,15,0,0,1000,0,1,NA,0,14,NA,0,14,NA,0,3
+Brighton,10,7,ST,COAL,coal,31,-11,40,20,30,-30,12,12,5,0,0,1000,0,1,NA,0,10,NA,0,10,NA,0,40
+Sundance,4,8,CC,NATURAL_GAS,gas_cc,0,-10.802,200,100,150,-150,4,4,15,0,0,1000,0,1,NA,0,40,NA,0,40,NA,0,13
+HydroDispatch2,4,1,ROR,HYDRO,hydro_ror,0,0,10,0,10,-10,NA,NA,NA,0,0,0,NA,NA,NA,NA,NA,NA,NA,NA,NA,0,10
+HydroDispatch1,1,2,HY,HYDRO,hydro_reservoir,0,0,5,0,5,-5,NA,NA,5,0,0,10,1,NA,NA,15,NA,NA,15,NA,NA,0,5
+HydroDispatch3,10,3,HY,HYDRO,hydro_reservoir,0,0,75,0,75,-75,NA,NA,5,0,0,10,1,NA,NA,15,NA,NA,15,NA,NA,0,75
+PHES,3,3,PS,HYDRO,PHES,0,0,10,0,10,-10,NA,NA,5,0,0,10,1,NA,NA,15,NA,NA,15,NA,NA,0,10

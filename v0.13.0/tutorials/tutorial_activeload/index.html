@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Active Load Model · PowerSimulationsDynamics.jl</title><script data-outdated-warner src="../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.045/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.24/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../../"><img src="../../assets/logo.png" alt="PowerSimulationsDynamics.jl logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../../">PowerSimulationsDynamics.jl</a></span></div><form class="docs-search" action="../../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../../">Welcome Page</a></li><li><a class="tocitem" href="../../quick_start_guide/">Quick Start Guide</a></li><li><a class="tocitem" href="../../execute/">Simulation Execution</a></li><li><span class="tocitem">Tutorials</span><ul><li><a class="tocitem" href="../tutorial_dynamic_data/">Create Dynamic Data</a></li><li><a class="tocitem" href="../tutorial_omib/">OMIB</a></li><li><a class="tocitem" href="../tutorial_dynamic_lines/">Dynamic Lines Simulation</a></li><li><a class="tocitem" href="../tutorial_inverter_modeling/">Inverter Modeling</a></li><li><a class="tocitem" href="../tutorial_240bus/">240 WECC solver comparison</a></li><li><a class="tocitem" href="../tutorial_continuation_pf/">Small-Signal Analysis</a></li><li class="is-active"><a class="tocitem" href>Active Load Model</a><ul class="internal"><li><a class="tocitem" href="#Introduction"><span>Introduction</span></a></li><li><a class="tocitem" href="#Dependencies"><span>Dependencies</span></a></li><li><a class="tocitem" href="#Load-the-system"><span>Load the system</span></a></li><li><a class="tocitem" href="#Run-a-small-signal-analysis"><span>Run a small-signal analysis</span></a></li><li><a class="tocitem" href="#Change-to-a-constant-impedance-load-model"><span>Change to a constant impedance load model</span></a></li><li><a class="tocitem" href="#Adding-a-dynamic-active-load-model"><span>Adding a dynamic active load model</span></a></li></ul></li></ul></li><li><a class="tocitem" href="../../models/">Models</a></li><li><a class="tocitem" href="../../initialization/">Initialization</a></li><li><a class="tocitem" href="../../small/">Small Signal</a></li><li><a class="tocitem" href="../../reference_frames/">Reference Frames</a></li><li><a class="tocitem" href="../../perturbations/">Perturbations</a></li><li><a class="tocitem" href="../../generic/">Industrial Renewable Models</a></li><li><span class="tocitem">Generator Component Library</span><ul><li><a class="tocitem" href="../../component_models/machines/">Machine</a></li><li><a class="tocitem" href="../../component_models/shafts/">Shaft</a></li><li><a class="tocitem" href="../../component_models/avr/">AVR</a></li><li><a class="tocitem" href="../../component_models/pss/">PSS</a></li><li><a class="tocitem" href="../../component_models/turbine_gov/">Turbine and Governor</a></li></ul></li><li><span class="tocitem">CIG Component Library</span><ul><li><a class="tocitem" href="../../component_models/converter/">Converter</a></li><li><a class="tocitem" href="../../component_models/dc_source/">DC Sources</a></li><li><a class="tocitem" href="../../component_models/filters/">Filter</a></li><li><a class="tocitem" href="../../component_models/freq_esti/">Frequency Estimators</a></li><li><a class="tocitem" href="../../component_models/inner_control/">Inner Control</a></li><li><a class="tocitem" href="../../component_models/outer_control/">Outer Control</a></li></ul></li><li><span class="tocitem">Branch Models</span><ul><li><a class="tocitem" href="../../component_models/network/">Network</a></li></ul></li><li><span class="tocitem">Load Models</span><ul><li><a class="tocitem" href="../../component_models/loads/">Load Models</a></li></ul></li><li><span class="tocitem">Code Base Developer Guide</span><ul><li><a class="tocitem" href="../../code_base_developer_guide/developer/">Developer Guide</a></li></ul></li><li><a class="tocitem" href="../../api/public/">Public API Reference</a></li><li><a class="tocitem" href="../../api/internal/">Internal API Reference</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Tutorials</a></li><li class="is-active"><a href>Active Load Model</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Active Load Model</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/NREL-Sienna/PowerSimulationsDynamics.jl/blob/main/docs/src/tutorials/tutorial_activeload.md" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="Tutorial-Active-Constant-Power-Load-model"><a class="docs-heading-anchor" href="#Tutorial-Active-Constant-Power-Load-model">Tutorial Active Constant Power Load model</a><a id="Tutorial-Active-Constant-Power-Load-model-1"></a><a class="docs-heading-anchor-permalink" href="#Tutorial-Active-Constant-Power-Load-model" title="Permalink"></a></h1><p><strong>Originally Contributed by</strong>: Rodrigo Henriquez-Auba</p><h2 id="Introduction"><a class="docs-heading-anchor" href="#Introduction">Introduction</a><a id="Introduction-1"></a><a class="docs-heading-anchor-permalink" href="#Introduction" title="Permalink"></a></h2><p>This tutorial will introduce you to the functionality of <code>PowerSimulationsDynamics</code> and <code>PowerSystems</code> to explore active load components and a small-signal analysis.</p><p>This tutorial presents a simulation of a two-bus system with a GFM inverter at bus 1, and a load on bus 2. We will change the model from a constant power load model, to a constant impedance model and then to a 12-state active constant power load model.</p><h2 id="Dependencies"><a class="docs-heading-anchor" href="#Dependencies">Dependencies</a><a id="Dependencies-1"></a><a class="docs-heading-anchor-permalink" href="#Dependencies" title="Permalink"></a></h2><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; using PowerSimulationsDynamics;</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; PSID = PowerSimulationsDynamics</code><code class="nohighlight hljs ansi" style="display:block;">PowerSimulationsDynamics</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; using PowerSystemCaseBuilder</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; using PowerSystems</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; const PSY = PowerSystems;</code><code class="nohighlight hljs ansi" style="display:block;"></code></pre><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p><code>PowerSystemCaseBuilder.jl</code> is a helper library that makes it easier to reproduce examples in the documentation and tutorials. Normally you would pass your local files to create the system data instead of calling the function <code>build_system</code>. For more details visit <a href="https://nrel-sienna.github.io/PowerSystems.jl/stable/tutorials/powersystembuilder/">PowerSystemCaseBuilder Documentation</a></p></div></div><p><code>PowerSystems</code> (abbreviated with <code>PSY</code>) is used to properly define the data structure and establish an equilibrium point initial condition with a power flow routine using <code>PowerFlows</code>.</p><h2 id="Load-the-system"><a class="docs-heading-anchor" href="#Load-the-system">Load the system</a><a id="Load-the-system-1"></a><a class="docs-heading-anchor-permalink" href="#Load-the-system" title="Permalink"></a></h2><p>We load the system using <code>PowerSystemCaseBuilder.jl</code>. This system has an inverter located at bus 1.</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; sys = build_system(PSIDSystems, &quot;2 Bus Load Tutorial Droop&quot;)</code><code class="nohighlight hljs ansi" style="display:block;">┌ Info: Building new system 2 Bus Load Tutorial Droop from raw data
+└   sys_descriptor.raw_data = &quot;/home/runner/.julia/artifacts/2b7013812a985ce5884696ce276ca17b2719a57a/PowerSystemsTestData-2.0/psid_tests/data_examples/Omib_Load.raw&quot;
+[ Info: The PSS(R)E parser currently supports buses, loads, shunts, generators, branches, transformers, and dc lines
+[ Info: The PSS(R)E parser currently supports buses, loads, shunts, generators, branches, transformers, and dc lines
+[ Info: Parsing PSS(R)E Bus data into a PowerModels Dict...
+[ Info: Parsing PSS(R)E Load data into a PowerModels Dict...
+[ Info: Parsing PSS(R)E Shunt data into a PowerModels Dict...
+[ Info: Parsing PSS(R)E Generator data into a PowerModels Dict...
+[ Info: Parsing PSS(R)E Branch data into a PowerModels Dict...
+[ Info: Parsing PSS(R)E Transformer data into a PowerModels Dict...
+[ Info: Parsing PSS(R)E Two-Terminal and VSC DC line data into a PowerModels Dict...
+┌ Warning: This PSS(R)E parser currently doesn&#39;t support Storage data parsing...
+└ @ PowerSystems ~/.julia/packages/PowerSystems/diJIg/src/parsers/pm_io/psse.jl:986
+┌ Warning: This PSS(R)E parser currently doesn&#39;t support Switch data parsing...
+└ @ PowerSystems ~/.julia/packages/PowerSystems/diJIg/src/parsers/pm_io/psse.jl:992
+[ Info: angmin and angmax values are 0, widening these values on branch 1 to +/- 60.0 deg.
+┌ Info: Constructing System from Power Models
+│   data[&quot;name&quot;] = &quot;omib_load&quot;
+└   data[&quot;source_type&quot;] = &quot;pti&quot;
+[ Info: Reading bus data
+[ Info: Reading Load data in PowerModels dict to populate System ...
+[ Info: Reading LoadZones data in PowerModels dict to populate System ...
+[ Info: Reading generator data
+[ Info: Reading branch data
+[ Info: Reading branch data
+[ Info: Reading DC Line data
+[ Info: Reading storage data
+[ Info: Serialized System to /home/runner/.julia/packages/PowerSystemCaseBuilder/E76Gu/data/serialized_system/NoArgs/2 Bus Load Tutorial Droop.json
+[ Info: Serialized System metadata to /home/runner/.julia/packages/PowerSystemCaseBuilder/E76Gu/data/serialized_system/NoArgs/2 Bus Load Tutorial Droop_metadata.json
+System
+┌───────────────────┬─────────────┐
+│ Property          │ Value       │
+├───────────────────┼─────────────┤
+│ Name              │             │
+│ Description       │             │
+│ System Units Base │ SYSTEM_BASE │
+│ Base Power        │ 100.0       │
+│ Base Frequency    │ 60.0        │
+│ Num Components    │ 9           │
+└───────────────────┴─────────────┘
+
+Static Components
+┌─────────────────┬───────┬────────────────────────┬───────────────┐
+│ Type            │ Count │ Has Static Time Series │ Has Forecasts │
+├─────────────────┼───────┼────────────────────────┼───────────────┤
+│ ACBus           │ 2     │ false                  │ false         │
+│ Arc             │ 1     │ false                  │ false         │
+│ Area            │ 1     │ false                  │ false         │
+│ ExponentialLoad │ 1     │ false                  │ false         │
+│ Line            │ 1     │ false                  │ false         │
+│ LoadZone        │ 1     │ false                  │ false         │
+│ ThermalStandard │ 1     │ false                  │ false         │
+└─────────────────┴───────┴────────────────────────┴───────────────┘
+
+Dynamic Components
+┌─────────────────┬───────┐
+│ Type            │ Count │
+├─────────────────┼───────┤
+│ DynamicInverter │ 1     │
+└─────────────────┴───────┘</code></pre><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; first(get_components(DynamicInverter, sys))</code><code class="nohighlight hljs ansi" style="display:block;">generator-101-1 (DynamicInverter{AverageConverter, OuterControl{ActivePowerDroop, ReactivePowerDroop}, VoltageModeControl, FixedDCSource, FixedFrequency, LCLFilter, Nothing}):
+   name: generator-101-1
+   ω_ref: 1.0
+   converter: AverageConverter
+   outer_control: OuterControl{ActivePowerDroop, ReactivePowerDroop}
+   inner_control: VoltageModeControl
+   dc_source: FixedDCSource
+   freq_estimator: FixedFrequency
+   filter: LCLFilter
+   limiter: nothing
+   base_power: 100.0
+   n_states: 15
+   states: [:θ_oc, :p_oc, :q_oc, :ξd_ic, :ξq_ic, :γd_ic, :γq_ic, :ϕd_ic, :ϕq_ic, :ir_cnv, :ii_cnv, :vr_filter, :vi_filter, :ir_filter, :ii_filter]
+   ext: Dict{String, Any}()
+   InfrastructureSystems.SystemUnitsSettings:
+      base_value: 100.0
+      unit_system: UnitSystem.SYSTEM_BASE = 0</code></pre><p>The load is an exponential load modeled as a constant power load since the coefficients are set to zero.</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; first(get_components(PSY.ExponentialLoad, sys))</code><code class="nohighlight hljs ansi" style="display:block;">load1021 (PowerSystems.ExponentialLoad):
+   name: load1021
+   available: true
+   bus: BUS 2 (ACBus)
+   active_power: 0.1
+   reactive_power: 0.032799999999999996
+   active_power_coefficient: 0.0
+   reactive_power_coefficient: 0.0
+   base_power: 100.0
+   max_active_power: 0.1
+   max_reactive_power: 0.032799999999999996
+   services: 0-element Vector{Service}
+   dynamic_injector: nothing
+   ext: Dict{String, Any}()
+   time_series_container:
+   InfrastructureSystems.SystemUnitsSettings:
+      base_value: 100.0
+      unit_system: UnitSystem.SYSTEM_BASE = 0</code></pre><h2 id="Run-a-small-signal-analysis"><a class="docs-heading-anchor" href="#Run-a-small-signal-analysis">Run a small-signal analysis</a><a id="Run-a-small-signal-analysis-1"></a><a class="docs-heading-anchor-permalink" href="#Run-a-small-signal-analysis" title="Permalink"></a></h2><p>We set up the Simulation. Since the droop model does not have a frequency state, we use a constant frequency reference frame for the network.</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; sim = Simulation(ResidualModel,
+                       sys,
+                       mktempdir(),
+                       (0.0, 1.0),
+                       frequency_reference = ConstantFrequency())</code><code class="nohighlight hljs ansi" style="display:block;">[ Info: Unit System changed to UnitSystem.DEVICE_BASE = 1
+Simulation Summary
+┌─────────────────────────┬────────────────┐
+│ Property                │ Value          │
+├─────────────────────────┼────────────────┤
+│ Status                  │ BUILT          │
+│ Simulation Type         │ Residual Model │
+│ Initialized?            │ Yes            │
+│ Multimachine system?    │ No             │
+│ Time Span               │ (0.0, 1.0)     │
+│ Number of States        │ 19             │
+│ Number of Perturbations │ 0              │
+└─────────────────────────┴────────────────┘</code></pre><p>The following provides a summary of eigenvalues for this droop system with a constant power load:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; sm = small_signal_analysis(sim);</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; df = summary_eigenvalues(sm);</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; show(df, allrows = true, allcols = true)</code><code class="nohighlight hljs ansi" style="display:block;">15×6 DataFrame
+ Row │ Most Associated            Part. Factor  Real Part  Imag. Part  Damping [%]  Freq [Hz]
+     │ Any                        Any           Any        Any         Any          Any
+─────┼────────────────────────────────────────────────────────────────────────────────────────
+   1 │ generator-101-1 ii_filter  0.935337      -17394.7   0.0         100.0        2768.46
+   2 │ generator-101-1 ii_cnv     0.431047      -2971.58   -6377.16    42.2368      1119.74
+   3 │ generator-101-1 ii_cnv     0.431047      -2971.58   6377.16     42.2368      1119.74
+   4 │ generator-101-1 ir_cnv     0.437046      -2495.77   -5920.94    38.8419      1022.64
+   5 │ generator-101-1 ir_cnv     0.437046      -2495.77   5920.94     38.8419      1022.64
+   6 │ generator-101-1 ξd_ic      0.81633       -532.334   0.0         100.0        84.7237
+   7 │ generator-101-1 ξq_ic      0.82722       -459.814   0.0         100.0        73.1817
+   8 │ generator-101-1 p_oc       0.99997       -125.664   0.0         100.0        20.0
+   9 │ generator-101-1 q_oc       0.999564      -125.449   0.0         100.0        19.9659
+  10 │ generator-101-1 ϕd_ic      0.551981      -50.8211   0.0         100.0        8.08843
+  11 │ generator-101-1 ϕq_ic      0.551633      -50.7805   0.0         100.0        8.08197
+  12 │ generator-101-1 γd_ic      0.663765      -11.3952   0.0         100.0        1.81359
+  13 │ generator-101-1 γq_ic      0.664033      -11.3893   0.0         100.0        1.81266
+  14 │ generator-101-1 θ_oc       1.0           -0.0       0.0         NaN          0.0
+  15 │ generator-101-1 ir_filter  0.94952       17272.3    0.0         -100.0       2748.98</code></pre><p>In this inverter model, the filter is modeled using differential equations, and as described in the literature, interfacing a RL filter against an algebraic constant power load usually results in unstable behavior as observed with the positive real part eigenvalue.</p><h2 id="Change-to-a-constant-impedance-load-model"><a class="docs-heading-anchor" href="#Change-to-a-constant-impedance-load-model">Change to a constant impedance load model</a><a id="Change-to-a-constant-impedance-load-model-1"></a><a class="docs-heading-anchor-permalink" href="#Change-to-a-constant-impedance-load-model" title="Permalink"></a></h2><p>Since the load is an exponential load model we can change the exponent coefficients to 2.0 to behave as a constant impedance model:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; # Update load coefficients to 2.0
+       load = first(get_components(PSY.ExponentialLoad, sys));</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; PSY.set_active_power_coefficient!(load, 2.0);</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; PSY.set_reactive_power_coefficient!(load, 2.0);</code><code class="nohighlight hljs ansi" style="display:block;"></code></pre><p>We then re-run the small-signal analysis:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; sim = Simulation(ResidualModel,
+                       sys,
+                       mktempdir(),
+                       (0.0, 1.0),
+                       frequency_reference = ConstantFrequency())</code><code class="nohighlight hljs ansi" style="display:block;">[ Info: Unit System changed to UnitSystem.DEVICE_BASE = 1
+Simulation Summary
+┌─────────────────────────┬────────────────┐
+│ Property                │ Value          │
+├─────────────────────────┼────────────────┤
+│ Status                  │ BUILT          │
+│ Simulation Type         │ Residual Model │
+│ Initialized?            │ Yes            │
+│ Multimachine system?    │ No             │
+│ Time Span               │ (0.0, 1.0)     │
+│ Number of States        │ 19             │
+│ Number of Perturbations │ 0              │
+└─────────────────────────┴────────────────┘</code></pre><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; sm = small_signal_analysis(sim);</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; df = summary_eigenvalues(sm);</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; show(df, allrows = true, allcols = true)</code><code class="nohighlight hljs ansi" style="display:block;">15×6 DataFrame
+ Row │ Most Associated            Part. Factor  Real Part  Imag. Part   Damping [%]  Freq [Hz]
+     │ Any                        Any           Any        Any          Any          Any
+─────┼─────────────────────────────────────────────────────────────────────────────────────────
+   1 │ generator-101-1 ir_filter  0.47969       -17387.8   -4716.08     96.513       2867.34
+   2 │ generator-101-1 ir_filter  0.47969       -17387.8   4716.08      96.513       2867.34
+   3 │ generator-101-1 ii_cnv     0.246681      -3144.63   -6413.81     44.0225      1136.88
+   4 │ generator-101-1 ii_cnv     0.246681      -3144.63   6413.81      44.0225      1136.88
+   5 │ generator-101-1 ir_cnv     0.249406      -2819.8    -6135.34     41.7606      1074.66
+   6 │ generator-101-1 ir_cnv     0.249406      -2819.8    6135.34      41.7606      1074.66
+   7 │ generator-101-1 ξq_ic      0.454519      -464.905   -16.1851     99.9395      74.0368
+   8 │ generator-101-1 ξq_ic      0.454519      -464.905   16.1851      99.9395      74.0368
+   9 │ generator-101-1 q_oc       0.991037      -126.084   0.0          100.0        20.067
+  10 │ generator-101-1 p_oc       0.99185       -125.663   0.0          100.0        20.0
+  11 │ generator-101-1 ϕq_ic      0.491934      -50.7962   -0.0190757   100.0        8.08447
+  12 │ generator-101-1 ϕq_ic      0.491934      -50.7962   0.0190757    100.0        8.08447
+  13 │ generator-101-1 γq_ic      0.488883      -11.391    -0.00268224  100.0        1.81293
+  14 │ generator-101-1 γq_ic      0.488883      -11.391    0.00268224   100.0        1.81293
+  15 │ generator-101-1 θ_oc       1.0           -0.0       0.0          NaN          0.0</code></pre><p>Observe that now the system is small-signal stable (since there is only one device the angle of the inverter is used as a reference, and hence is zero).</p><h2 id="Adding-a-dynamic-active-load-model"><a class="docs-heading-anchor" href="#Adding-a-dynamic-active-load-model">Adding a dynamic active load model</a><a id="Adding-a-dynamic-active-load-model-1"></a><a class="docs-heading-anchor-permalink" href="#Adding-a-dynamic-active-load-model" title="Permalink"></a></h2><p>To consider a dynamic model in the load it is only required to attach a dynamic component to the static load model. When a dynamic load model is attached, the active and reactive power of the static model are used to define reference parameters to ensure that the dynamic load model matches the static load output power.</p><p>Note that when a dynamic model is attached to a static model, the static model does not participate in the dynamic system equations, i.e. the only model interfacing to the network equations is the dynamic model and not the static model (the exponential load).</p><p>We define a function to create a active load model with the specific parameters:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; # Parameters taken from active load model from N. Bottrell Masters
+       # Thesis &quot;Small-Signal Analysis of Active Loads and Large-signal Analysis
+       # of Faults in Inverter Interfaced Microgrid Applications&quot;, 2014.
+       
+       # The parameters are then per-unitized to be scalable to represent an aggregation
+       # of multiple active loads
+       
+       # Base AC Voltage: Vb = 380 V
+       # Base Power (AC and DC): Pb = 10000 VA
+       # Base AC Current: Ib = 10000 / 380 = 26.32 A
+       # Base AC Impedance: Zb = 380 / 26.32 =  14.44 Ω
+       # Base AC Inductance: Lb = Zb / Ωb = 14.44 / 377 = 0.3831 H
+       # Base AC Capacitance: Cb = 1 / (Zb * Ωb) = 0.000183697 F
+       # Base DC Voltage: Vb_dc = (√8/√3) Vb = 620.54 V
+       # Base DC Current: Ib_dc = Pb / V_dc = 10000/620.54 = 16.12 A
+       # Base DC Impedance: Zb_dc = Vb_dc / Ib_dc = 38.50 Ω
+       # Base DC Capacitance: Cb_dc = 1 / (Zb_dc * Ωb) = 6.8886315e-5 F
+       
+       Ωb = 2*pi*60;</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; Vb = 380;</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; Pb = 10000;</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; Ib = Pb / Vb;</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; Zb = Vb / Ib;</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; Lb = Zb / Ωb;</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; Cb = 1 / (Zb * Ωb);</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; Vb_dc = sqrt(8)/sqrt(3) * Vb;</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; Ib_dc = Pb / Vb_dc;</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; Zb_dc = Vb_dc / Ib_dc;</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; Cb_dc = 1/(Zb_dc * Ωb);</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; function active_cpl(load)
+           return PSY.ActiveConstantPowerLoad(
+               name = get_name(load),
+               r_load = 70.0 / Zb_dc,
+               c_dc = 2040e-6 / Cb_dc,
+               rf = 0.1 / Zb,
+               lf = 2.3e-3 / Lb,
+               cf = 8.8e-6 / Cb,
+               rg = 0.03 / Zb,
+               lg = 0.93e-3 / Lb,
+               kp_pll = 0.4,
+               ki_pll = 4.69,
+               kpv = 0.5 * (Vb_dc / Ib_dc),
+               kiv = 150.0 * (Vb_dc / Ib_dc),
+               kpc = 15.0 * (Ib / Vb),
+               kic = 30000.0 * (Ib / Vb),
+               base_power = 100.0,
+           )
+       end</code><code class="nohighlight hljs ansi" style="display:block;">active_cpl (generic function with 1 method)</code></pre><p>We then attach the model to the system:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; load = first(get_components(PSY.ExponentialLoad, sys));</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; dyn_load = active_cpl(load)</code><code class="nohighlight hljs ansi" style="display:block;">
+load1021 (ActiveConstantPowerLoad):
+   name: load1021
+   r_load: 1.8178670360110796
+   c_dc: 29.61400952076375
+   rf: 0.006925207756232687
+   lf: 0.0600470617999157
+   cf: 0.04790501540123547
+   rg: 0.0020775623268698058
+   lg: 0.024279898901705045
+   kp_pll: 0.4
+   ki_pll: 4.69
+   kpv: 19.25333333333334
+   kiv: 5776.000000000003
+   kpc: 1.038781163434903
+   kic: 2077.562326869806
+   base_power: 100.0
+   ext: Dict{String, Any}()
+   P_ref: 1.0
+   Q_ref: 1.0
+   V_ref: 1.0
+   ω_ref: 1.0
+   is_filter_differential: 1
+   states: [:θ_pll, :ϵ_pll, :η, :v_dc, :γd, :γq, :ir_cnv, :ii_cnv, :vr_filter, :vi_filter, :ir_filter, :ii_filter]
+   n_states: 12
+   internal: InfrastructureSystems.InfrastructureSystemsInternal</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; add_component!(sys, dyn_load, load)</code><code class="nohighlight hljs ansi" style="display:block;"></code></pre><p>Finally, we set up the simulation:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; sim = Simulation(ResidualModel,
+                       sys,
+                       mktempdir(),
+                       (0.0, 1.0),
+                       frequency_reference = ConstantFrequency())</code><code class="nohighlight hljs ansi" style="display:block;">[ Info: Unit System changed to UnitSystem.DEVICE_BASE = 1
+Simulation Summary
+┌─────────────────────────┬────────────────┐
+│ Property                │ Value          │
+├─────────────────────────┼────────────────┤
+│ Status                  │ BUILT          │
+│ Simulation Type         │ Residual Model │
+│ Initialized?            │ Yes            │
+│ Multimachine system?    │ No             │
+│ Time Span               │ (0.0, 1.0)     │
+│ Number of States        │ 31             │
+│ Number of Perturbations │ 0              │
+└─────────────────────────┴────────────────┘</code></pre><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; sm = small_signal_analysis(sim);</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; df = summary_eigenvalues(sm);</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; show(df, allrows = true, allcols = true)</code><code class="nohighlight hljs ansi" style="display:block;">27×6 DataFrame
+ Row │ Most Associated            Part. Factor  Real Part  Imag. Part  Damping [%]  Freq [Hz]
+     │ Any                        Any           Any        Any         Any          Any
+─────┼────────────────────────────────────────────────────────────────────────────────────────
+   1 │ generator-101-1 vi_filter  0.166385      -2778.16   -6703.69    38.2849      1154.92
+   2 │ generator-101-1 vi_filter  0.166385      -2778.16   6703.69     38.2849      1154.92
+   3 │ generator-101-1 vr_filter  0.209778      -2607.5    -6520.11    37.1323      1117.61
+   4 │ generator-101-1 vr_filter  0.209778      -2607.5    6520.11     37.1323      1117.61
+   5 │ load1021 vi_filter         0.189073      -2497.54   -7644.75    31.0548      1279.99
+   6 │ load1021 vi_filter         0.189073      -2497.54   7644.75     31.0548      1279.99
+   7 │ load1021 vr_filter         0.209271      -2302.82   -8223.34    26.9661      1359.13
+   8 │ load1021 vr_filter         0.209271      -2302.82   8223.34     26.9661      1359.13
+   9 │ generator-101-1 ii_filter  0.200819      -970.335   -1219.65    62.2586      248.052
+  10 │ generator-101-1 ii_filter  0.200819      -970.335   1219.65     62.2586      248.052
+  11 │ generator-101-1 ξq_ic      0.370911      -848.095   -73.6514    99.625       135.487
+  12 │ generator-101-1 ξq_ic      0.370911      -848.095   73.6514     99.625       135.487
+  13 │ load1021 η                 0.379645      -326.767   -222.502    82.6572      62.9183
+  14 │ load1021 η                 0.379645      -326.767   222.502     82.6572      62.9183
+  15 │ load1021 v_dc              0.161176      -238.623   -832.086    27.5666      137.769
+  16 │ load1021 v_dc              0.161176      -238.623   832.086     27.5666      137.769
+  17 │ load1021 θ_pll             0.465358      -132.89    0.0         100.0        21.15
+  18 │ generator-101-1 p_oc       0.995436      -125.653   0.0         100.0        19.9983
+  19 │ generator-101-1 q_oc       0.677379      -122.337   0.0         100.0        19.4706
+  20 │ load1021 ir_filter         0.410934      -57.5328   -1.7406e6   0.00330534   2.77026e5
+  21 │ load1021 ir_filter         0.410934      -57.5328   1.7406e6    0.00330534   2.77026e5
+  22 │ generator-101-1 ϕd_ic      0.527692      -50.8398   0.0         100.0        8.09141
+  23 │ generator-101-1 ϕq_ic      0.523655      -50.7749   0.0         100.0        8.08108
+  24 │ load1021 ϵ_pll             0.907233      -12.8266   0.0         100.0        2.04141
+  25 │ generator-101-1 γd_ic      0.944549      -11.3935   0.0         100.0        1.81333
+  26 │ generator-101-1 γq_ic      0.934217      -11.391    0.0         100.0        1.81294
+  27 │ generator-101-1 θ_oc       1.0           -0.0       0.0         NaN          0.0</code></pre><p>Observe the new states of the active load model and that the system is small-signal stable.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../tutorial_continuation_pf/">« Small-Signal Analysis</a><a class="docs-footer-nextpage" href="../../models/">Models »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.25 on <span class="colophon-date" title="Friday 5 January 2024 23:06">Friday 5 January 2024</span>. Using Julia version 1.10.0.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>240 WECC solver comparison · PowerSimulationsDynamics.jl</title><script data-outdated-warner src="../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.045/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.24/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../../"><img src="../../assets/logo.png" alt="PowerSimulationsDynamics.jl logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../../">PowerSimulationsDynamics.jl</a></span></div><form class="docs-search" action="../../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../../">Welcome Page</a></li><li><a class="tocitem" href="../../quick_start_guide/">Quick Start Guide</a></li><li><a class="tocitem" href="../../execute/">Simulation Execution</a></li><li><span class="tocitem">Tutorials</span><ul><li><a class="tocitem" href="../tutorial_dynamic_data/">Create Dynamic Data</a></li><li><a class="tocitem" href="../tutorial_omib/">OMIB</a></li><li><a class="tocitem" href="../tutorial_dynamic_lines/">Dynamic Lines Simulation</a></li><li><a class="tocitem" href="../tutorial_inverter_modeling/">Inverter Modeling</a></li><li class="is-active"><a class="tocitem" href>240 WECC solver comparison</a><ul class="internal"><li><a class="tocitem" href="#Introduction"><span>Introduction</span></a></li><li><a class="tocitem" href="#Load-the-system-and-transform-load-data"><span>Load the system and transform load data</span></a></li><li><a class="tocitem" href="#Build-the-simulation-and-initialize-the-problem"><span>Build the simulation and initialize the problem</span></a></li><li><a class="tocitem" href="#Run-the-simulation-using-Sundials"><span>Run the simulation using Sundials</span></a></li><li><a class="tocitem" href="#Read-the-results-and-plot-a-system-variable"><span>Read the results and plot a system variable</span></a></li><li><a class="tocitem" href="#Run-the-simulation-using-Rodas4()"><span>Run the simulation using Rodas4()</span></a></li><li><a class="tocitem" href="#Read-the-results"><span>Read the results</span></a></li><li><a class="tocitem" href="#Compare-the-results"><span>Compare the results</span></a></li></ul></li><li><a class="tocitem" href="../tutorial_continuation_pf/">Small-Signal Analysis</a></li><li><a class="tocitem" href="../tutorial_activeload/">Active Load Model</a></li></ul></li><li><a class="tocitem" href="../../models/">Models</a></li><li><a class="tocitem" href="../../initialization/">Initialization</a></li><li><a class="tocitem" href="../../small/">Small Signal</a></li><li><a class="tocitem" href="../../reference_frames/">Reference Frames</a></li><li><a class="tocitem" href="../../perturbations/">Perturbations</a></li><li><a class="tocitem" href="../../generic/">Industrial Renewable Models</a></li><li><span class="tocitem">Generator Component Library</span><ul><li><a class="tocitem" href="../../component_models/machines/">Machine</a></li><li><a class="tocitem" href="../../component_models/shafts/">Shaft</a></li><li><a class="tocitem" href="../../component_models/avr/">AVR</a></li><li><a class="tocitem" href="../../component_models/pss/">PSS</a></li><li><a class="tocitem" href="../../component_models/turbine_gov/">Turbine and Governor</a></li></ul></li><li><span class="tocitem">CIG Component Library</span><ul><li><a class="tocitem" href="../../component_models/converter/">Converter</a></li><li><a class="tocitem" href="../../component_models/dc_source/">DC Sources</a></li><li><a class="tocitem" href="../../component_models/filters/">Filter</a></li><li><a class="tocitem" href="../../component_models/freq_esti/">Frequency Estimators</a></li><li><a class="tocitem" href="../../component_models/inner_control/">Inner Control</a></li><li><a class="tocitem" href="../../component_models/outer_control/">Outer Control</a></li></ul></li><li><span class="tocitem">Branch Models</span><ul><li><a class="tocitem" href="../../component_models/network/">Network</a></li></ul></li><li><span class="tocitem">Load Models</span><ul><li><a class="tocitem" href="../../component_models/loads/">Load Models</a></li></ul></li><li><span class="tocitem">Code Base Developer Guide</span><ul><li><a class="tocitem" href="../../code_base_developer_guide/developer/">Developer Guide</a></li></ul></li><li><a class="tocitem" href="../../api/public/">Public API Reference</a></li><li><a class="tocitem" href="../../api/internal/">Internal API Reference</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Tutorials</a></li><li class="is-active"><a href>240 WECC solver comparison</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>240 WECC solver comparison</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/NREL-Sienna/PowerSimulationsDynamics.jl/blob/main/docs/src/tutorials/tutorial_240bus.md" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="[PSSE-240-Bus-Case-system-with-Renewables](https://www.nrel.gov/grid/test-case-repository.html)"><a class="docs-heading-anchor" href="#[PSSE-240-Bus-Case-system-with-Renewables](https://www.nrel.gov/grid/test-case-repository.html)"><a href="https://www.nrel.gov/grid/test-case-repository.html">PSSE 240 Bus Case system with Renewables</a></a><a id="[PSSE-240-Bus-Case-system-with-Renewables](https://www.nrel.gov/grid/test-case-repository.html)-1"></a><a class="docs-heading-anchor-permalink" href="#[PSSE-240-Bus-Case-system-with-Renewables](https://www.nrel.gov/grid/test-case-repository.html)" title="Permalink"></a></h1><p><strong>Originally Contributed by</strong>: José Daniel Lara</p><h2 id="Introduction"><a class="docs-heading-anchor" href="#Introduction">Introduction</a><a id="Introduction-1"></a><a class="docs-heading-anchor-permalink" href="#Introduction" title="Permalink"></a></h2><p>This tutorial will introduce the industry models of Renewable Energy the comparisons between DiffEq Integration techniques for comparison. We show the uses of Sundials and OrdinaryDiffEq to obtain the transient response of a system to a perturbation.</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; using PowerSimulationsDynamics</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; using PowerSystemCaseBuilder</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; using PowerSystems</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; const PSY = PowerSystems</code><code class="nohighlight hljs ansi" style="display:block;">PowerSystems</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; using Sundials</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; using Plots</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; using OrdinaryDiffEq</code><code class="nohighlight hljs ansi" style="display:block;"></code></pre><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p><code>PowerSystemCaseBuilder.jl</code> is a helper library that makes it easier to reproduce examples in the documentation and tutorials. Normally you would pass your local files to create the system data instead of calling the function <code>build_system</code>. For more details visit <a href="https://nrel-sienna.github.io/PowerSystems.jl/stable/tutorials/powersystembuilder/">PowerSystemCaseBuilder Documentation</a></p></div></div><h2 id="Load-the-system-and-transform-load-data"><a class="docs-heading-anchor" href="#Load-the-system-and-transform-load-data">Load the system and transform load data</a><a id="Load-the-system-and-transform-load-data-1"></a><a class="docs-heading-anchor-permalink" href="#Load-the-system-and-transform-load-data" title="Permalink"></a></h2><p>To load the system we use <code>PowerSystemCaseBuilder.jl</code>:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; # We remove the checks in this example to avoid large prints
+       sys = build_system(PSIDSystems, &quot;WECC 240 Bus&quot;; runchecks = false)</code><code class="nohighlight hljs ansi" style="display:block;">┌ Info: Building new system WECC 240 Bus from raw data
+└   sys_descriptor.raw_data = &quot;&quot;
+┌ Warning: The System was deserialized with checks disabled, and so was not validated.
+└ @ PowerSystems ~/.julia/packages/PowerSystems/9jm8v/src/base.jl:1452
+[ Info: Serialized System to /home/runner/.julia/packages/PowerSystemCaseBuilder/7w4lG/data/serialized_system/NoArgs/WECC 240 Bus.json
+[ Info: Serialized System metadata to /home/runner/.julia/packages/PowerSystemCaseBuilder/7w4lG/data/serialized_system/NoArgs/WECC 240 Bus_metadata.json
+System
+┌───────────────────┬─────────────┐
+│ Property          │ Value       │
+├───────────────────┼─────────────┤
+│ Name              │             │
+│ Description       │             │
+│ System Units Base │ SYSTEM_BASE │
+│ Base Power        │ 100.0       │
+│ Base Frequency    │ 60.0        │
+│ Num Components    │ 1501        │
+└───────────────────┴─────────────┘
+
+Static Components
+┌─────────────────┬───────┬────────────────────────┬───────────────┐
+│ Type            │ Count │ Has Static Time Series │ Has Forecasts │
+├─────────────────┼───────┼────────────────────────┼───────────────┤
+│ Arc             │ 351   │ false                  │ false         │
+│ Area            │ 4     │ false                  │ false         │
+│ Bus             │ 243   │ false                  │ false         │
+│ FixedAdmittance │ 7     │ false                  │ false         │
+│ Line            │ 329   │ false                  │ false         │
+│ LoadZone        │ 14    │ false                  │ false         │
+│ StandardLoad    │ 139   │ false                  │ false         │
+│ TapTransformer  │ 2     │ false                  │ false         │
+│ ThermalStandard │ 146   │ false                  │ false         │
+│ Transformer2W   │ 120   │ false                  │ false         │
+└─────────────────┴───────┴────────────────────────┴───────────────┘
+
+Dynamic Components
+┌──────────────────┬───────┐
+│ Type             │ Count │
+├──────────────────┼───────┤
+│ DynamicGenerator │ 6     │
+│ DynamicGenerator │ 3     │
+│ DynamicGenerator │ 41    │
+│ DynamicGenerator │ 36    │
+│ DynamicGenerator │ 22    │
+│ DynamicGenerator │ 1     │
+│ DynamicInverter  │ 37    │
+└──────────────────┴───────┘</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # Transform the system&#39;s load
+       for l in get_components(PSY.StandardLoad, sys)
+           transform_load_to_constant_impedance(l)
+       end</code><code class="nohighlight hljs ansi" style="display:block;">┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81</code></pre><h2 id="Build-the-simulation-and-initialize-the-problem"><a class="docs-heading-anchor" href="#Build-the-simulation-and-initialize-the-problem">Build the simulation and initialize the problem</a><a id="Build-the-simulation-and-initialize-the-problem-1"></a><a class="docs-heading-anchor-permalink" href="#Build-the-simulation-and-initialize-the-problem" title="Permalink"></a></h2><p>The next step is to create the simulation structure. This will create the indexing of our system that will be used to formulate the differential-algebraic system of equations. To do so, it is required to specify the perturbation that will occur in the system. In this case, we will use a ResidualModel formulation, for more details about the formulation checkout the <a href="https://nrel-sienna.github.io/PowerSimulationsDynamics.jl/stable/models/">Models Section</a> in <code>PowerSimulationsDynamics.jl</code> documentation.</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; using Logging</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; sim_ida = Simulation(
+           ResidualModel,
+           sys, #system
+           pwd(),
+           (0.0, 20.0), #time span
+           BranchTrip(1.0, Line, &quot;CORONADO    -1101-PALOVRDE    -1401-i_10&quot;);
+           console_level = Logging.Info,
+       )</code><code class="nohighlight hljs ansi" style="display:block;">[ Info: Unit System changed to UnitSystem.DEVICE_BASE = 1
+[ Info: Pre-Initializing Simulation States
+[ Info: Unit System changed to UnitSystem.SYSTEM_BASE = 0
+┌ Warning: Unit generator-3631-NB set at the limit -0.14000000000000004. Q_max = 0.20000000000000004 Q_min = -0.14000000000000004
+└ @ PowerFlows ~/.julia/packages/PowerFlows/TDLGc/src/post_processing.jl:348
+┌ Warning: Unit generator-6132-G set at the limit -1.47. Q_max = 1.47 Q_min = -1.47
+└ @ PowerFlows ~/.julia/packages/PowerFlows/TDLGc/src/post_processing.jl:348
+┌ Warning: Unit generator-6433-E set at the limit 0.59. Q_max = 0.59 Q_min = -0.59
+└ @ PowerFlows ~/.julia/packages/PowerFlows/TDLGc/src/post_processing.jl:348
+[ Info: PowerFlow solve converged, the results have been stored in the system
+[ Info: Unit System changed to UnitSystem.DEVICE_BASE = 1
+[ Info: Residual from initial guess: max = 9.827763047809412e-10 at 1268, total = 2.3846225827075845e-8
+Iter     f(x) inf-norm    Step 2-norm 
+------   --------------   --------------
+[ Info: Initialization non-linear solve succeeded with a tolerance of 1.0e-9 using solver trust_region. Saving solution.
+[ Info: Attaching Perturbations
+[ Info: Simulations status = BUILT
+┌ Info: 
+│  ───────────────────────────────────────────────────────────────────────────────
+│                                                      Time          Allocations  
+│                                                ───────────────   ───────────────
+│                 Total measured:                     38.0s            5.00GiB    
+│ 
+│  Section                               ncalls     time    %tot     alloc    %tot
+│  ───────────────────────────────────────────────────────────────────────────────
+│  Build Simulation                           1    38.0s  100.0%   5.00GiB  100.0%
+│    Build Simulation Inputs                  1    3.60s    9.5%    168MiB    3.3%
+│      Wrap Branches                          1   15.3μs    0.0%      240B    0.0%
+│      Wrap Dynamic Injectors                 1    2.21s    5.8%    115MiB    2.2%
+│      Calculate MM, DAE_vector, Tota...      1    360ms    0.9%   20.2MiB    0.4%
+│      Wrap Static Injectors                  1    255ms    0.7%   3.77MiB    0.1%
+│    Pre-initialization                       1    7.80s   20.5%    439MiB    8.6%
+│      Power Flow solution                    1    1.36s    3.6%   55.4MiB    1.1%
+│      Initialize Static Injectors            1   1.10μs    0.0%     0.00B    0.0%
+│      Initialize Dynamic Injectors           1    6.44s   16.9%    384MiB    7.5%
+│    Calculate Jacobian                       1    21.2s   55.6%   4.15GiB   83.0%
+│    Make Model Function                      1   25.8μs    0.0%   30.9KiB    0.0%
+│    Initial Condition NLsolve refine...      1    4.87s   12.8%    255MiB    5.0%
+│    Build Perturbations                      1    236μs    0.0%   11.6KiB    0.0%
+│    Make DiffEq Problem                      1    629ms    1.7%   9.30MiB    0.2%
+│  ───────────────────────────────────────────────────────────────────────────────
+└ 
+Simulation Summary
+┌─────────────────────────┬────────────────┐
+│ Property                │ Value          │
+├─────────────────────────┼────────────────┤
+│ Status                  │ BUILT          │
+│ Simulation Type         │ Residual Model │
+│ Initialized?            │ Yes            │
+│ Multimachine system?    │ Yes            │
+│ Time Span               │ (0.0, 20.0)    │
+│ Number of States        │ 2164           │
+│ Number of Perturbations │ 1              │
+└─────────────────────────┴────────────────┘</code></pre><h2 id="Run-the-simulation-using-Sundials"><a class="docs-heading-anchor" href="#Run-the-simulation-using-Sundials">Run the simulation using Sundials</a><a id="Run-the-simulation-using-Sundials-1"></a><a class="docs-heading-anchor-permalink" href="#Run-the-simulation-using-Sundials" title="Permalink"></a></h2><p>We will now run the simulation using Sundials.jl solver IDA() by specifying the maximum dt we want for the simulation. In our experience with this solver, solution times are faster when supplying information about the maximum time step than the tolerances as we can see in the example</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; execute!(sim_ida, IDA(), dtmax = 0.01)</code><code class="nohighlight hljs ansi" style="display:block;">SIMULATION_FINALIZED::BUILD_STATUS = 6</code></pre><h2 id="Read-the-results-and-plot-a-system-variable"><a class="docs-heading-anchor" href="#Read-the-results-and-plot-a-system-variable">Read the results and plot a system variable</a><a id="Read-the-results-and-plot-a-system-variable-1"></a><a class="docs-heading-anchor-permalink" href="#Read-the-results-and-plot-a-system-variable" title="Permalink"></a></h2><p>After the simulation is completed, we can extract the results and make plots as desired. In this case, we will plot the voltage magnitude at the bus at which the line was connected.</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; res_ida = read_results(sim_ida)</code><code class="nohighlight hljs ansi" style="display:block;">Simulation Results Summary
+┌────────────────────────────┬──────────────┐
+│ Property                   │ Value        │
+├────────────────────────────┼──────────────┤
+│ System Base Power [MVA]    │ 100.0        │
+│ System Base Frequency [Hz] │ 60.0         │
+│ Time Span                  │ (0.0, 20.0)  │
+│ Total Time Steps           │ 2015         │
+│ Number of States           │ 2164         │
+│ Total solve time           │ 31.410438494 │
+└────────────────────────────┴──────────────┘</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; v1101_ida = get_voltage_magnitude_series(res_ida, 1101);</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; plot(v1101_ida);</code><code class="nohighlight hljs ansi" style="display:block;"></code></pre><p><img src="../figs/v1101_ida.svg" alt="plot"/></p><h2 id="Run-the-simulation-using-Rodas4()"><a class="docs-heading-anchor" href="#Run-the-simulation-using-Rodas4()">Run the simulation using Rodas4()</a><a id="Run-the-simulation-using-Rodas4()-1"></a><a class="docs-heading-anchor-permalink" href="#Run-the-simulation-using-Rodas4()" title="Permalink"></a></h2><p>In this case, we will use a MassMatrixModel formulation, for more details about the formulation checkout the <a href="https://nrel-sienna.github.io/PowerSimulationsDynamics.jl/stable/models/">Models Section</a> in <code>PowerSimulationsDynamics.jl</code> documentation</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; sim_rodas = Simulation(
+           MassMatrixModel,
+           sys, #system
+           pwd(),
+           (0.0, 20.0), #time span
+           BranchTrip(1.0, Line, &quot;CORONADO    -1101-PALOVRDE    -1401-i_10&quot;);
+           console_level = Logging.Info,
+       )</code><code class="nohighlight hljs ansi" style="display:block;">[ Info: Unit System changed to UnitSystem.DEVICE_BASE = 1
+[ Info: Pre-Initializing Simulation States
+[ Info: Unit System changed to UnitSystem.SYSTEM_BASE = 0
+┌ Warning: Unit generator-3631-NB set at the limit -0.14000000000000004. Q_max = 0.20000000000000004 Q_min = -0.14000000000000004
+└ @ PowerFlows ~/.julia/packages/PowerFlows/TDLGc/src/post_processing.jl:348
+┌ Warning: Unit generator-6132-G set at the limit -1.47. Q_max = 1.47 Q_min = -1.47
+└ @ PowerFlows ~/.julia/packages/PowerFlows/TDLGc/src/post_processing.jl:348
+┌ Warning: Unit generator-6433-E set at the limit 0.59. Q_max = 0.59 Q_min = -0.59
+└ @ PowerFlows ~/.julia/packages/PowerFlows/TDLGc/src/post_processing.jl:348
+[ Info: PowerFlow solve converged, the results have been stored in the system
+[ Info: Unit System changed to UnitSystem.DEVICE_BASE = 1
+[ Info: Residual from initial guess: max = 9.827763047809412e-10 at 1268, total = 2.3846225827075845e-8
+Iter     f(x) inf-norm    Step 2-norm 
+------   --------------   --------------
+[ Info: Initialization non-linear solve succeeded with a tolerance of 1.0e-9 using solver trust_region. Saving solution.
+[ Info: Attaching Perturbations
+[ Info: Simulations status = BUILT
+┌ Info: 
+│  ───────────────────────────────────────────────────────────────────────────────
+│                                                      Time          Allocations  
+│                                                ───────────────   ───────────────
+│                 Total measured:                     11.4s             824MiB    
+│ 
+│  Section                               ncalls     time    %tot     alloc    %tot
+│  ───────────────────────────────────────────────────────────────────────────────
+│  Build Simulation                           1    11.4s  100.0%    824MiB  100.0%
+│    Build Simulation Inputs                  1   10.7ms    0.1%   7.30MiB    0.9%
+│      Wrap Branches                          1   9.10μs    0.0%      240B    0.0%
+│      Wrap Dynamic Injectors                 1   6.74ms    0.1%   2.44MiB    0.3%
+│      Calculate MM, DAE_vector, Tota...      1   1.08ms    0.0%   1.90MiB    0.2%
+│      Wrap Static Injectors                  1    650μs    0.0%    288KiB    0.0%
+│    Pre-initialization                       1   44.9ms    0.4%   17.0MiB    2.1%
+│      Power Flow solution                    1   36.2ms    0.3%   13.0MiB    1.6%
+│      Initialize Static Injectors            1   1.00μs    0.0%     0.00B    0.0%
+│      Initialize Dynamic Injectors           1   8.05ms    0.1%   3.75MiB    0.5%
+│    Calculate Jacobian                       1    8.99s   78.7%    614MiB   74.5%
+│    Make Model Function                      1   10.1ms    0.1%    129KiB    0.0%
+│    Initial Condition NLsolve refine...      1    1.63s   14.3%    169MiB   20.5%
+│    Build Perturbations                      1   21.9ms    0.2%    581KiB    0.1%
+│    Make DiffEq Problem                      1    721ms    6.3%   15.7MiB    1.9%
+│  ───────────────────────────────────────────────────────────────────────────────
+└ 
+Simulation Summary
+┌─────────────────────────┬───────────────────┐
+│ Property                │ Value             │
+├─────────────────────────┼───────────────────┤
+│ Status                  │ BUILT             │
+│ Simulation Type         │ Mass Matrix Model │
+│ Initialized?            │ Yes               │
+│ Multimachine system?    │ Yes               │
+│ Time Span               │ (0.0, 20.0)       │
+│ Number of States        │ 2164              │
+│ Number of Perturbations │ 1                 │
+└─────────────────────────┴───────────────────┘</code></pre><p>We will now run the simulation using OrdinaryDiffEq.jl solver Rodas4() by specifying the tolerance we want for the simulation. In our experience with this solver, solution times are faster when supplying information about the atol and rtol values as we can see in the example. The solver will also work with a specified dtmax but take a significantly longer time to solve. When using OrdinaryDiffEq.jl solvers always pass the option <code>initializealg = NoInit()</code> to avoid unnecessary re-initialization of the algebraic equations.</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; execute!(
+           sim_rodas,
+           Rodas4(),
+           saveat = 0.01,
+           atol = 1e-10,
+           rtol = 1e-10,
+           initializealg = NoInit(),
+       )</code><code class="nohighlight hljs ansi" style="display:block;">SIMULATION_FINALIZED::BUILD_STATUS = 6</code></pre><h2 id="Read-the-results"><a class="docs-heading-anchor" href="#Read-the-results">Read the results</a><a id="Read-the-results-1"></a><a class="docs-heading-anchor-permalink" href="#Read-the-results" title="Permalink"></a></h2><p>After the simulation is completed, we can extract the results and make plots as desired. In this case, we will plot the voltage magnitude at the bus at which the line was connected.</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; res_rodas = read_results(sim_rodas)</code><code class="nohighlight hljs ansi" style="display:block;">Simulation Results Summary
+┌────────────────────────────┬──────────────┐
+│ Property                   │ Value        │
+├────────────────────────────┼──────────────┤
+│ System Base Power [MVA]    │ 100.0        │
+│ System Base Frequency [Hz] │ 60.0         │
+│ Time Span                  │ (0.0, 20.0)  │
+│ Total Time Steps           │ 2002         │
+│ Number of States           │ 2164         │
+│ Total solve time           │ 375.25718146 │
+└────────────────────────────┴──────────────┘</code></pre><h2 id="Compare-the-results"><a class="docs-heading-anchor" href="#Compare-the-results">Compare the results</a><a id="Compare-the-results-1"></a><a class="docs-heading-anchor-permalink" href="#Compare-the-results" title="Permalink"></a></h2><p>After the simulation is completed, we can extract the results and make plots as desired. In this case, we will plot the voltage magnitude at the bus at which the line was connected. For both of the solution techniques.</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; v1101 = get_voltage_magnitude_series(res_rodas, 1101);</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; plot(v1101, label = &quot;RODAS4&quot;);</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; plot!(v1101_ida, label = &quot;IDA&quot;);</code><code class="nohighlight hljs ansi" style="display:block;"></code></pre><p><img src="../figs/v1101_comparison.svg" alt="plot"/></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../tutorial_inverter_modeling/">« Inverter Modeling</a><a class="docs-footer-nextpage" href="../tutorial_continuation_pf/">Small-Signal Analysis »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.25 on <span class="colophon-date" title="Friday 4 August 2023 16:48">Friday 4 August 2023</span>. Using Julia version 1.9.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

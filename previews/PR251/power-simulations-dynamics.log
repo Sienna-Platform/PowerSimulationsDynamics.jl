@@ -1,0 +1,61 @@
+┌ Info: 2022-06-15T01:05:35.407 [2842:1]: Validating connectivity with Goderya algorithm
+└ @ PowerSystems /home/runner/.julia/packages/PowerSystems/jMHHa/src/utils/network_calculations/ybus_calculations.jl:318
+┌ Info: 2022-06-15T01:05:35.707 [2842:1]: The System has no islands
+└ @ PowerSystems /home/runner/.julia/packages/PowerSystems/jMHHa/src/utils/network_calculations/ybus_calculations.jl:264
+┌ Info: 2022-06-15T01:05:37.898 [2842:1]: The reference Bus has a Source connected to it. The frequency reference model will change to ConstantFrequency
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/frequency_reference.jl:70
+┌ Info: 2022-06-15T01:05:37.914 [2842:1]: Pre-Initializing Simulation States
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/simulation.jl:263
+┌ Info: 2022-06-15T01:05:37.914 [2842:1]: Unit System changed to UnitSystem.SYSTEM_BASE = 0
+└ @ PowerSystems /home/runner/.julia/packages/PowerSystems/jMHHa/src/base.jl:346
+┌ Info: 2022-06-15T01:05:37.914 [2842:1]: Validating connectivity with Goderya algorithm
+└ @ PowerSystems /home/runner/.julia/packages/PowerSystems/jMHHa/src/utils/network_calculations/ybus_calculations.jl:318
+┌ Info: 2022-06-15T01:05:37.914 [2842:1]: The System has no islands
+└ @ PowerSystems /home/runner/.julia/packages/PowerSystems/jMHHa/src/utils/network_calculations/ybus_calculations.jl:264
+┌ Info: 2022-06-15T01:05:39.686 [2842:1]: PowerFlow solve converged, the results have been stored in the system
+└ @ PowerFlows /home/runner/.julia/packages/PowerFlows/4i4mk/src/nlsolve_powerflow.jl:45
+┌ Info: 2022-06-15T01:05:39.686 [2842:1]: Unit System changed to UnitSystem.DEVICE_BASE = 1
+└ @ PowerSystems /home/runner/.julia/packages/PowerSystems/jMHHa/src/base.jl:346
+┌ Info: 2022-06-15T01:05:58.426 [2842:1]: Residual from initial guess: max = 4.2092551666428335e-11 at 4, total = 9.411131735555515e-11
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/nlsolve_wrapper.jl:97
+┌ Info: 2022-06-15T01:05:58.492 [2842:1]: Initialization non-linear solve succeeded with a tolerance of 1.0e-9 using solver trust_region. Saving solution.
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/nlsolve_wrapper.jl:65
+┌ Info: 2022-06-15T01:05:58.492 [2842:1]: Attaching Perturbations
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/simulation.jl:296
+┌ Info: 2022-06-15T01:05:59.955 [2842:1]: Simulations status = BUILT
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/simulation.jl:416
+┌ Info: 2022-06-15T01:06:00.028 [2842:1]: 
+│  ───────────────────────────────────────────────────────────────────────────────
+│                                                      Time          Allocations  
+│                                                ───────────────   ───────────────
+│                 Total measured:                     27.6s            2.02GiB    
+│ 
+│  Section                               ncalls     time    %tot     alloc    %tot
+│  ───────────────────────────────────────────────────────────────────────────────
+│  Build Simulation                           1    27.3s  100.0%   1.99GiB  100.0%
+│    Build Simulation Inputs                  1    5.30s   19.4%    226MiB   11.1%
+│      Wrap Branches                          1   21.9μs    0.0%      176B    0.0%
+│      Wrap Dynamic Injectors                 1    1.76s    6.5%    117MiB    5.7%
+│      Calculate MM, DAE_vector, Tota...      1    151ms    0.6%   23.4MiB    1.1%
+│      Wrap Static Injectors                  1    275ms    1.0%   4.98MiB    0.2%
+│    Pre-initialization                       1    11.1s   40.8%    893MiB   43.8%
+│      Power Flow solution                    1    1.77s    6.5%   67.4MiB    3.3%
+│      Initialize Static Injectors            1    3.26s   11.9%   75.3MiB    3.7%
+│      Initialize Dynamic Injectors           1    6.12s   22.4%    750MiB   36.8%
+│    Calculate Jacobian                       1    6.97s   25.5%    710MiB   34.8%
+│    Make Model Function                      1    115ms    0.4%   10.4MiB    0.5%
+│    Initial Condition NLsolve refine...      1    2.35s    8.6%   45.5MiB    2.2%
+│    Build Perturbations                      1    580ms    2.1%    100MiB    4.9%
+│    Make DiffEq Problem                      1    876ms    3.2%   54.9MiB    2.7%
+│  ───────────────────────────────────────────────────────────────────────────────
+│ 
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/simulation.jl:441
+┌ Warning: 2022-06-15T01:06:15.976 [2842:1]: Unrecognized keyword arguments found. Future versions will error.
+│ The only allowed keyword arguments to `solve` are: 
+│ (:dense, :saveat, :save_idxs, :tstops, :d_discontinuities, :save_everystep, :save_on, :save_start, :save_end, :initialize_save, :adaptive, :abstol, :reltol, :dt, :dtmax, :dtmin, :force_dtmin, :internalnorm, :controller, :gamma, :beta1, :beta2, :qmax, :qmin, :qsteady_min, :qsteady_max, :qoldinit, :failfactor, :calck, :alias_u0, :maxiters, :callback, :isoutofdomain, :unstable_check, :verbose, :merge_callbacks, :progress, :progress_steps, :progress_name, :progress_message, :timeseries_errors, :dense_errors, :weak_timeseries_errors, :weak_dense_errors, :calculate_errors, :initializealg, :alg, :save_noise, :delta, :seed, :alg_hints, :kwargshandle, :trajectories, :batch_size, :sensealg, :advance_to_tstop, :stop_at_next_tstop, :default_set, :second_time)
+│ 
+│ See https://diffeq.sciml.ai/stable/basics/common_solver_opts/ for more details.
+│ 
+│ Set kwargshandle=KeywordArgError for an error message.
+│ Set kwargshandle=KeywordArgSilent to ignore this message.
+└ @ DiffEqBase /home/runner/.julia/packages/DiffEqBase/hZncn/src/solve.jl:757

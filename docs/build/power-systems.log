@@ -1,0 +1,12 @@
+┌ Info: 2020-11-22T21:51:53.418 [68251:1]: CrossReferences: building cross-references.
+└ @ Documenter.Builder /Users/jdlara/.julia/packages/Documenter/bRylW/src/Builder.jl:232
+┌ Info: 2020-11-22T21:51:54.797 [68251:1]: CheckDocument: running document checks.
+└ @ Documenter.Builder /Users/jdlara/.julia/packages/Documenter/bRylW/src/Builder.jl:238
+┌ Info: 2020-11-22T21:51:55.658 [68251:1]: Populate: populating indices.
+└ @ Documenter.Builder /Users/jdlara/.julia/packages/Documenter/bRylW/src/Builder.jl:246
+┌ Info: 2020-11-22T21:51:57.785 [68251:1]: RenderDocument: rendering document.
+└ @ Documenter.Builder /Users/jdlara/.julia/packages/Documenter/bRylW/src/Builder.jl:257
+┌ Info: 2020-11-22T21:51:59.025 [68251:1]: HTMLWriter: rendering HTML pages.
+└ @ Documenter.Writers.HTMLWriter /Users/jdlara/.julia/packages/Documenter/bRylW/src/Writers/HTMLWriter.jl:560
+┌ Warning: 2020-11-22T21:52:05.993 [68251:1]: Documenter could not auto-detect the building environment Skipping deployment.
+└ @ Documenter /Users/jdlara/.julia/packages/Documenter/bRylW/src/deployconfig.jl:75

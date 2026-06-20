@@ -1,0 +1,34 @@
+┌ Info: 2022-04-29T01:47:45.373 [2818:1]: Validating connectivity with Goderya algorithm
+└ @ PowerSystems /home/runner/.julia/packages/PowerSystems/ldgak/src/utils/network_calculations/ybus_calculations.jl:308
+┌ Info: 2022-04-29T01:47:45.609 [2818:1]: The System has no islands
+└ @ PowerSystems /home/runner/.julia/packages/PowerSystems/ldgak/src/utils/network_calculations/ybus_calculations.jl:254
+┌ Info: 2022-04-29T01:47:47.435 [2818:1]: The reference Bus has a Source connected to it. The frequency reference model will change to ConstantFrequency
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/frequency_reference.jl:70
+┌ Info: 2022-04-29T01:47:47.447 [2818:1]: Pre-Initializing Simulation States
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/simulation.jl:263
+┌ Info: 2022-04-29T01:47:47.448 [2818:1]: Unit System changed to UnitSystem.SYSTEM_BASE = 0
+└ @ PowerSystems /home/runner/.julia/packages/PowerSystems/ldgak/src/base.jl:346
+┌ Info: 2022-04-29T01:47:47.448 [2818:1]: Validating connectivity with Goderya algorithm
+└ @ PowerSystems /home/runner/.julia/packages/PowerSystems/ldgak/src/utils/network_calculations/ybus_calculations.jl:308
+┌ Info: 2022-04-29T01:47:47.448 [2818:1]: The System has no islands
+└ @ PowerSystems /home/runner/.julia/packages/PowerSystems/ldgak/src/utils/network_calculations/ybus_calculations.jl:254
+┌ Info: 2022-04-29T01:47:48.926 [2818:1]: PowerFlow solve converged, the results have been stored in the system
+└ @ PowerFlows /home/runner/.julia/packages/PowerFlows/SXykU/src/nlsolve_powerflow.jl:45
+┌ Info: 2022-04-29T01:47:48.927 [2818:1]: Unit System changed to UnitSystem.DEVICE_BASE = 1
+└ @ PowerSystems /home/runner/.julia/packages/PowerSystems/ldgak/src/base.jl:346
+┌ Info: 2022-04-29T01:48:01.178 [2818:1]: Residual from initial guess: max = 4.2092551666428335e-11 at 4, total = 9.411131735555515e-11
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/nlsolve_wrapper.jl:97
+┌ Info: 2022-04-29T01:48:01.231 [2818:1]: Initialization non-linear solve succeeded with a tolerance of 1.0e-9 using solver trust_region. Saving solution.
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/nlsolve_wrapper.jl:65
+┌ Info: 2022-04-29T01:48:01.231 [2818:1]: Attaching Perturbations
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/simulation.jl:296
+┌ Info: 2022-04-29T01:48:01.832 [2818:1]: Simulations status = BUILT
+└ @ PowerSimulationsDynamics /home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/simulation.jl:415
+┌ Warning: 2022-04-29T01:48:14.103 [2818:1]: Warning: Unrecognized keyword arguments found. Future versions will error.
+│ The only allowed keyword arguments to `solve` are: 
+│ (:dense, :saveat, :save_idxs, :tstops, :d_discontinuities, :save_everystep, :save_on, :save_start, :save_end, :initialize_save, :adaptive, :abstol, :reltol, :dt, :dtmax, :dtmin, :force_dtmin, :internalnorm, :controller, :gamma, :beta1, :beta2, :qmax, :qmin, :qsteady_min, :qsteady_max, :qoldinit, :failfactor, :calck, :alias_u0, :maxiters, :callback, :isoutofdomain, :unstable_check, :verbose, :merge_callbacks, :progress, :progress_steps, :progress_name, :progress_message, :timeseries_errors, :dense_errors, :calculate_errors, :initializealg, :alg, :save_noise, :delta, :seed, :alg_hints, :kwargshandle, :trajectories, :batch_size, :sensealg, :advance_to_tstop, :stop_at_next_tstop, :default_set, :second_time)
+│ See https://diffeq.sciml.ai/stable/basics/common_solver_opts/ for more details.
+│ 
+│ Set kwargshandle=KeywordArgError for an error message and more details.
+│ Set kwargshandle=KeywordArgSilent to ignore this message.
+└ @ DiffEqBase /home/runner/.julia/packages/DiffEqBase/U3LtB/src/solve.jl:213

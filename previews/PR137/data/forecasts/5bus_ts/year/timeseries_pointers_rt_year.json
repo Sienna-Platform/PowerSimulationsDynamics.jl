@@ -1,0 +1,98 @@
+[
+    {
+        "simulation": "REAL_TIME",
+        "category": "Generator",
+        "component_name": "HydroDispatch1",
+        "label": "get_max_active_power",
+        "scaling_factor": "max",
+        "data_file": "./rt_hydro.csv"
+    },
+    {
+        "simulation": "REAL_TIME",
+        "category": "Generator",
+        "component_name": "HydroDispatch2",
+        "label": "get_max_active_power",
+        "scaling_factor": "max",
+        "data_file": "./rt_hydro.csv"
+    },
+    {
+        "simulation": "REAL_TIME",
+        "category": "Generator",
+        "component_name": "HydroDispatch3",
+        "label": "get_max_active_power",
+        "scaling_factor": "max",
+        "data_file": "./rt_hydro.csv"
+    },
+    {
+        "simulation": "REAL_TIME",
+        "category": "Generator",
+        "component_name": "HydroDispatch1",
+        "label": "get_inflow",
+        "scaling_factor": "max",
+        "data_file": "./rt_hydro.csv"
+    },
+    {
+        "simulation": "REAL_TIME",
+        "category": "Generator",
+        "component_name": "HydroDispatch3",
+        "label": "get_inflow",
+        "scaling_factor": "max",
+        "data_file": "./rt_hydro.csv"
+    },
+    {
+        "simulation": "REAL_TIME",
+        "category": "Generator",
+        "component_name": "HydroDispatch1",
+        "label": "get_storage_target",
+        "scaling_factor": 1.0,
+        "data_file": "./rt_hydro5_storage.csv"
+    },
+    {
+        "simulation": "REAL_TIME",
+        "category": "Generator",
+        "component_name": "HydroDispatch3",
+        "label": "get_storage_target",
+        "scaling_factor": 1.0,
+        "data_file": "./rt_hydro5_storage.csv"
+    },
+    {
+        "simulation": "REAL_TIME",
+        "category": "Generator",
+        "component_name": "SolarBusC",
+        "label": "get_max_active_power",
+        "scaling_factor": "max",
+        "data_file": "./rt_solar.csv"
+    },
+    {
+        "simulation": "REAL_TIME",
+        "category": "Generator",
+        "component_name": "WindBusA",
+        "label": "get_max_active_power",
+        "scaling_factor": "max",
+        "data_file": "./rt_wind.csv"
+    },
+    {
+        "simulation": "REAL_TIME",
+        "category": "ElectricLoad",
+        "component_name": "bus2",
+        "label": "get_max_active_power",
+        "scaling_factor": "max",
+        "data_file": "./rt_load.csv"
+    },
+    {
+        "simulation": "REAL_TIME",
+        "category": "ElectricLoad",
+        "component_name": "bus3",
+        "label": "get_max_active_power",
+        "scaling_factor": "max",
+        "data_file": "./rt_load.csv"
+    },
+    {
+        "simulation": "REAL_TIME",
+        "category": "ElectricLoad",
+        "component_name": "bus4",
+        "label": "get_max_active_power",
+        "scaling_factor": "max",
+        "data_file": "./rt_load.csv"
+    }
+]

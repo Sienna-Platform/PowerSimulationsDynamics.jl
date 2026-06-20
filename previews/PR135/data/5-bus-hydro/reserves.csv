@@ -1,0 +1,2 @@
+Reserve Product,Timeframe (sec),Requirement (MW),Eligible Regions,Eligible Device Categories,Eligible Device SubCategories,Direction
+REG1,5,0.1,(1),(Generator),"(gas_ct,gas_cc,coal,hydro_reservoir)",Up

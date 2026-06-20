@@ -1,0 +1,10 @@
+*.jl.cov
+*.jl.*.cov
+*.jl.mem
+*.log
+.DS_Store
+*.ipynb_checkpoints
+Manifest.toml
+.vscode
+*.h5
+tags

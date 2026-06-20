@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Small-Signal Analysis · PowerSimulationsDynamics.jl</title><script data-outdated-warner src="../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.045/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.24/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../../"><img src="../../assets/logo.png" alt="PowerSimulationsDynamics.jl logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../../">PowerSimulationsDynamics.jl</a></span></div><form class="docs-search" action="../../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../../">Welcome Page</a></li><li><a class="tocitem" href="../../quick_start_guide/">Quick Start Guide</a></li><li><a class="tocitem" href="../../execute/">Simulation Execution</a></li><li><span class="tocitem">Tutorials</span><ul><li><a class="tocitem" href="../tutorial_dynamic_data/">Create Dynamic Data</a></li><li><a class="tocitem" href="../tutorial_omib/">OMIB</a></li><li><a class="tocitem" href="../tutorial_dynamic_lines/">Dynamic Lines Simulation</a></li><li><a class="tocitem" href="../tutorial_inverter_modeling/">Inverter Modeling</a></li><li><a class="tocitem" href="../tutorial_240bus/">240 WECC solver comparison</a></li><li class="is-active"><a class="tocitem" href>Small-Signal Analysis</a><ul class="internal"><li><a class="tocitem" href="#Introduction"><span>Introduction</span></a></li><li><a class="tocitem" href="#Dependencies"><span>Dependencies</span></a></li><li><a class="tocitem" href="#Load-the-system"><span>Load the system</span></a></li><li><a class="tocitem" href="#Create-a-P-V-curve"><span>Create a P-V curve</span></a></li><li><a class="tocitem" href="#Run-Small-Signal-Analysis-besides-the-Continuation-Power-Flow"><span>Run Small-Signal Analysis besides the Continuation Power Flow</span></a></li></ul></li><li><a class="tocitem" href="../tutorial_activeload/">Active Load Model</a></li></ul></li><li><a class="tocitem" href="../../models/">Models</a></li><li><a class="tocitem" href="../../initialization/">Initialization</a></li><li><a class="tocitem" href="../../small/">Small Signal</a></li><li><a class="tocitem" href="../../reference_frames/">Reference Frames</a></li><li><a class="tocitem" href="../../perturbations/">Perturbations</a></li><li><a class="tocitem" href="../../generic/">Industrial Renewable Models</a></li><li><span class="tocitem">Generator Component Library</span><ul><li><a class="tocitem" href="../../component_models/machines/">Machine</a></li><li><a class="tocitem" href="../../component_models/shafts/">Shaft</a></li><li><a class="tocitem" href="../../component_models/avr/">AVR</a></li><li><a class="tocitem" href="../../component_models/pss/">PSS</a></li><li><a class="tocitem" href="../../component_models/turbine_gov/">Turbine and Governor</a></li></ul></li><li><span class="tocitem">CIG Component Library</span><ul><li><a class="tocitem" href="../../component_models/converter/">Converter</a></li><li><a class="tocitem" href="../../component_models/dc_source/">DC Sources</a></li><li><a class="tocitem" href="../../component_models/filters/">Filter</a></li><li><a class="tocitem" href="../../component_models/freq_esti/">Frequency Estimators</a></li><li><a class="tocitem" href="../../component_models/inner_control/">Inner Control</a></li><li><a class="tocitem" href="../../component_models/outer_control/">Outer Control</a></li></ul></li><li><span class="tocitem">Branch Models</span><ul><li><a class="tocitem" href="../../component_models/network/">Network</a></li></ul></li><li><span class="tocitem">Load Models</span><ul><li><a class="tocitem" href="../../component_models/loads/">Load Models</a></li></ul></li><li><span class="tocitem">Code Base Developer Guide</span><ul><li><a class="tocitem" href="../../code_base_developer_guide/developer/">Developer Guide</a></li></ul></li><li><a class="tocitem" href="../../api/public/">Public API Reference</a></li><li><a class="tocitem" href="../../api/internal/">Internal API Reference</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Tutorials</a></li><li class="is-active"><a href>Small-Signal Analysis</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Small-Signal Analysis</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/NREL-Sienna/PowerSimulationsDynamics.jl/blob/main/docs/src/tutorials/tutorial_continuation_pf.md" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="Tutorial-Small-Signal-Analysis-with-Continuation-Power-Flow"><a class="docs-heading-anchor" href="#Tutorial-Small-Signal-Analysis-with-Continuation-Power-Flow">Tutorial Small Signal Analysis with Continuation Power Flow</a><a id="Tutorial-Small-Signal-Analysis-with-Continuation-Power-Flow-1"></a><a class="docs-heading-anchor-permalink" href="#Tutorial-Small-Signal-Analysis-with-Continuation-Power-Flow" title="Permalink"></a></h1><p><strong>Originally Contributed by</strong>: Rodrigo Henriquez-Auba</p><h2 id="Introduction"><a class="docs-heading-anchor" href="#Introduction">Introduction</a><a id="Introduction-1"></a><a class="docs-heading-anchor-permalink" href="#Introduction" title="Permalink"></a></h2><p>This tutorial will introduce you to the functionality of <code>PowerSimulationsDynamics</code> and <code>PowerFlows</code> for running small signal analysis in a continuation power flow.</p><p>This tutorial presents a simulation of a two-bus system with a generator (represented with a GENROU + SEXS + TGOV1 model) at bus 1, and a load on bus 2. We will increase the load demand to observe the P-V curve and run a small-signal analysis to check if the system satisfies small-signal stability at different operating points.</p><h2 id="Dependencies"><a class="docs-heading-anchor" href="#Dependencies">Dependencies</a><a id="Dependencies-1"></a><a class="docs-heading-anchor-permalink" href="#Dependencies" title="Permalink"></a></h2><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; using PowerSimulationsDynamics</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; PSID = PowerSimulationsDynamics</code><code class="nohighlight hljs ansi" style="display:block;">PowerSimulationsDynamics</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; using PowerSystemCaseBuilder</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; using PowerSystems</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; using PowerFlows</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; const PSY = PowerSystems</code><code class="nohighlight hljs ansi" style="display:block;">PowerSystems</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; using Plots</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; gr()</code><code class="nohighlight hljs ansi" style="display:block;">Plots.GRBackend()</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # Disable Logging to avoid excessive information
+       using Logging</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; Logging.disable_logging(Logging.Info);</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; Logging.disable_logging(Logging.Warn);</code><code class="nohighlight hljs ansi" style="display:block;"></code></pre><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p><code>PowerSystemCaseBuilder.jl</code> is a helper library that makes it easier to reproduce examples in the documentation and tutorials. Normally you would pass your local files to create the system data instead of calling the function <code>build_system</code>. For more details visit <a href="https://nrel-sienna.github.io/PowerSystems.jl/stable/tutorials/powersystembuilder/">PowerSystemCaseBuilder Documentation</a></p></div></div><p><code>PowerSystems</code> (abbreviated with <code>PSY</code>) is used to properly define the data structure and establish an equilibrium point initial condition with a power flow routine using <code>PowerFlows</code>.</p><h2 id="Load-the-system"><a class="docs-heading-anchor" href="#Load-the-system">Load the system</a><a id="Load-the-system-1"></a><a class="docs-heading-anchor-permalink" href="#Load-the-system" title="Permalink"></a></h2><p>We load the system using <code>PowerSystemCaseBuilder.jl</code>. This system only have a generator without dynamic data on which we can use <code>PowerFlows</code> to generate a P-V (or nose) curve.</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; sys_static = build_system(PSIDSystems, &quot;2 Bus Load Tutorial&quot;)</code><code class="nohighlight hljs ansi" style="display:block;">System
+┌───────────────────┬─────────────┐
+│ Property          │ Value       │
+├───────────────────┼─────────────┤
+│ Name              │             │
+│ Description       │             │
+│ System Units Base │ SYSTEM_BASE │
+│ Base Power        │ 100.0       │
+│ Base Frequency    │ 60.0        │
+│ Num Components    │ 8           │
+└───────────────────┴─────────────┘
+
+Static Components
+┌─────────────────┬───────┬────────────────────────┬───────────────┐
+│ Type            │ Count │ Has Static Time Series │ Has Forecasts │
+├─────────────────┼───────┼────────────────────────┼───────────────┤
+│ Arc             │ 1     │ false                  │ false         │
+│ Area            │ 1     │ false                  │ false         │
+│ Bus             │ 2     │ false                  │ false         │
+│ ExponentialLoad │ 1     │ false                  │ false         │
+│ Line            │ 1     │ false                  │ false         │
+│ LoadZone        │ 1     │ false                  │ false         │
+│ ThermalStandard │ 1     │ false                  │ false         │
+└─────────────────┴───────┴────────────────────────┴───────────────┘</code></pre><p>Note that this system contains an Exponential Load, but the parameters are set up to zero, so it behaves a Constant Power Load:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; first(get_components(PSY.ExponentialLoad, sys_static))</code><code class="nohighlight hljs ansi" style="display:block;">load1021 (PowerSystems.ExponentialLoad):
+   name: load1021
+   available: true
+   bus: BUS 2 (Bus)
+   active_power: 0.1
+   reactive_power: 0.032799999999999996
+   active_power_coefficient: 0.0
+   reactive_power_coefficient: 0.0
+   base_power: 100.0
+   max_active_power: 0.1
+   max_reactive_power: 0.032799999999999996
+   services: 0-element Vector{Service}
+   dynamic_injector: nothing
+   ext: Dict{String, Any}()
+   time_series_container:
+   InfrastructureSystems.SystemUnitsSettings:
+      base_value: 100.0
+      unit_system: UnitSystem.SYSTEM_BASE = 0</code></pre><h2 id="Create-a-P-V-curve"><a class="docs-heading-anchor" href="#Create-a-P-V-curve">Create a P-V curve</a><a id="Create-a-P-V-curve-1"></a><a class="docs-heading-anchor-permalink" href="#Create-a-P-V-curve" title="Permalink"></a></h2><p>The next step is to run multiple power flows and store the voltage at the load and the active power. For this example we will set up the power factor to be unitary (i.e. no reactive power at the load). </p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; # Create a Power Range to change the power load active power
+       P_range = 0.01:0.01:4.6;</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # Choose the power factor
+       load_pf = 1.0;</code><code class="nohighlight hljs ansi" style="display:block;"></code></pre><p>Then create vectors to store the results</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; # PV Curve Results
+       P_load_p = Vector{Float64}();</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; V_load_p = Vector{Float64}();</code><code class="nohighlight hljs ansi" style="display:block;"></code></pre><p>Then, we run multiple power flows in a for loop by changing the active power of the load:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; for p in P_range
+           # Change the active power and reactive power of the load
+           power = p * 1.0
+           load = get_component(PSY.ExponentialLoad, sys_static, &quot;load1021&quot;)
+           set_active_power!(load, power)
+           q_power = power * tan(acos(load_pf))
+           set_reactive_power!(load, q_power)
+           # Run Power Flow
+           status = solve_powerflow!(sys_static)
+           if !status
+               # Finish the loop if the power flow fails
+               print(&quot;Power Flow failed at p = $(power)&quot;)
+               break
+           end
+           # Obtain the bus voltage information
+           bus = get_component(Bus, sys_static, &quot;BUS 2&quot;)
+           Vm = get_magnitude(bus)
+           # Store values in the vectors
+           push!(V_load_p, Vm)
+           push!(P_load_p, power)
+       end</code><code class="nohighlight hljs ansi" style="display:block;">┌ Error: The powerflow solver returned convergence = false
+└ @ PowerFlows ~/.julia/packages/PowerFlows/TDLGc/src/nlsolve_ac_powerflow.jl:50
+Power Flow failed at p = 4.53</code></pre><p>The plot can be visualized with:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; plot(P_load_p,
+            V_load_p,
+            label = &quot;PV Curve&quot;,
+            xlabel = &quot;Load Power [pu]&quot;,
+            ylabel = &quot;Load Bus Voltage [pu]&quot;,
+            color = :black
+       )</code><code class="nohighlight hljs ansi" style="display:block;">Plot{Plots.GRBackend() n=1}</code></pre><p><img src="../figs/pv_curve_cpl.svg" alt="plot"/></p><h2 id="Run-Small-Signal-Analysis-besides-the-Continuation-Power-Flow"><a class="docs-heading-anchor" href="#Run-Small-Signal-Analysis-besides-the-Continuation-Power-Flow">Run Small-Signal Analysis besides the Continuation Power Flow</a><a id="Run-Small-Signal-Analysis-besides-the-Continuation-Power-Flow-1"></a><a class="docs-heading-anchor-permalink" href="#Run-Small-Signal-Analysis-besides-the-Continuation-Power-Flow" title="Permalink"></a></h2><p>To run a small-signal analysis we require a dynamic model of the machine. We can use <code>PowerSystemCaseBuilder</code> to the load the same system, but with a dynamic model for the generator, including a GENROU + SEXS exciter + TGOV1 governor.</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; sys = build_system(PSIDSystems, &quot;2 Bus Load Tutorial GENROU&quot;)</code><code class="nohighlight hljs ansi" style="display:block;">System
+┌───────────────────┬─────────────┐
+│ Property          │ Value       │
+├───────────────────┼─────────────┤
+│ Name              │             │
+│ Description       │             │
+│ System Units Base │ SYSTEM_BASE │
+│ Base Power        │ 100.0       │
+│ Base Frequency    │ 60.0        │
+│ Num Components    │ 9           │
+└───────────────────┴─────────────┘
+
+Static Components
+┌─────────────────┬───────┬────────────────────────┬───────────────┐
+│ Type            │ Count │ Has Static Time Series │ Has Forecasts │
+├─────────────────┼───────┼────────────────────────┼───────────────┤
+│ Arc             │ 1     │ false                  │ false         │
+│ Area            │ 1     │ false                  │ false         │
+│ Bus             │ 2     │ false                  │ false         │
+│ ExponentialLoad │ 1     │ false                  │ false         │
+│ Line            │ 1     │ false                  │ false         │
+│ LoadZone        │ 1     │ false                  │ false         │
+│ ThermalStandard │ 1     │ false                  │ false         │
+└─────────────────┴───────┴────────────────────────┴───────────────┘
+
+Dynamic Components
+┌──────────────────┬───────┐
+│ Type             │ Count │
+├──────────────────┼───────┤
+│ DynamicGenerator │ 1     │
+└──────────────────┴───────┘</code></pre><p>Here are the components of the generator:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; first(get_components(DynamicGenerator, sys))</code><code class="nohighlight hljs ansi" style="display:block;">generator-101-1 (DynamicGenerator{RoundRotorQuadratic, SingleMass, SEXS, SteamTurbineGov1, PSSFixed}):
+   name: generator-101-1
+   ω_ref: 1.0
+   machine: RoundRotorQuadratic
+   shaft: SingleMass
+   avr: SEXS
+   prime_mover: SteamTurbineGov1
+   pss: PSSFixed
+   base_power: 100.0
+   n_states: 10
+   states: [:eq_p, :ed_p, :ψ_kd, :ψ_kq, :δ, :ω, :Vf, :Vr, :x_g1, :x_g2]
+   ext: Dict{String, Any}()
+   InfrastructureSystems.SystemUnitsSettings:
+      base_value: 100.0
+      unit_system: UnitSystem.SYSTEM_BASE = 0</code></pre><p>Besides the results of the P-V curve, we need to store if the system is small-signal stable or not by looking if there is a positive real part eigenvalue.</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; # Vectors to store stability using a boolean (true for stable).
+       stable_vec = Vector{Bool}();</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; status_vec = Vector{Bool}();</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # PV Curve Results
+       P_load_p = Vector{Float64}();</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; V_load_p = Vector{Float64}();</code><code class="nohighlight hljs ansi" style="display:block;"></code></pre><p>We then run the main for loop by updating the load active power, but in addition we create a PowerSimulationsDynamics simulation on which we can run a small-signal analysis to check stability.</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; for p in P_range
+           # Change the active power and reactive power of the load
+           power = p * 1.0
+           load = get_component(PSY.ExponentialLoad, sys_static, &quot;load1021&quot;)
+           set_active_power!(load, power)
+           q_power = power * tan(acos(load_pf))
+           set_reactive_power!(load, q_power)
+           # Run Power Flow
+           status = solve_powerflow!(sys_static)
+           if !status
+               # Finish the loop if the power flow fails
+               print(&quot;Power Flow failed at p = $(power)&quot;)
+               break
+           end
+           # Obtain the bus voltage information
+           bus = get_component(Bus, sys_static, &quot;BUS 2&quot;)
+           Vm = get_magnitude(bus)
+           # Store values in the vectors
+           push!(V_load_p, Vm)
+           push!(P_load_p, power)
+       
+           # Update Load Power in the GENROU system
+           load = get_component(PSY.ExponentialLoad, sys, &quot;load1021&quot;)
+           set_active_power!(load, power)
+           q_power = power * tan(acos(load_pf))
+           set_reactive_power!(load, q_power)
+           # Construct Simulation
+           sim = Simulation(ResidualModel, sys, mktempdir(), (0.0, 1.0))
+           if sim.status == PSID.BUILT
+               # Check small-signal stability
+               sm = small_signal_analysis(sim).stable
+               # Push results of small-signal stability
+               push!(stable_vec, sm)
+               # Push results if the simulation was able to be constructed
+               push!(status_vec, true)
+           else
+               # Push results if the simulation was not able to be constructed
+               push!(status_vec, false)
+           end
+       end</code><code class="nohighlight hljs ansi" style="display:block;">┌ Error: The powerflow solver returned convergence = false
+└ @ PowerFlows ~/.julia/packages/PowerFlows/TDLGc/src/nlsolve_ac_powerflow.jl:50
+Power Flow failed at p = 4.53</code></pre><p>The following plot showcases the P-V curve, while also showcasing (in red) the regions on which the system is small-signal stable.</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; # Find where is stable and unstable
+       dict_true_ixs_p = Vector();</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; dict_false_ixs_p = Vector();</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; dict_true_ixs_p = findall(x-&gt;x, stable_vec);</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; dict_false_ixs_p = findall(x-&gt;!x, stable_vec);</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # Create plot
+       true_ixs = dict_true_ixs_p;</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; plot(P_load_p, V_load_p, color = :blue, label = &quot;PV Curve&quot;, xlabel = &quot;Load Power [pu]&quot;, ylabel = &quot;Load Bus Voltage [pu]&quot;)</code><code class="nohighlight hljs ansi" style="display:block;">Plot{Plots.GRBackend() n=1}</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; plot!(Plots.scatter!(P_load_p[true_ixs] , V_load_p[true_ixs], markerstrokewidth= 0, label = &quot;GENROU SSA&quot;))</code><code class="nohighlight hljs ansi" style="display:block;">Plot{Plots.GRBackend() n=2}</code></pre><p><img src="../figs/pv_curve_cpl_genrou.svg" alt="plot"/></p><p>This results is consistent with most of the literature for dynamic generator models supplying constant power loads, on which by increasing the active power of the load, produce critical eigenvalues which cross the <span>$j\omega$</span> axis at some point. This is called a Hopf Bifurcation, in this case a subcritical one since the limit cycles are unstable.</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../tutorial_240bus/">« 240 WECC solver comparison</a><a class="docs-footer-nextpage" href="../tutorial_activeload/">Active Load Model »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.25 on <span class="colophon-date" title="Monday 31 July 2023 16:39">Monday 31 July 2023</span>. Using Julia version 1.9.2.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

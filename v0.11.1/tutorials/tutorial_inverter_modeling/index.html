@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Inverter modeling · PowerSimulationsDynamics.jl</title><script data-outdated-warner src="../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.045/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.24/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../../"><img src="../../assets/logo.png" alt="PowerSimulationsDynamics.jl logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../../">PowerSimulationsDynamics.jl</a></span></div><form class="docs-search" action="../../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../../">Welcome Page</a></li><li><a class="tocitem" href="../../quick_start_guide/">Quick Start Guide</a></li><li><a class="tocitem" href="../../execute/">Simulation Execution</a></li><li><span class="tocitem">Tutorials</span><ul><li><a class="tocitem" href="../tutorial_dynamic_data/">Create Dynamic Data</a></li><li><a class="tocitem" href="../tutorial_omib/">OMIB</a></li><li><a class="tocitem" href="../tutorial_dynamic_lines/">Dynamic Lines simulation</a></li><li class="is-active"><a class="tocitem" href>Inverter modeling</a><ul class="internal"><li><a class="tocitem" href="#Introduction"><span>Introduction</span></a></li><li><a class="tocitem" href="#The-eigenvalues-can-be-explored"><span>The eigenvalues can be explored</span></a></li><li><a class="tocitem" href="#Modifying-the-system-and-adding-storage"><span>Modifying the system and adding storage</span></a></li></ul></li><li><a class="tocitem" href="../tutorial_240bus/">240 WECC solver comparison</a></li></ul></li><li><a class="tocitem" href="../../models/">Models</a></li><li><a class="tocitem" href="../../initialization/">Initialization</a></li><li><a class="tocitem" href="../../small/">Small Signal</a></li><li><a class="tocitem" href="../../reference_frames/">Reference Frames</a></li><li><a class="tocitem" href="../../perturbations/">Perturbations</a></li><li><a class="tocitem" href="../../generic/">Industrial Renewable Models</a></li><li><span class="tocitem">Generator Component Library</span><ul><li><a class="tocitem" href="../../component_models/machines/">Machine</a></li><li><a class="tocitem" href="../../component_models/shafts/">Shaft</a></li><li><a class="tocitem" href="../../component_models/avr/">AVR</a></li><li><a class="tocitem" href="../../component_models/pss/">PSS</a></li><li><a class="tocitem" href="../../component_models/turbine_gov/">Turbine and Governor</a></li></ul></li><li><span class="tocitem">CIG Component Library</span><ul><li><a class="tocitem" href="../../component_models/converter/">Converter</a></li><li><a class="tocitem" href="../../component_models/dc_source/">DC Sources</a></li><li><a class="tocitem" href="../../component_models/filters/">Filter</a></li><li><a class="tocitem" href="../../component_models/freq_esti/">Frequency Estimators</a></li><li><a class="tocitem" href="../../component_models/inner_control/">Inner Control</a></li><li><a class="tocitem" href="../../component_models/outer_control/">Outer Control</a></li></ul></li><li><span class="tocitem">Branch Models</span><ul><li><a class="tocitem" href="../../component_models/network/">Network</a></li></ul></li><li><span class="tocitem">Load Models</span><ul><li><a class="tocitem" href="../../component_models/loads/">Load Models</a></li></ul></li><li><span class="tocitem">Code Base Developer Guide</span><ul><li><a class="tocitem" href="../../code_base_developer_guide/developer/">Developer Guide</a></li></ul></li><li><a class="tocitem" href="../../api/public/">Public API Reference</a></li><li><a class="tocitem" href="../../api/internal/">Internal API Reference</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Tutorials</a></li><li class="is-active"><a href>Inverter modeling</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Inverter modeling</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/NREL-Sienna/PowerSimulationsDynamics.jl/blob/main/docs/src/tutorials/tutorial_inverter_modeling.md" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="Inverter-Modeling-simulation-with-[PowerSimulationsDynamics.jl](https://github.com/NREL-Sienna/PowerSimulationsDynamics.jl)"><a class="docs-heading-anchor" href="#Inverter-Modeling-simulation-with-[PowerSimulationsDynamics.jl](https://github.com/NREL-Sienna/PowerSimulationsDynamics.jl)">Inverter Modeling simulation with <a href="https://github.com/NREL-Sienna/PowerSimulationsDynamics.jl">PowerSimulationsDynamics.jl</a></a><a id="Inverter-Modeling-simulation-with-[PowerSimulationsDynamics.jl](https://github.com/NREL-Sienna/PowerSimulationsDynamics.jl)-1"></a><a class="docs-heading-anchor-permalink" href="#Inverter-Modeling-simulation-with-[PowerSimulationsDynamics.jl](https://github.com/NREL-Sienna/PowerSimulationsDynamics.jl)" title="Permalink"></a></h1><p><strong>Originally Contributed by</strong>: José Daniel Lara</p><h2 id="Introduction"><a class="docs-heading-anchor" href="#Introduction">Introduction</a><a id="Introduction-1"></a><a class="docs-heading-anchor-permalink" href="#Introduction" title="Permalink"></a></h2><p>This tutorial will introduce the modeling of an inverter with Virtual Inertia in a multi-machine model of the system. We will load the data directly from PSS/e dynamic files.</p><p>The tutorial uses a modified 14-bus system on which all the synchronous machines have been substituted by generators with ESAC1A AVR&#39;s and no Turbine Governors.</p><p>In the first portion of the tutorial we will simulate the system with the original data and cause a line trip between Buses 2 and 4. In the second part of the simulation, we will switch generator 6 with a battery using an inverter and perform the same fault.</p><h3 id="Load-the-packages"><a class="docs-heading-anchor" href="#Load-the-packages">Load the packages</a><a id="Load-the-packages-1"></a><a class="docs-heading-anchor-permalink" href="#Load-the-packages" title="Permalink"></a></h3><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; using PowerSimulationsDynamics</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; using PowerSystems</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; using PowerFlows</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; using Logging</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; using Sundials</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; using Plots</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; const PSY = PowerSystems</code><code class="nohighlight hljs ansi" style="display:block;">PowerSystems</code></pre><p>Create the system</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; file_dir = joinpath(pkgdir(PowerSimulationsDynamics), &quot;docs&quot;, &quot;src&quot;, &quot;tutorials&quot;, &quot;data&quot;)</code><code class="nohighlight hljs ansi" style="display:block;">&quot;/home/runner/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/docs/src/tutorials/data&quot;</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; sys = System(joinpath(file_dir, &quot;14bus.raw&quot;), joinpath(file_dir, &quot;dyn_data.dyr&quot;), runchecks = false)</code><code class="nohighlight hljs ansi" style="display:block;">[ Info: The PSS(R)E parser currently supports buses, loads, shunts, generators, branches, transformers, and dc lines
+[ Info: The PSS(R)E parser currently supports buses, loads, shunts, generators, branches, transformers, and dc lines
+[ Info: The following fields in GENERATOR are missing: O2, F2, O3, F3, O4, F4, WMOD, WPF
+[ Info: The following fields in GENERATOR are missing: O2, F2, O3, F3, O4, F4, WMOD, WPF
+[ Info: The following fields in GENERATOR are missing: O2, F2, O3, F3, O4, F4, WMOD, WPF
+[ Info: The following fields in GENERATOR are missing: O2, F2, O3, F3, O4, F4, WMOD, WPF
+[ Info: The following fields in GENERATOR are missing: O2, F2, O3, F3, O4, F4, WMOD, WPF
+[ Info: The following fields in BRANCH are missing: O2, F2, O3, F3, O4, F4
+[ Info: The following fields in BRANCH are missing: O2, F2, O3, F3, O4, F4
+[ Info: The following fields in BRANCH are missing: O2, F2, O3, F3, O4, F4
+[ Info: The following fields in BRANCH are missing: O2, F2, O3, F3, O4, F4
+[ Info: The following fields in BRANCH are missing: O2, F2, O3, F3, O4, F4
+[ Info: The following fields in BRANCH are missing: O2, F2, O3, F3, O4, F4
+[ Info: The following fields in BRANCH are missing: O2, F2, O3, F3, O4, F4
+[ Info: The following fields in BRANCH are missing: O2, F2, O3, F3, O4, F4
+[ Info: The following fields in BRANCH are missing: O2, F2, O3, F3, O4, F4
+[ Info: The following fields in BRANCH are missing: O2, F2, O3, F3, O4, F4
+[ Info: The following fields in BRANCH are missing: O2, F2, O3, F3, O4, F4
+[ Info: The following fields in BRANCH are missing: O2, F2, O3, F3, O4, F4
+[ Info: The following fields in BRANCH are missing: O2, F2, O3, F3, O4, F4
+[ Info: The following fields in BRANCH are missing: O2, F2, O3, F3, O4, F4
+[ Info: The following fields in BRANCH are missing: O2, F2, O3, F3, O4, F4
+[ Info: The following fields in BRANCH are missing: O2, F2, O3, F3, O4, F4
+[ Info: Parsing PSS(R)E Bus data into a PowerModels Dict...
+[ Info: Parsing PSS(R)E Load data into a PowerModels Dict...
+[ Info: Parsing PSS(R)E Shunt data into a PowerModels Dict...
+[ Info: Parsing PSS(R)E Generator data into a PowerModels Dict...
+[ Info: Parsing PSS(R)E Branch data into a PowerModels Dict...
+[ Info: Parsing PSS(R)E Transformer data into a PowerModels Dict...
+[ Info: Parsing PSS(R)E Two-Terminal and VSC DC line data into a PowerModels Dict...
+┌ Warning: This PSS(R)E parser currently doesn&#39;t support Storage data parsing...
+└ @ PowerSystems ~/.julia/packages/PowerSystems/qRmML/src/parsers/pm_io/psse.jl:967
+┌ Warning: This PSS(R)E parser currently doesn&#39;t support Switch data parsing...
+└ @ PowerSystems ~/.julia/packages/PowerSystems/qRmML/src/parsers/pm_io/psse.jl:973
+[ Info: angmin and angmax values are 0, widening these values on branch 4 to +/- 60.0 deg.
+[ Info: angmin and angmax values are 0, widening these values on branch 1 to +/- 60.0 deg.
+[ Info: angmin and angmax values are 0, widening these values on branch 12 to +/- 60.0 deg.
+[ Info: angmin and angmax values are 0, widening these values on branch 20 to +/- 60.0 deg.
+[ Info: angmin and angmax values are 0, widening these values on branch 2 to +/- 60.0 deg.
+[ Info: angmin and angmax values are 0, widening these values on branch 6 to +/- 60.0 deg.
+[ Info: angmin and angmax values are 0, widening these values on branch 11 to +/- 60.0 deg.
+[ Info: angmin and angmax values are 0, widening these values on branch 13 to +/- 60.0 deg.
+[ Info: angmin and angmax values are 0, widening these values on branch 5 to +/- 60.0 deg.
+[ Info: angmin and angmax values are 0, widening these values on branch 15 to +/- 60.0 deg.
+[ Info: angmin and angmax values are 0, widening these values on branch 16 to +/- 60.0 deg.
+[ Info: angmin and angmax values are 0, widening these values on branch 14 to +/- 60.0 deg.
+[ Info: angmin and angmax values are 0, widening these values on branch 7 to +/- 60.0 deg.
+[ Info: angmin and angmax values are 0, widening these values on branch 8 to +/- 60.0 deg.
+[ Info: angmin and angmax values are 0, widening these values on branch 17 to +/- 60.0 deg.
+[ Info: angmin and angmax values are 0, widening these values on branch 10 to +/- 60.0 deg.
+[ Info: angmin and angmax values are 0, widening these values on branch 19 to +/- 60.0 deg.
+[ Info: angmin and angmax values are 0, widening these values on branch 9 to +/- 60.0 deg.
+[ Info: angmin and angmax values are 0, widening these values on branch 18 to +/- 60.0 deg.
+[ Info: angmin and angmax values are 0, widening these values on branch 3 to +/- 60.0 deg.
+[ Info: this code only supports positive rate_a values, changing the value on branch 4 to 651.7693
+[ Info: this code only supports positive rate_a values, changing the value on branch 1 to 1943.3753
+[ Info: this code only supports positive rate_a values, changing the value on branch 12 to 1340.1421
+[ Info: this code only supports positive rate_a values, changing the value on branch 20 to 686.916
+[ Info: this code only supports positive rate_a values, changing the value on branch 2 to 527.2551
+[ Info: this code only supports positive rate_a values, changing the value on branch 6 to 658.7239
+[ Info: this code only supports positive rate_a values, changing the value on branch 11 to 1099.9023
+[ Info: this code only supports positive rate_a values, changing the value on branch 13 to 404.9974
+[ Info: this code only supports positive rate_a values, changing the value on branch 5 to 661.3166
+[ Info: this code only supports positive rate_a values, changing the value on branch 15 to 406.1471
+[ Info: this code only supports positive rate_a values, changing the value on branch 16 to 312.073
+[ Info: this code only supports positive rate_a values, changing the value on branch 14 to 579.3328
+[ Info: this code only supports positive rate_a values, changing the value on branch 7 to 2739.0808
+[ Info: this code only supports positive rate_a values, changing the value on branch 8 to 548.9677
+[ Info: this code only supports positive rate_a values, changing the value on branch 17 to 578.6164
+[ Info: this code only supports positive rate_a values, changing the value on branch 10 to 828.1844
+[ Info: this code only supports positive rate_a values, changing the value on branch 19 to 480.1216
+[ Info: this code only supports positive rate_a values, changing the value on branch 9 to 426.3491
+[ Info: this code only supports positive rate_a values, changing the value on branch 18 to 217.5559
+[ Info: this code only supports positive rate_a values, changing the value on branch 3 to 594.6825
+┌ Info: Constructing System from Power Models
+│   data[&quot;name&quot;] = &quot;14bus&quot;
+└   data[&quot;source_type&quot;] = &quot;pti&quot;
+[ Info: Reading bus data
+[ Info: Reading Load data in PowerModels dict to populate System ...
+[ Info: Reading LoadZones data in PowerModels dict to populate System ...
+[ Info: Reading generator data
+[ Info: Reading branch data
+[ Info: Reading branch data
+[ Info: Reading DC Line data
+[ Info: Reading storage data
+[ Info: Generators provided in .dyr, without a generator in .raw file will be skipped.
+System
+┌───────────────────┬─────────────┐
+│ Property          │ Value       │
+├───────────────────┼─────────────┤
+│ Name              │             │
+│ Description       │             │
+│ System Units Base │ SYSTEM_BASE │
+│ Base Power        │ 100.0       │
+│ Base Frequency    │ 60.0        │
+│ Num Components    │ 77          │
+└───────────────────┴─────────────┘
+
+Static Components
+┌─────────────────┬───────┬────────────────────────┬───────────────┐
+│ Type            │ Count │ Has Static Time Series │ Has Forecasts │
+├─────────────────┼───────┼────────────────────────┼───────────────┤
+│ Arc             │ 20    │ false                  │ false         │
+│ Area            │ 1     │ false                  │ false         │
+│ Bus             │ 14    │ false                  │ false         │
+│ Line            │ 16    │ false                  │ false         │
+│ LoadZone        │ 1     │ false                  │ false         │
+│ StandardLoad    │ 11    │ false                  │ false         │
+│ TapTransformer  │ 3     │ false                  │ false         │
+│ ThermalStandard │ 5     │ false                  │ false         │
+│ Transformer2W   │ 1     │ false                  │ false         │
+└─────────────────┴───────┴────────────────────────┴───────────────┘
+
+Dynamic Components
+┌──────────────────┬───────┐
+│ Type             │ Count │
+├──────────────────┼───────┤
+│ DynamicGenerator │ 4     │
+│ DynamicGenerator │ 1     │
+└──────────────────┴───────┘</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; include(joinpath(pkgdir(PowerSimulationsDynamics), &quot;test/utils/get_results.jl&quot;))</code><code class="nohighlight hljs ansi" style="display:block;">get_csv_data (generic function with 1 method)</code><code class="nohighlight hljs ansi" style="display:block;">┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81</code></pre><p>Define Simulation Problem with a 20 second simulation period and the branch trip at t = 1.0:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; sim = Simulation(
+           ResidualModel, #Type of model used
+           sys,         #system
+           file_dir,       #path for the simulation output
+           (0.0, 20.0), #time span
+           BranchTrip(1.0, Line, &quot;BUS 02-BUS 04-i_1&quot;);
+           console_level = Logging.Info,
+       )</code><code class="nohighlight hljs ansi" style="display:block;">[ Info: Unit System changed to UnitSystem.DEVICE_BASE = 1
+[ Info: Pre-Initializing Simulation States
+[ Info: Unit System changed to UnitSystem.SYSTEM_BASE = 0
+[ Info: PowerFlow solve converged, the results have been stored in the system
+[ Info: Unit System changed to UnitSystem.DEVICE_BASE = 1
+[ Info: Residual from initial guess: max = 5.029822114366311e-10 at 18, total = 2.0999521763243847e-9
+Iter     f(x) inf-norm    Step 2-norm 
+------   --------------   --------------
+[ Info: Initialization non-linear solve succeeded with a tolerance of 1.0e-9 using solver trust_region. Saving solution.
+[ Info: Attaching Perturbations
+[ Info: Simulations status = BUILT
+┌ Info: 
+│  ───────────────────────────────────────────────────────────────────────────────
+│                                                      Time          Allocations  
+│                                                ───────────────   ───────────────
+│                 Total measured:                     3.41s             181MiB    
+│ 
+│  Section                               ncalls     time    %tot     alloc    %tot
+│  ───────────────────────────────────────────────────────────────────────────────
+│  Build Simulation                           1    3.41s  100.0%    181MiB  100.0%
+│    Build Simulation Inputs                  1    475ms   14.0%   25.6MiB   14.1%
+│      Wrap Branches                          1   4.40μs    0.0%      240B    0.0%
+│      Wrap Dynamic Injectors                 1    418ms   12.3%   22.5MiB   12.4%
+│      Calculate MM, DAE_vector, Tota...      1   26.7ms    0.8%   2.42MiB    1.3%
+│      Wrap Static Injectors                  1    153μs    0.0%   27.8KiB    0.0%
+│    Pre-initialization                       1    1.42s   41.7%   85.6MiB   47.3%
+│      Power Flow solution                    1   1.36ms    0.0%    350KiB    0.2%
+│      Initialize Static Injectors            1    700ns    0.0%     0.00B    0.0%
+│      Initialize Dynamic Injectors           1    1.42s   41.6%   85.1MiB   47.0%
+│    Calculate Jacobian                       1    1.02s   29.9%   48.1MiB   26.6%
+│    Make Model Function                      1   8.70μs    0.0%   1.39KiB    0.0%
+│    Initial Condition NLsolve refine...      1    494ms   14.5%   21.7MiB   12.0%
+│    Build Perturbations                      1    137μs    0.0%   11.9KiB    0.0%
+│    Make DiffEq Problem                      1    153μs    0.0%   11.6KiB    0.0%
+│  ───────────────────────────────────────────────────────────────────────────────
+└ 
+Simulation Summary
+┌─────────────────────────┬────────────────┐
+│ Property                │ Value          │
+├─────────────────────────┼────────────────┤
+│ Status                  │ BUILT          │
+│ Simulation Type         │ Residual Model │
+│ Initialized?            │ Yes            │
+│ Multimachine system?    │ Yes            │
+│ Time Span               │ (0.0, 20.0)    │
+│ Number of States        │ 86             │
+│ Number of Perturbations │ 1              │
+└─────────────────────────┴────────────────┘</code></pre><p>Now that the system is initialized, we can verify the system states for potential issues.</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; show_states_initial_value(sim)</code><code class="nohighlight hljs ansi" style="display:block;">Voltage Variables
+====================
+BUS 01
+====================
+Vm 1.06
+θ 0.0
+====================
+BUS 02
+====================
+Vm 1.04
+θ -0.0711
+====================
+BUS 03
+====================
+Vm 1.01
+θ -0.1787
+====================
+BUS 04
+====================
+Vm 1.0129
+θ -0.1458
+====================
+BUS 05
+====================
+Vm 1.0165
+θ -0.1235
+====================
+BUS 06
+====================
+Vm 1.06
+θ -0.1949
+====================
+BUS 07
+====================
+Vm 1.0438
+θ -0.1812
+====================
+BUS 08
+====================
+Vm 1.08
+θ -0.1656
+====================
+BUS 09
+====================
+Vm 1.0263
+θ -0.2102
+====================
+BUS 10
+====================
+Vm 1.0245
+θ -0.2125
+====================
+BUS 11
+====================
+Vm 1.0384
+θ -0.2059
+====================
+BUS 12
+====================
+Vm 1.0436
+θ -0.2105
+====================
+BUS 13
+====================
+Vm 1.0372
+θ -0.2119
+====================
+BUS 14
+====================
+Vm 1.0126
+θ -0.2291
+====================
+====================
+Differential States
+generator-3-1
+====================
+eq_p 1.0649
+ed_p 0.1243
+ψ_kd 0.9872
+ψ_kq 0.2132
+δ 0.034
+ω 1.0
+Vm 1.01
+Vr1 0.006
+Vr2 2.419
+Ve 1.791
+Vr3 -0.0726
+====================
+Differential States
+generator-8-1
+====================
+eq_p 1.2657
+ed_p 0.0462
+ψ_kd 1.1584
+ψ_kq 0.1748
+δ 0.019
+ω 1.0
+Vm 1.08
+Vr1 0.0097
+Vr2 3.9162
+Ve 2.8839
+Vr3 -0.1175
+====================
+Differential States
+generator-1-1
+====================
+eq_p 1.0604
+ed_p -0.0111
+ψ_kd 1.0563
+ψ_kq 0.1134
+δ 0.1684
+ω 1.0
+Vm 1.06
+Vr1 0.0049
+Vr2 1.951
+Ve 1.4049
+Vr3 -0.0585
+x_g1 0.3144
+x_g2 0.3144
+x_g3 0.3144
+====================
+Differential States
+generator-2-1
+====================
+eq_p 1.1038
+ed_p 0.1491
+ψ_kd 1.003
+ψ_kq 0.2748
+δ 0.1963
+ω 1.0
+Vm 1.04
+Vr1 0.0071
+Vr2 2.8613
+Ve 2.1338
+Vr3 -0.0858
+====================
+Differential States
+generator-6-1
+====================
+eq_p 1.167
+ed_p 0.0955
+ψ_kd 1.08
+ψ_kq 0.3084
+δ 0.1387
+ω 1.0
+Vm 1.06
+Vr1 0.0082
+Vr2 3.2875
+Ve 2.4472
+Vr3 -0.0986
+====================</code></pre><p>We execute the simulation with an additional tolerance for the solver set at 1e-8:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; execute!(sim, IDA(); abstol = 1e-8)</code><code class="nohighlight hljs ansi" style="display:block;">SIMULATION_FINALIZED::BUILD_STATUS = 6</code></pre><p>Using <code>PowerSimulationsDynamics</code> tools for exploring the results, we can plot all the voltage results for the buses:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; result = read_results(sim)</code><code class="nohighlight hljs ansi" style="display:block;">Simulation Results Summary
+┌────────────────────────────┬─────────────┐
+│ Property                   │ Value       │
+├────────────────────────────┼─────────────┤
+│ System Base Power [MVA]    │ 100.0       │
+│ System Base Frequency [Hz] │ 60.0        │
+│ Time Span                  │ (0.0, 20.0) │
+│ Total Time Steps           │ 342         │
+│ Number of States           │ 86          │
+│ Total solve time           │ 1.728706351 │
+└────────────────────────────┴─────────────┘</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; p = plot();</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; for b in get_components(Bus, sys)
+           voltage_series = get_voltage_magnitude_series(result, get_number(b))
+           plot!(
+               p,
+               voltage_series;
+               xlabel = &quot;Time&quot;,
+               ylabel = &quot;Voltage Magnitude [pu]&quot;,
+               label = &quot;Bus - $(get_name(b))&quot;,
+           );
+       end</code><code class="nohighlight hljs ansi" style="display:block;"></code></pre><p><img src="../figs/14bus_gen_volt.svg" alt="plot"/></p><p>We can also explore the frequency of the different generators</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; p2 = plot();</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; for g in get_components(ThermalStandard, sys)
+           state_series = get_state_series(result, (get_name(g), :ω))
+           plot!(
+               p2,
+               state_series;
+               xlabel = &quot;Time&quot;,
+               ylabel = &quot;Speed [pu]&quot;,
+               label = &quot;$(get_name(g)) - ω&quot;,
+           );
+       end</code><code class="nohighlight hljs ansi" style="display:block;"></code></pre><p><img src="../figs/14bus_gen_speed.svg" alt="plot"/></p><p>It is also possible to explore the small signal stability of this system we created.</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; res = small_signal_analysis(sim)</code><code class="nohighlight hljs ansi" style="display:block;">┌ Warning: No Infinite Bus found. Confirm stability directly checking eigenvalues.
+│ If all eigenvalues are on the left-half plane and only one eigenvalue is zero, the system is small signal stable.
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/small_signal.jl:111
+The system is small signal stable</code></pre><h2 id="The-eigenvalues-can-be-explored"><a class="docs-heading-anchor" href="#The-eigenvalues-can-be-explored">The eigenvalues can be explored</a><a id="The-eigenvalues-can-be-explored-1"></a><a class="docs-heading-anchor-permalink" href="#The-eigenvalues-can-be-explored" title="Permalink"></a></h2><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; res.eigenvalues</code><code class="nohighlight hljs ansi" style="display:block;">58-element Vector{ComplexF64}:
+   -1000.000000000001 + 0.0im
+  -1000.0000000000008 + 0.0im
+  -1000.0000000000007 + 0.0im
+  -1000.0000000000005 + 0.0im
+              -1000.0 + 0.0im
+   -51.83364371956075 + 0.0im
+   -51.70455018825664 + 0.0im
+    -51.4443744131907 - 0.018220782844780393im
+    -51.4443744131907 + 0.018220782844780393im
+  -51.410203503315515 + 0.0im
+                      ⋮
+  -0.8293800767699612 - 0.04428569213391823im
+  -0.8293800767699612 + 0.04428569213391823im
+  -0.6362034818563695 + 0.0im
+                 -0.5 + 0.0im
+  -0.4682884182391468 + 0.0im
+ -0.28233919601695484 + 0.0im
+ -0.22910619390452502 - 7.68463570870567im
+ -0.22910619390452502 + 7.68463570870567im
+                  0.0 + 0.0im</code></pre><h2 id="Modifying-the-system-and-adding-storage"><a class="docs-heading-anchor" href="#Modifying-the-system-and-adding-storage">Modifying the system and adding storage</a><a id="Modifying-the-system-and-adding-storage-1"></a><a class="docs-heading-anchor-permalink" href="#Modifying-the-system-and-adding-storage" title="Permalink"></a></h2><p>Reload the system for this example:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; sys = System(joinpath(file_dir, &quot;14bus.raw&quot;), joinpath(file_dir, &quot;dyn_data.dyr&quot;), runchecks = false)</code><code class="nohighlight hljs ansi" style="display:block;">[ Info: The PSS(R)E parser currently supports buses, loads, shunts, generators, branches, transformers, and dc lines
+[ Info: The PSS(R)E parser currently supports buses, loads, shunts, generators, branches, transformers, and dc lines
+[ Info: The following fields in GENERATOR are missing: O2, F2, O3, F3, O4, F4, WMOD, WPF
+[ Info: The following fields in GENERATOR are missing: O2, F2, O3, F3, O4, F4, WMOD, WPF
+[ Info: The following fields in GENERATOR are missing: O2, F2, O3, F3, O4, F4, WMOD, WPF
+[ Info: The following fields in GENERATOR are missing: O2, F2, O3, F3, O4, F4, WMOD, WPF
+[ Info: The following fields in GENERATOR are missing: O2, F2, O3, F3, O4, F4, WMOD, WPF
+[ Info: The following fields in BRANCH are missing: O2, F2, O3, F3, O4, F4
+[ Info: The following fields in BRANCH are missing: O2, F2, O3, F3, O4, F4
+[ Info: The following fields in BRANCH are missing: O2, F2, O3, F3, O4, F4
+[ Info: The following fields in BRANCH are missing: O2, F2, O3, F3, O4, F4
+[ Info: The following fields in BRANCH are missing: O2, F2, O3, F3, O4, F4
+[ Info: The following fields in BRANCH are missing: O2, F2, O3, F3, O4, F4
+[ Info: The following fields in BRANCH are missing: O2, F2, O3, F3, O4, F4
+[ Info: The following fields in BRANCH are missing: O2, F2, O3, F3, O4, F4
+[ Info: The following fields in BRANCH are missing: O2, F2, O3, F3, O4, F4
+[ Info: The following fields in BRANCH are missing: O2, F2, O3, F3, O4, F4
+[ Info: The following fields in BRANCH are missing: O2, F2, O3, F3, O4, F4
+[ Info: The following fields in BRANCH are missing: O2, F2, O3, F3, O4, F4
+[ Info: The following fields in BRANCH are missing: O2, F2, O3, F3, O4, F4
+[ Info: The following fields in BRANCH are missing: O2, F2, O3, F3, O4, F4
+[ Info: The following fields in BRANCH are missing: O2, F2, O3, F3, O4, F4
+[ Info: The following fields in BRANCH are missing: O2, F2, O3, F3, O4, F4
+[ Info: Parsing PSS(R)E Bus data into a PowerModels Dict...
+[ Info: Parsing PSS(R)E Load data into a PowerModels Dict...
+[ Info: Parsing PSS(R)E Shunt data into a PowerModels Dict...
+[ Info: Parsing PSS(R)E Generator data into a PowerModels Dict...
+[ Info: Parsing PSS(R)E Branch data into a PowerModels Dict...
+[ Info: Parsing PSS(R)E Transformer data into a PowerModels Dict...
+[ Info: Parsing PSS(R)E Two-Terminal and VSC DC line data into a PowerModels Dict...
+┌ Warning: This PSS(R)E parser currently doesn&#39;t support Storage data parsing...
+└ @ PowerSystems ~/.julia/packages/PowerSystems/qRmML/src/parsers/pm_io/psse.jl:967
+┌ Warning: This PSS(R)E parser currently doesn&#39;t support Switch data parsing...
+└ @ PowerSystems ~/.julia/packages/PowerSystems/qRmML/src/parsers/pm_io/psse.jl:973
+[ Info: angmin and angmax values are 0, widening these values on branch 4 to +/- 60.0 deg.
+[ Info: angmin and angmax values are 0, widening these values on branch 1 to +/- 60.0 deg.
+[ Info: angmin and angmax values are 0, widening these values on branch 12 to +/- 60.0 deg.
+[ Info: angmin and angmax values are 0, widening these values on branch 20 to +/- 60.0 deg.
+[ Info: angmin and angmax values are 0, widening these values on branch 2 to +/- 60.0 deg.
+[ Info: angmin and angmax values are 0, widening these values on branch 6 to +/- 60.0 deg.
+[ Info: angmin and angmax values are 0, widening these values on branch 11 to +/- 60.0 deg.
+[ Info: angmin and angmax values are 0, widening these values on branch 13 to +/- 60.0 deg.
+[ Info: angmin and angmax values are 0, widening these values on branch 5 to +/- 60.0 deg.
+[ Info: angmin and angmax values are 0, widening these values on branch 15 to +/- 60.0 deg.
+[ Info: angmin and angmax values are 0, widening these values on branch 16 to +/- 60.0 deg.
+[ Info: angmin and angmax values are 0, widening these values on branch 14 to +/- 60.0 deg.
+[ Info: angmin and angmax values are 0, widening these values on branch 7 to +/- 60.0 deg.
+[ Info: angmin and angmax values are 0, widening these values on branch 8 to +/- 60.0 deg.
+[ Info: angmin and angmax values are 0, widening these values on branch 17 to +/- 60.0 deg.
+[ Info: angmin and angmax values are 0, widening these values on branch 10 to +/- 60.0 deg.
+[ Info: angmin and angmax values are 0, widening these values on branch 19 to +/- 60.0 deg.
+[ Info: angmin and angmax values are 0, widening these values on branch 9 to +/- 60.0 deg.
+[ Info: angmin and angmax values are 0, widening these values on branch 18 to +/- 60.0 deg.
+[ Info: angmin and angmax values are 0, widening these values on branch 3 to +/- 60.0 deg.
+[ Info: this code only supports positive rate_a values, changing the value on branch 4 to 651.7693
+[ Info: this code only supports positive rate_a values, changing the value on branch 1 to 1943.3753
+[ Info: this code only supports positive rate_a values, changing the value on branch 12 to 1340.1421
+[ Info: this code only supports positive rate_a values, changing the value on branch 20 to 686.916
+[ Info: this code only supports positive rate_a values, changing the value on branch 2 to 527.2551
+[ Info: this code only supports positive rate_a values, changing the value on branch 6 to 658.7239
+[ Info: this code only supports positive rate_a values, changing the value on branch 11 to 1099.9023
+[ Info: this code only supports positive rate_a values, changing the value on branch 13 to 404.9974
+[ Info: this code only supports positive rate_a values, changing the value on branch 5 to 661.3166
+[ Info: this code only supports positive rate_a values, changing the value on branch 15 to 406.1471
+[ Info: this code only supports positive rate_a values, changing the value on branch 16 to 312.073
+[ Info: this code only supports positive rate_a values, changing the value on branch 14 to 579.3328
+[ Info: this code only supports positive rate_a values, changing the value on branch 7 to 2739.0808
+[ Info: this code only supports positive rate_a values, changing the value on branch 8 to 548.9677
+[ Info: this code only supports positive rate_a values, changing the value on branch 17 to 578.6164
+[ Info: this code only supports positive rate_a values, changing the value on branch 10 to 828.1844
+[ Info: this code only supports positive rate_a values, changing the value on branch 19 to 480.1216
+[ Info: this code only supports positive rate_a values, changing the value on branch 9 to 426.3491
+[ Info: this code only supports positive rate_a values, changing the value on branch 18 to 217.5559
+[ Info: this code only supports positive rate_a values, changing the value on branch 3 to 594.6825
+┌ Info: Constructing System from Power Models
+│   data[&quot;name&quot;] = &quot;14bus&quot;
+└   data[&quot;source_type&quot;] = &quot;pti&quot;
+[ Info: Reading bus data
+[ Info: Reading Load data in PowerModels dict to populate System ...
+[ Info: Reading LoadZones data in PowerModels dict to populate System ...
+[ Info: Reading generator data
+[ Info: Reading branch data
+[ Info: Reading branch data
+[ Info: Reading DC Line data
+[ Info: Reading storage data
+[ Info: Generators provided in .dyr, without a generator in .raw file will be skipped.
+System
+┌───────────────────┬─────────────┐
+│ Property          │ Value       │
+├───────────────────┼─────────────┤
+│ Name              │             │
+│ Description       │             │
+│ System Units Base │ SYSTEM_BASE │
+│ Base Power        │ 100.0       │
+│ Base Frequency    │ 60.0        │
+│ Num Components    │ 77          │
+└───────────────────┴─────────────┘
+
+Static Components
+┌─────────────────┬───────┬────────────────────────┬───────────────┐
+│ Type            │ Count │ Has Static Time Series │ Has Forecasts │
+├─────────────────┼───────┼────────────────────────┼───────────────┤
+│ Arc             │ 20    │ false                  │ false         │
+│ Area            │ 1     │ false                  │ false         │
+│ Bus             │ 14    │ false                  │ false         │
+│ Line            │ 16    │ false                  │ false         │
+│ LoadZone        │ 1     │ false                  │ false         │
+│ StandardLoad    │ 11    │ false                  │ false         │
+│ TapTransformer  │ 3     │ false                  │ false         │
+│ ThermalStandard │ 5     │ false                  │ false         │
+│ Transformer2W   │ 1     │ false                  │ false         │
+└─────────────────┴───────┴────────────────────────┴───────────────┘
+
+Dynamic Components
+┌──────────────────┬───────┐
+│ Type             │ Count │
+├──────────────────┼───────┤
+│ DynamicGenerator │ 4     │
+│ DynamicGenerator │ 1     │
+└──────────────────┴───────┘</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # Transform loads to constant impedance
+       include(joinpath(pkgdir(PowerSimulationsDynamics), &quot;test/utils/get_results.jl&quot;))</code><code class="nohighlight hljs ansi" style="display:block;">get_csv_data (generic function with 1 method)</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; for l in get_components(StandardLoad, sys)
+           transform_load_to_constant_impedance(l)
+       end</code><code class="nohighlight hljs ansi" style="display:block;">┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81
+┌ Warning: Load data is transformed under the assumption of a 1.0 p.u. Voltage Magnitude
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/utils/psy_utils.jl:81</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # We want to remove the generator 6 and the dynamic component attached to it.
+       thermal_gen = get_component(ThermalStandard, sys, &quot;generator-6-1&quot;)</code><code class="nohighlight hljs ansi" style="display:block;">generator-6-1 (ThermalStandard):
+   name: generator-6-1
+   available: true
+   status: true
+   bus: BUS 06 (Bus)
+   active_power: 0.15
+   reactive_power: 0.14800000000000002
+   rating: 99.99028802838804
+   active_power_limits: (min = -99.99, max = 99.99)
+   reactive_power_limits: (min = -0.06, max = 0.24)
+   ramp_limits: (up = 24.9975, down = 24.9975)
+   operation_cost: ThreePartCost
+   base_power: 25.0
+   time_limits: nothing
+   must_run: false
+   prime_mover: PrimeMovers.OT = 19
+   fuel: ThermalFuels.OTHER = 14
+   services: 0-element Vector{Service}
+   time_at_status: 10000.0
+   dynamic_injector: generator-6-1 (DynamicGenerator{RoundRotorQuadratic, SingleMass, ESAC1A, TGFixed, PSSFixed})
+   ext: Dict{String, Any}(&quot;z_source&quot; =&gt; (r = 0.0, x = 0.12))
+   time_series_container:
+   InfrastructureSystems.SystemUnitsSettings:
+      base_value: 100.0
+      unit_system: UnitSystem.SYSTEM_BASE = 0</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; remove_component!(sys, get_dynamic_injector(thermal_gen))</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; remove_component!(sys, thermal_gen)</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # We can now define our storage device and add it to the system
+       storage = GenericBattery(
+           name = &quot;Battery&quot;,
+           bus = get_component(Bus, sys, &quot;BUS 06&quot;),
+           available = true,
+           prime_mover = PrimeMovers.BA,
+           active_power = 0.6,
+           reactive_power = 0.16,
+           rating = 1.1,
+           base_power = 25.0,
+           initial_energy = 50.0,
+           state_of_charge_limits = (min = 5.0, max = 100.0),
+           input_active_power_limits = (min = 0.0, max = 1.0),
+           output_active_power_limits = (min = 0.0, max = 1.0),
+           reactive_power_limits = (min = -1.0, max = 1.0),
+           efficiency = (in = 0.80, out = 0.90),
+       )</code><code class="nohighlight hljs ansi" style="display:block;">
+Battery (GenericBattery):
+   name: Battery
+   available: true
+   bus: BUS 06 (Bus)
+   prime_mover: PrimeMovers.BA = 1
+   initial_energy: 1250.0
+   state_of_charge_limits: (min = 125.0, max = 2500.0)
+   rating: 27.500000000000004
+   active_power: 15.0
+   input_active_power_limits: (min = 0.0, max = 25.0)
+   output_active_power_limits: (min = 0.0, max = 25.0)
+   efficiency: (in = 0.8, out = 0.9)
+   reactive_power: 4.0
+   reactive_power_limits: (min = -25.0, max = 25.0)
+   base_power: 25.0
+   operation_cost: nothing
+   services: 0-element Vector{Service}
+   dynamic_injector: nothing
+   ext: Dict{String, Any}()
+   time_series_container:
+   internal: InfrastructureSystems.InfrastructureSystemsInternal</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; add_component!(sys, storage)</code><code class="nohighlight hljs ansi" style="display:block;"></code></pre><p>A good sanity check it running a power flow on the system to make sure all the components are properly scaled and that the system is properly balanced. We can use <code>PowerSystems</code> to perform this check. We can get the results back and perform a sanity check.</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; res = run_powerflow(sys)</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: UndefVarError: `run_powerflow` not defined</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; res[&quot;bus_results&quot;]</code><code class="nohighlight hljs ansi" style="display:block;">ERROR: MethodError: no method matching getindex(::PowerSimulationsDynamics.SmallSignalOutput, ::String)</code></pre><p>After verifying that the system works, we can define our inverter dynamics and add it to the battery that has already been stored in the system.</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; inverter = DynamicInverter(
+           name = get_name(storage),
+           ω_ref = 1.0, # ω_ref,
+           converter = AverageConverter(rated_voltage = 138.0, rated_current = 100.0),
+           outer_control = OuterControl(
+               VirtualInertia(Ta = 2.0, kd = 400.0, kω = 20.0),
+               ReactivePowerDroop(kq = 0.2, ωf = 1000.0),
+           ),
+           inner_control = VoltageModeControl(
+               kpv = 0.59,     #Voltage controller proportional gain
+               kiv = 736.0,    #Voltage controller integral gain
+               kffv = 0.0,     #Binary variable enabling the voltage feed-forward in output of current controllers
+               rv = 0.0,       #Virtual resistance in pu
+               lv = 0.2,       #Virtual inductance in pu
+               kpc = 1.27,     #Current controller proportional gain
+               kic = 14.3,     #Current controller integral gain
+               kffi = 0.0,     #Binary variable enabling the current feed-forward in output of current controllers
+               ωad = 50.0,     #Active damping low pass filter cut-off frequency
+               kad = 0.2,
+           ),
+           dc_source = FixedDCSource(voltage = 600.0),
+           freq_estimator = KauraPLL(
+               ω_lp = 500.0, #Cut-off frequency for LowPass filter of PLL filter.
+               kp_pll = 0.084,  #PLL proportional gain
+               ki_pll = 4.69,   #PLL integral gain
+           ),
+           filter = LCLFilter(lf = 0.08, rf = 0.003, cf = 0.074, lg = 0.2, rg = 0.01),
+       )</code><code class="nohighlight hljs ansi" style="display:block;">
+Battery (DynamicInverter{AverageConverter, OuterControl{VirtualInertia, ReactivePowerDroop}, VoltageModeControl, FixedDCSource, KauraPLL, LCLFilter}):
+   name: Battery
+   ω_ref: 1.0
+   converter: AverageConverter
+   outer_control: OuterControl{VirtualInertia, ReactivePowerDroop}
+   inner_control: VoltageModeControl
+   dc_source: FixedDCSource
+   freq_estimator: KauraPLL
+   filter: LCLFilter
+   base_power: 100.0
+   n_states: 19
+   states: [:θ_oc, :ω_oc, :q_oc, :ξd_ic, :ξq_ic, :γd_ic, :γq_ic, :ϕd_ic, :ϕq_ic, :vd_pll, :vq_pll, :ε_pll, :θ_pll, :ir_cnv, :ii_cnv, :vr_filter, :vi_filter, :ir_filter, :ii_filter]
+   ext: Dict{String, Any}()
+   internal: InfrastructureSystems.InfrastructureSystemsInternal</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; add_component!(sys, inverter, storage)</code><code class="nohighlight hljs ansi" style="display:block;"></code></pre><p>These are the current system components:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; sys</code><code class="nohighlight hljs ansi" style="display:block;">System
+┌───────────────────┬─────────────┐
+│ Property          │ Value       │
+├───────────────────┼─────────────┤
+│ Name              │             │
+│ Description       │             │
+│ System Units Base │ SYSTEM_BASE │
+│ Base Power        │ 100.0       │
+│ Base Frequency    │ 60.0        │
+│ Num Components    │ 77          │
+└───────────────────┴─────────────┘
+
+Static Components
+┌─────────────────┬───────┬────────────────────────┬───────────────┐
+│ Type            │ Count │ Has Static Time Series │ Has Forecasts │
+├─────────────────┼───────┼────────────────────────┼───────────────┤
+│ Arc             │ 20    │ false                  │ false         │
+│ Area            │ 1     │ false                  │ false         │
+│ Bus             │ 14    │ false                  │ false         │
+│ GenericBattery  │ 1     │ false                  │ false         │
+│ Line            │ 16    │ false                  │ false         │
+│ LoadZone        │ 1     │ false                  │ false         │
+│ StandardLoad    │ 11    │ false                  │ false         │
+│ TapTransformer  │ 3     │ false                  │ false         │
+│ ThermalStandard │ 4     │ false                  │ false         │
+│ Transformer2W   │ 1     │ false                  │ false         │
+└─────────────────┴───────┴────────────────────────┴───────────────┘
+
+Dynamic Components
+┌──────────────────┬───────┐
+│ Type             │ Count │
+├──────────────────┼───────┤
+│ DynamicGenerator │ 3     │
+│ DynamicGenerator │ 1     │
+│ DynamicInverter  │ 1     │
+└──────────────────┴───────┘</code></pre><p>Define Simulation problem using the same parameters:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; sim = Simulation(
+           ResidualModel, #Type of model used
+           sys,         #system
+           file_dir,       #path for the simulation output
+           (0.0, 20.0), #time span
+           BranchTrip(1.0, Line, &quot;BUS 02-BUS 04-i_1&quot;);
+           console_level = Logging.Info,
+       )</code><code class="nohighlight hljs ansi" style="display:block;">[ Info: Unit System changed to UnitSystem.DEVICE_BASE = 1
+[ Info: Pre-Initializing Simulation States
+[ Info: Unit System changed to UnitSystem.SYSTEM_BASE = 0
+[ Info: PowerFlow solve converged, the results have been stored in the system
+[ Info: Unit System changed to UnitSystem.DEVICE_BASE = 1
+[ Info: Residual from initial guess: max = 5.029822114366311e-10 at 18, total = 2.018604779933659e-9
+Iter     f(x) inf-norm    Step 2-norm 
+------   --------------   --------------
+[ Info: Initialization non-linear solve succeeded with a tolerance of 1.0e-9 using solver trust_region. Saving solution.
+[ Info: Attaching Perturbations
+[ Info: Simulations status = BUILT
+┌ Info: 
+│  ───────────────────────────────────────────────────────────────────────────────
+│                                                      Time          Allocations  
+│                                                ───────────────   ───────────────
+│                 Total measured:                     1.77s            70.9MiB    
+│ 
+│  Section                               ncalls     time    %tot     alloc    %tot
+│  ───────────────────────────────────────────────────────────────────────────────
+│  Build Simulation                           1    1.77s  100.0%   70.9MiB  100.0%
+│    Build Simulation Inputs                  1    293ms   16.6%   10.8MiB   15.2%
+│      Wrap Branches                          1   4.30μs    0.0%      240B    0.0%
+│      Wrap Dynamic Injectors                 1    264ms   15.0%   10.1MiB   14.2%
+│      Calculate MM, DAE_vector, Tota...      1   53.4μs    0.0%   10.8KiB    0.0%
+│      Wrap Static Injectors                  1   23.3ms    1.3%    532KiB    0.7%
+│    Pre-initialization                       1    469ms   26.5%   17.0MiB   23.9%
+│      Power Flow solution                    1    149ms    8.4%   3.69MiB    5.2%
+│      Initialize Static Injectors            1    700ns    0.0%     0.00B    0.0%
+│      Initialize Dynamic Injectors           1    319ms   18.1%   13.1MiB   18.5%
+│    Calculate Jacobian                       1    1.00s   56.8%   42.8MiB   60.4%
+│    Make Model Function                      1   10.6μs    0.0%   1.61KiB    0.0%
+│    Initial Condition NLsolve refine...      1   1.10ms    0.1%    348KiB    0.5%
+│    Build Perturbations                      1    142μs    0.0%   11.9KiB    0.0%
+│    Make DiffEq Problem                      1    165μs    0.0%   12.1KiB    0.0%
+│  ───────────────────────────────────────────────────────────────────────────────
+└ 
+Simulation Summary
+┌─────────────────────────┬────────────────┐
+│ Property                │ Value          │
+├─────────────────────────┼────────────────┤
+│ Status                  │ BUILT          │
+│ Simulation Type         │ Residual Model │
+│ Initialized?            │ Yes            │
+│ Multimachine system?    │ Yes            │
+│ Time Span               │ (0.0, 20.0)    │
+│ Number of States        │ 94             │
+│ Number of Perturbations │ 1              │
+└─────────────────────────┴────────────────┘</code></pre><p>We can verify the small signal stability of the system before running the simulation:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; res = small_signal_analysis(sim)</code><code class="nohighlight hljs ansi" style="display:block;">┌ Warning: No Infinite Bus found. Confirm stability directly checking eigenvalues.
+│ If all eigenvalues are on the left-half plane and only one eigenvalue is zero, the system is small signal stable.
+└ @ PowerSimulationsDynamics ~/work/PowerSimulationsDynamics.jl/PowerSimulationsDynamics.jl/src/base/small_signal.jl:111
+The system is small signal stable</code></pre><p>Exploring the eigenvalues:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; res.eigenvalues</code><code class="nohighlight hljs ansi" style="display:block;">66-element Vector{ComplexF64}:
+   -2268.086722670927 - 6832.691906127054im
+   -2268.086722670927 + 6832.691906127054im
+   -2094.489677809015 - 6527.127111961708im
+   -2094.489677809015 + 6527.127111961708im
+  -1615.3518213143116 - 290.9590763918993im
+  -1615.3518213143116 + 290.9590763918993im
+  -1000.0000000000008 + 0.0im
+  -1000.0000000000003 + 0.0im
+   -999.9999999999998 + 0.0im
+    -999.999999999999 + 0.0im
+                      ⋮
+  -1.0079674062477373 + 0.0im
+   -0.936317786962561 + 0.0im
+  -0.7915469983862414 + 0.0im
+   -0.620396330619022 + 0.0im
+                 -0.5 + 0.0im
+  -0.2525713087059708 + 0.0im
+ -0.23628223522847258 - 7.659993787462879im
+ -0.23628223522847258 + 7.659993787462879im
+                  0.0 + 0.0im</code></pre><p>We execute the simulation</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; execute!(sim, IDA(); abstol = 1e-8)</code><code class="nohighlight hljs ansi" style="display:block;">SIMULATION_FINALIZED::BUILD_STATUS = 6</code></pre><p>Using <code>PowerSimulationsDynamics</code> tools for exploring the results, we can plot all the voltage results for the buses</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; result = read_results(sim)</code><code class="nohighlight hljs ansi" style="display:block;">Simulation Results Summary
+┌────────────────────────────┬─────────────┐
+│ Property                   │ Value       │
+├────────────────────────────┼─────────────┤
+│ System Base Power [MVA]    │ 100.0       │
+│ System Base Frequency [Hz] │ 60.0        │
+│ Time Span                  │ (0.0, 20.0) │
+│ Total Time Steps           │ 569         │
+│ Number of States           │ 94          │
+│ Total solve time           │ 0.279108153 │
+└────────────────────────────┴─────────────┘</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; p = plot();</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; for b in get_components(Bus, sys)
+           voltage_series = get_voltage_magnitude_series(result, get_number(b))
+           plot!(
+               p,
+               voltage_series;
+               xlabel = &quot;Time&quot;,
+               ylabel = &quot;Voltage Magnitude [pu]&quot;,
+               label = &quot;Bus - $(get_name(b))&quot;,
+           );
+       end</code><code class="nohighlight hljs ansi" style="display:block;"></code></pre><p><img src="../figs/14bus_gen_inv_volt.svg" alt="plot"/></p><p>We can also explore the frequency of the different static generators and storage</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; p2 = plot();</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; for g in get_components(ThermalStandard, sys)
+           state_series = get_state_series(result, (get_name(g), :ω))
+           plot!(
+               p2,
+               state_series;
+               xlabel = &quot;Time&quot;,
+               ylabel = &quot;Speed [pu]&quot;,
+               label = &quot;$(get_name(g)) - ω&quot;,
+           );
+       end</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; state_series = get_state_series(result, (&quot;Battery&quot;, :ω_oc))</code><code class="nohighlight hljs ansi" style="display:block;">([0.0, 0.001, 0.002, 0.004, 0.008, 0.016, 0.032, 0.064, 0.128, 0.256  …  19.315145307816785, 19.37646125220342, 19.437777196590055, 19.49909314097669, 19.62172502974996, 19.70711532558467, 19.79250562141938, 19.87789591725409, 19.9632862130888, 20.0], [1.0, 0.999999999999997, 1.0000000000000386, 1.0000000000002491, 1.0000000000006428, 1.0000000000005582, 1.0000000000003035, 1.000000000000358, 1.0000000000004967, 1.000000000000362  …  1.0000955877706168, 1.0000959541986867, 1.000096297471668, 1.0000965440633924, 1.0000965873172238, 1.000096242314912, 1.000095715031244, 1.0000952238986638, 1.0000949711015104, 1.0000949846931326])</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; plot!(p2, state_series; xlabel = &quot;Time&quot;, ylabel = &quot;Speed [pu]&quot;, label = &quot;Battery - ω&quot;);</code><code class="nohighlight hljs ansi" style="display:block;"></code></pre><p><img src="../figs/14bus_gen_inv_speed.svg" alt="plot"/></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../tutorial_dynamic_lines/">« Dynamic Lines simulation</a><a class="docs-footer-nextpage" href="../tutorial_240bus/">240 WECC solver comparison »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.24 on <span class="colophon-date" title="Friday 23 June 2023 23:49">Friday 23 June 2023</span>. Using Julia version 1.9.1.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

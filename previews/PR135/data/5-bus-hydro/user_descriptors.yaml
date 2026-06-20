@@ -1,0 +1,66 @@
+branch:
+- {custom_name: UID, name: name}
+- {custom_name: From Bus, name: connection_points_from}
+- {custom_name: To Bus, name: connection_points_to}
+- {custom_name: R, name: r, unit_system: device_base}
+- {custom_name: X, name: x, unit_system: device_base}
+- {custom_name: B, name: primary_shunt, unit_system: device_base}
+- {custom_name: Cont Rating, name: rate, unit_system: natural_units}
+- {custom_name: Tr Ratio, name: tap}
+bus:
+- {custom_name: Bus ID, name: bus_id}
+- {custom_name: Bus Name, name: name}
+- {custom_name: Area, name: area}
+- {custom_name: Area, name: zone}
+- {custom_name: BaseKV, name: base_voltage}
+- {custom_name: Bus Type, name: bus_type}
+- {custom_name: V Mag, name: voltage, unit_system: device_base}
+- {custom_name: V Angle, name: angle, unit: degree}
+- {custom_name: MW Load, name: max_active_power, unit_system: natural_units}
+- {custom_name: MVAR Load, name: max_reactive_power, unit_system: natural_units}
+dc_branch: []
+generator:
+- {custom_name: GEN UID, name: name}
+- {custom_name: Bus ID, name: bus_id}
+- {custom_name: Fuel, name: fuel}
+- {custom_name: Fuel Price $/MMBTU, name: fuel_price}
+- {custom_name: MW Inj, name: active_power, unit_system: natural_units}
+- {custom_name: MVAR Inj, name: reactive_power, unit_system: natural_units}
+- {custom_name: PMax MW, name: active_power_limits_max, unit_system: natural_units}
+- {custom_name: PMin MW, name: active_power_limits_min, unit_system: natural_units}
+- {custom_name: QMax MVAR, name: reactive_power_limits_max, unit_system: natural_units}
+- {custom_name: QMin MVAR, name: reactive_power_limits_min, unit_system: natural_units}
+- {custom_name: Min Down Time Hr, name: min_down_time}
+- {custom_name: Min Up Time Hr, name: min_up_time}
+- {custom_name: Ramp Rate MW/Min, name: ramp_limits, unit_system: natural_units}
+- {custom_name: Non Fuel Start Cost $, name: startup_cost}
+- {custom_name: HR_avg_0, name: heat_rate_avg_0}
+- {custom_name: HR_incr_1, name: heat_rate_incr_1}
+- {custom_name: HR_incr_2, name: heat_rate_incr_2}
+- {custom_name: Output_pct_0, name: output_point_0, unit_system: device_base}
+- {custom_name: Output_pct_1, name: output_point_1, unit_system: device_base}
+- {custom_name: Output_pct_2, name: output_point_2, unit_system: device_base}
+- {custom_name: Base MVA, name: base_mva, unit_system: natural_units}
+- {custom_name: Non Fuel Shutdown Cost $, name: shutdown_cost}
+- {custom_name: Unit Type, name: unit_type}
+- {custom_name: Category, name: category}
+load: []
+reserves:
+- {custom_name: Reserve Product, name: name}
+- {custom_name: Requirement (MW), name: requirement, unit_system: natural_units}
+- {custom_name: Timeframe (sec), name: timeframe}
+- {custom_name: Eligible Device Categories, name: eligible_device_categories}
+- {custom_name: Eligible Device SubCategories, name: eligible_device_subcategories}
+- {custom_name: Eligible Regions, name: eligible_regions}
+- {custom_name: Direction, name: direction}
+simulation_objects: []
+storage:
+- {custom_name: GEN UID, name: generator_name}
+- {custom_name: Storage, name: name}
+- {custom_name: Max Volume MWh, name: storage_capacity, unit: MWh, unit_system: natural_units}
+- {custom_name: Inflow Limit, name: input_active_power_limit_max, unit_system: device_base}
+- {custom_name: Rating MVA, name: output_active_power_limit_max}
+- {custom_name: Initial Volume MWh, name: energy_level, unit: MWh, unit_system: natural_units}
+- {custom_name: Rating MVA, name: rating} #TODO: add data to connecting gen.rating
+- {custom_name: Rating MVA, name: base_power} #TODO: add ref to connecting gen.base_power
+- {custom_name: position, name: position}

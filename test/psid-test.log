@@ -1,0 +1,18 @@
+┌ Info: 2020-10-23T11:37:24.195 [14403:1]: The PSS(R)E parser currently supports buses, loads, shunts, generators, branches, transformers, and dc lines
+└ @ PowerSystems /Users/jdlara/.julia/packages/PowerSystems/OtLTd/src/parsers/pm_io/common.jl:26
+┌ Info: 2020-10-23T11:37:25.634 [14403:1]: the voltage setpoint on generator 1 does not match the value at bus 102
+└ @ PowerSystems /Users/jdlara/.julia/packages/PowerSystems/OtLTd/src/parsers/pm_io/data.jl:1679
+┌ Info: 2020-10-23T11:37:30.377 [14403:1]: Constructing System from Power Models
+│   data["name"] = omib
+│   data["source_type"] = pti
+└ @ PowerSystems /Users/jdlara/.julia/packages/PowerSystems/OtLTd/src/parsers/power_models_data.jl:39
+┌ Info: 2020-10-23T11:37:31.715 [14403:1]: Reading bus data
+└ @ PowerSystems /Users/jdlara/.julia/packages/PowerSystems/OtLTd/src/parsers/power_models_data.jl:141
+┌ Info: 2020-10-23T11:37:32.755 [14403:1]: Reading generator data
+└ @ PowerSystems /Users/jdlara/.julia/packages/PowerSystems/OtLTd/src/parsers/power_models_data.jl:423
+┌ Info: 2020-10-23T11:37:36.412 [14403:1]: Reading branch data
+└ @ PowerSystems /Users/jdlara/.julia/packages/PowerSystems/OtLTd/src/parsers/power_models_data.jl:580
+┌ Info: 2020-10-23T11:37:37.309 [14403:1]: Reading branch data
+└ @ PowerSystems /Users/jdlara/.julia/packages/PowerSystems/OtLTd/src/parsers/power_models_data.jl:643
+┌ Info: 2020-10-23T11:37:37.309 [14403:1]: Reading DC Line data
+└ @ PowerSystems /Users/jdlara/.julia/packages/PowerSystems/OtLTd/src/parsers/power_models_data.jl:614

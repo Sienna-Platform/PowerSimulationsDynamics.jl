@@ -1,0 +1,5 @@
+GEN UID,Storage,Max Volume MWh,Initial Volume MWh,Start Energy,Inflow Limit,Rating MVA,position
+HydroDispatch1,HydroReservoir1,768.6,768.6,0.0,1.0,5.0,head
+HydroDispatch3,HydroReservoir2,3074.4,3074.4,0.0,1.0,75.0,head
+PHES,PHES_Head,2000.0,1900.0,0.0,1.0,10.0,head
+PHES,PHES_Tail,2000.0,1900.0,0.0,1.0,10.0,tail

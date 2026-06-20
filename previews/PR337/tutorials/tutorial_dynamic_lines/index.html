@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Dynamic Lines Simulation · PowerSimulationsDynamics.jl</title><script data-outdated-warner src="../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.045/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.13.24/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../../"><img src="../../assets/logo.png" alt="PowerSimulationsDynamics.jl logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../../">PowerSimulationsDynamics.jl</a></span></div><form class="docs-search" action="../../search/"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="../../">Welcome Page</a></li><li><a class="tocitem" href="../../quick_start_guide/">Quick Start Guide</a></li><li><a class="tocitem" href="../../execute/">Simulation Execution</a></li><li><span class="tocitem">Tutorials</span><ul><li><a class="tocitem" href="../tutorial_dynamic_data/">Create Dynamic Data</a></li><li><a class="tocitem" href="../tutorial_omib/">OMIB</a></li><li class="is-active"><a class="tocitem" href>Dynamic Lines Simulation</a><ul class="internal"><li><a class="tocitem" href="#Introduction"><span>Introduction</span></a></li></ul></li><li><a class="tocitem" href="../tutorial_inverter_modeling/">Inverter Modeling</a></li><li><a class="tocitem" href="../tutorial_240bus/">240 WECC solver comparison</a></li><li><a class="tocitem" href="../tutorial_continuation_pf/">Small-Signal Analysis</a></li><li><a class="tocitem" href="../tutorial_activeload/">Active Load Model</a></li></ul></li><li><a class="tocitem" href="../../models/">Models</a></li><li><a class="tocitem" href="../../initialization/">Initialization</a></li><li><a class="tocitem" href="../../small/">Small Signal</a></li><li><a class="tocitem" href="../../reference_frames/">Reference Frames</a></li><li><a class="tocitem" href="../../perturbations/">Perturbations</a></li><li><a class="tocitem" href="../../generic/">Industrial Renewable Models</a></li><li><span class="tocitem">Generator Component Library</span><ul><li><a class="tocitem" href="../../component_models/machines/">Machine</a></li><li><a class="tocitem" href="../../component_models/shafts/">Shaft</a></li><li><a class="tocitem" href="../../component_models/avr/">AVR</a></li><li><a class="tocitem" href="../../component_models/pss/">PSS</a></li><li><a class="tocitem" href="../../component_models/turbine_gov/">Turbine and Governor</a></li></ul></li><li><span class="tocitem">CIG Component Library</span><ul><li><a class="tocitem" href="../../component_models/converter/">Converter</a></li><li><a class="tocitem" href="../../component_models/dc_source/">DC Sources</a></li><li><a class="tocitem" href="../../component_models/filters/">Filter</a></li><li><a class="tocitem" href="../../component_models/freq_esti/">Frequency Estimators</a></li><li><a class="tocitem" href="../../component_models/inner_control/">Inner Control</a></li><li><a class="tocitem" href="../../component_models/outer_control/">Outer Control</a></li></ul></li><li><span class="tocitem">Branch Models</span><ul><li><a class="tocitem" href="../../component_models/network/">Network</a></li></ul></li><li><span class="tocitem">Load Models</span><ul><li><a class="tocitem" href="../../component_models/loads/">Load Models</a></li></ul></li><li><span class="tocitem">Code Base Developer Guide</span><ul><li><a class="tocitem" href="../../code_base_developer_guide/developer/">Developer Guide</a></li></ul></li><li><a class="tocitem" href="../../api/public/">Public API Reference</a></li><li><a class="tocitem" href="../../api/internal/">Internal API Reference</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Tutorials</a></li><li class="is-active"><a href>Dynamic Lines Simulation</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Dynamic Lines Simulation</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/NREL-Sienna/PowerSimulationsDynamics.jl/blob/main/docs/src/tutorials/tutorial_dynamic_lines.md" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="Line-Modeling-Simulations"><a class="docs-heading-anchor" href="#Line-Modeling-Simulations">Line Modeling Simulations</a><a id="Line-Modeling-Simulations-1"></a><a class="docs-heading-anchor-permalink" href="#Line-Modeling-Simulations" title="Permalink"></a></h1><p><strong>Originally Contributed by</strong>: Rodrigo Henriquez-Auba and José Daniel Lara</p><h2 id="Introduction"><a class="docs-heading-anchor" href="#Introduction">Introduction</a><a id="Introduction-1"></a><a class="docs-heading-anchor-permalink" href="#Introduction" title="Permalink"></a></h2><p>This tutorial will introduce an example of considering dynamic lines in <code>PowerSimulationsDynamics</code>.</p><p>This tutorial presents a simulation of a three-bus system, with an infinite bus (represented as a voltage source behind an impedance) at bus 1, a one d- one q- machine on bus 2 and an inverter of 19 states, as a virtual synchronous machine at bus 3. The perturbation will be the trip of two of the three circuits (triplicating its resistance and impedance) of the line that connects bus 1 and bus 3. This case also consider a dynamic line model for connection between buses 2 and 3. We will compare it against a system without dynamic lines.</p><p>It is recommended to check the OMIB tutorial first, since that includes more details and explanations on all definitions and functions.</p><h3 id="Step-1:-Package-Initialization"><a class="docs-heading-anchor" href="#Step-1:-Package-Initialization">Step 1: Package Initialization</a><a id="Step-1:-Package-Initialization-1"></a><a class="docs-heading-anchor-permalink" href="#Step-1:-Package-Initialization" title="Permalink"></a></h3><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; using PowerSimulationsDynamics</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; using PowerSystems</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; using PowerNetworkMatrices</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; using PowerSystemCaseBuilder</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; using Sundials</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; using Plots</code><code class="nohighlight hljs ansi" style="display:block;"></code></pre><div class="admonition is-info"><header class="admonition-header">Note</header><div class="admonition-body"><p><code>PowerSystemCaseBuilder.jl</code> is a helper library that makes it easier to reproduce examples in the documentation and tutorials. Normally you would pass your local files to create the system data instead of calling the function <code>build_system</code>. For more details visit <a href="https://nrel-sienna.github.io/PowerSystems.jl/stable/tutorials/powersystembuilder/">PowerSystemCaseBuilder Documentation</a></p></div></div><h3 id="Step-2:-Data-creation"><a class="docs-heading-anchor" href="#Step-2:-Data-creation">Step 2: Data creation</a><a id="Step-2:-Data-creation-1"></a><a class="docs-heading-anchor-permalink" href="#Step-2:-Data-creation" title="Permalink"></a></h3><p>Load the system using <code>PowerSystemCaseBuilder.jl</code>:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; threebus_sys = build_system(PSIDSystems, &quot;Three Bus Dynamic data Example System&quot;)</code><code class="nohighlight hljs ansi" style="display:block;">System
+┌───────────────────┬─────────────┐
+│ Property          │ Value       │
+├───────────────────┼─────────────┤
+│ Name              │             │
+│ Description       │             │
+│ System Units Base │ SYSTEM_BASE │
+│ Base Power        │ 100.0       │
+│ Base Frequency    │ 60.0        │
+│ Num Components    │ 19          │
+└───────────────────┴─────────────┘
+
+Static Components
+┌─────────────────┬───────┬────────────────────────┬───────────────┐
+│ Type            │ Count │ Has Static Time Series │ Has Forecasts │
+├─────────────────┼───────┼────────────────────────┼───────────────┤
+│ Arc             │ 3     │ false                  │ false         │
+│ Area            │ 1     │ false                  │ false         │
+│ Bus             │ 3     │ false                  │ false         │
+│ Line            │ 3     │ false                  │ false         │
+│ LoadZone        │ 1     │ false                  │ false         │
+│ Source          │ 1     │ false                  │ false         │
+│ StandardLoad    │ 3     │ false                  │ false         │
+│ ThermalStandard │ 2     │ false                  │ false         │
+└─────────────────┴───────┴────────────────────────┴───────────────┘
+
+Dynamic Components
+┌──────────────────┬───────┐
+│ Type             │ Count │
+├──────────────────┼───────┤
+│ DynamicGenerator │ 1     │
+│ DynamicInverter  │ 1     │
+└──────────────────┴───────┘</code></pre><p>In addition, we will create a new copy of the system on which we will simulate the same case, but will consider dynamic lines:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; threebus_sys_dyn = deepcopy(threebus_sys);</code><code class="nohighlight hljs ansi" style="display:block;"></code></pre><h3 id="Step-3:-Create-the-fault-and-simulation-on-the-Static-Lines-system"><a class="docs-heading-anchor" href="#Step-3:-Create-the-fault-and-simulation-on-the-Static-Lines-system">Step 3: Create the fault and simulation on the Static Lines system</a><a id="Step-3:-Create-the-fault-and-simulation-on-the-Static-Lines-system-1"></a><a class="docs-heading-anchor-permalink" href="#Step-3:-Create-the-fault-and-simulation-on-the-Static-Lines-system" title="Permalink"></a></h3><p>First, we construct the perturbation, by properly computing the new Ybus on the system:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; #Make a copy of the original system
+       sys2 = deepcopy(threebus_sys)</code><code class="nohighlight hljs ansi" style="display:block;">System
+┌───────────────────┬─────────────┐
+│ Property          │ Value       │
+├───────────────────┼─────────────┤
+│ Name              │             │
+│ Description       │             │
+│ System Units Base │ SYSTEM_BASE │
+│ Base Power        │ 100.0       │
+│ Base Frequency    │ 60.0        │
+│ Num Components    │ 19          │
+└───────────────────┴─────────────┘
+
+Static Components
+┌─────────────────┬───────┬────────────────────────┬───────────────┐
+│ Type            │ Count │ Has Static Time Series │ Has Forecasts │
+├─────────────────┼───────┼────────────────────────┼───────────────┤
+│ Arc             │ 3     │ false                  │ false         │
+│ Area            │ 1     │ false                  │ false         │
+│ Bus             │ 3     │ false                  │ false         │
+│ Line            │ 3     │ false                  │ false         │
+│ LoadZone        │ 1     │ false                  │ false         │
+│ Source          │ 1     │ false                  │ false         │
+│ StandardLoad    │ 3     │ false                  │ false         │
+│ ThermalStandard │ 2     │ false                  │ false         │
+└─────────────────┴───────┴────────────────────────┴───────────────┘
+
+Dynamic Components
+┌──────────────────┬───────┐
+│ Type             │ Count │
+├──────────────────┼───────┤
+│ DynamicGenerator │ 1     │
+│ DynamicInverter  │ 1     │
+└──────────────────┴───────┘</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; #Triplicates the impedance of the line named &quot;BUS 1-BUS 3-i_1&quot;
+       fault_branches = get_components(ACBranch, sys2)</code><code class="nohighlight hljs ansi" style="display:block;">ACBranch Counts:
+Line: 3</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; for br in fault_branches
+           if get_name(br) == &quot;BUS 1-BUS 3-i_1&quot;
+               br.r = 3 * br.r
+               br.x = 3 * br.x
+               b_new = (from = br.b.from / 3, to = br.b.to / 3)
+               br.b = b_new
+           end
+       end</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; #Obtain the new Ybus
+       Ybus_fault = Ybus(sys2).data</code><code class="nohighlight hljs ansi" style="display:block;">3×3 SparseArrays.SparseMatrixCSC{ComplexF64, Int64} with 9 stored entries:
+   0.91954-10.9011im   -0.689655+8.27586im   -0.229885+2.75862im
+ -0.689655+8.27586im    0.714334-8.78642im  -0.0246792+1.11056im
+ -0.229885+2.75862im  -0.0246792+1.11056im    0.254564-3.33585im</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; #Define Fault: Change of YBus
+       Ybus_change = NetworkSwitch(
+           1.0, #change at t = 1.0
+           Ybus_fault, #New YBus
+       );</code><code class="nohighlight hljs ansi" style="display:block;"></code></pre><p>Now, we construct the simulation:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; #Time span of our simulation
+       tspan = (0.0, 30.0)</code><code class="nohighlight hljs ansi" style="display:block;">(0.0, 30.0)</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; #Define Simulation
+       sim = Simulation(
+           ResidualModel, #Type of model used
+           threebus_sys, #system
+           pwd(), #folder to output results
+           tspan, #time span
+           Ybus_change, #Type of perturbation
+       )</code><code class="nohighlight hljs ansi" style="display:block;">Simulation Summary
+┌─────────────────────────┬────────────────┐
+│ Property                │ Value          │
+├─────────────────────────┼────────────────┤
+│ Status                  │ BUILT          │
+│ Simulation Type         │ Residual Model │
+│ Initialized?            │ Yes            │
+│ Multimachine system?    │ No             │
+│ Time Span               │ (0.0, 30.0)    │
+│ Number of States        │ 33             │
+│ Number of Perturbations │ 1              │
+└─────────────────────────┴────────────────┘</code></pre><p>We can obtain the initial conditions as:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; #Print the initial states. It also give the symbols used to describe those states.
+       show_states_initial_value(sim)</code><code class="nohighlight hljs ansi" style="display:block;">Voltage Variables
+====================
+BUS 1
+====================
+Vm 1.02
+θ -0.0
+====================
+BUS 2
+====================
+Vm 1.0142
+θ -0.0247
+====================
+BUS 3
+====================
+Vm 1.0059
+θ 0.05
+====================
+====================
+Differential States
+generator-102-1
+====================
+eq_p 0.6478
+ed_p 0.6672
+δ 0.9386
+ω 1.0
+Vf 1.0781
+Vr1 0.0333
+Vr2 -0.1941
+Vm 1.0142
+====================
+Differential States
+generator-103-1
+====================
+θ_oc 0.4573
+ω_oc 1.0
+q_oc -0.4453
+ξd_ic 0.0013
+ξq_ic 0.0004
+γd_ic 0.0615
+γq_ic -0.0138
+ϕd_ic 0.8765
+ϕq_ic -0.1978
+vd_pll 0.8986
+vq_pll 0.0
+ε_pll 0.0
+θ_pll 0.2354
+ir_cnv 0.7462
+ii_cnv 0.757
+vr_filter 0.8738
+vi_filter 0.2095
+ir_filter 0.7617
+ii_filter 0.6923
+====================</code></pre><h3 id="Step-4:-Run-the-simulation-of-the-Static-Lines-System"><a class="docs-heading-anchor" href="#Step-4:-Run-the-simulation-of-the-Static-Lines-System">Step 4: Run the simulation of the Static Lines System</a><a id="Step-4:-Run-the-simulation-of-the-Static-Lines-System-1"></a><a class="docs-heading-anchor-permalink" href="#Step-4:-Run-the-simulation-of-the-Static-Lines-System" title="Permalink"></a></h3><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; #Run the simulation
+       execute!(
+           sim, #simulation structure
+           IDA(), #Sundials DAE Solver
+           dtmax = 0.02, #Maximum step size
+       )</code><code class="nohighlight hljs ansi" style="display:block;">SIMULATION_FINALIZED::BUILD_STATUS = 6</code></pre><h3 id="Step-5:-Store-the-solution"><a class="docs-heading-anchor" href="#Step-5:-Store-the-solution">Step 5: Store the solution</a><a id="Step-5:-Store-the-solution-1"></a><a class="docs-heading-anchor-permalink" href="#Step-5:-Store-the-solution" title="Permalink"></a></h3><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; results = read_results(sim)</code><code class="nohighlight hljs ansi" style="display:block;">Simulation Results Summary
+┌────────────────────────────┬─────────────┐
+│ Property                   │ Value       │
+├────────────────────────────┼─────────────┤
+│ System Base Power [MVA]    │ 100.0       │
+│ System Base Frequency [Hz] │ 60.0        │
+│ Time Span                  │ (0.0, 30.0) │
+│ Total Time Steps           │ 1607        │
+│ Number of States           │ 33          │
+│ Total solve time           │ 3.696818851 │
+└────────────────────────────┴─────────────┘</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; series2 = get_voltage_magnitude_series(results, 102)</code><code class="nohighlight hljs ansi" style="display:block;">([0.0, 0.001, 0.002, 0.004, 0.008, 0.016, 0.032, 0.052000000000000005, 0.07200000000000001, 0.09200000000000001  …  29.83954153466024, 29.859541534660238, 29.879541534660238, 29.899541534660237, 29.919541534660237, 29.939541534660236, 29.959541534660236, 29.979541534660235, 29.999541534660235, 30.0], [1.014199999999943, 1.014199999999943, 1.014199999999943, 1.014199999999943, 1.014199999999943, 1.014199999999943, 1.014199999999943, 1.014199999999943, 1.014199999999943, 1.014199999999943  …  1.0140816770795926, 1.0140823112757145, 1.01408294278845, 1.0140835715674263, 1.0140841975628496, 1.0140848207255007, 1.014085441006747, 1.0140860583585385, 1.014086672733404, 1.0140866867816085])</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; zoom = [
+           (series2[1][ix], series2[2][ix]) for
+           (ix, s) in enumerate(series2[1]) if (s &gt; 0.90 &amp;&amp; s &lt; 1.6)
+       ];</code><code class="nohighlight hljs ansi" style="display:block;"></code></pre><h3 id="Step-3.1:-Create-the-fault-and-simulation-on-the-Dynamic-Lines-system"><a class="docs-heading-anchor" href="#Step-3.1:-Create-the-fault-and-simulation-on-the-Dynamic-Lines-system">Step 3.1: Create the fault and simulation on the Dynamic Lines system</a><a id="Step-3.1:-Create-the-fault-and-simulation-on-the-Dynamic-Lines-system-1"></a><a class="docs-heading-anchor-permalink" href="#Step-3.1:-Create-the-fault-and-simulation-on-the-Dynamic-Lines-system" title="Permalink"></a></h3><p>An important aspect to consider is that DynamicLines must not be considered in the computation of the Ybus. First we construct the Dynamic Line, by finding the Line named &quot;BUS 2-BUS 3-i_1&quot;, and then adding it to the system.</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; # get component return the Branch on threebus_sys_dyn named &quot;BUS 2-BUS 3-i_1&quot;
+       dyn_branch = DynamicBranch(get_component(Line, threebus_sys_dyn,&quot;BUS 2-BUS 3-i_1&quot;))</code><code class="nohighlight hljs ansi" style="display:block;">
+BUS 2-BUS 3-i_1 (DynamicBranch):
+   branch: BUS 2-BUS 3-i_1 (Line)
+   n_states: 2
+   states: [:Il_R, :Il_I]
+   internal: InfrastructureSystems.InfrastructureSystemsInternal</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; # Adding a dynamic line will immediately remove the static line from the system.
+       add_component!(threebus_sys_dyn, dyn_branch)</code><code class="nohighlight hljs ansi" style="display:block;"></code></pre><p>Similarly, we construct the Ybus fault by creating a copy of the original system, but removing the Line &quot;BUS 2-BUS 3-i_1&quot; to avoid considering it in the Ybus:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; #Make a copy of the original system
+       sys3 = deepcopy(threebus_sys);</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; #Remove Line &quot;BUS 2-BUS 3-i_1&quot;
+       remove_component!(Line, sys3, &quot;BUS 2-BUS 3-i_1&quot;)</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; #Triplicates the impedance of the line named &quot;BUS 1-BUS 2-i_1&quot;
+       fault_branches2 = get_components(Line, sys3)</code><code class="nohighlight hljs ansi" style="display:block;">Line Counts:
+Line: 2</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; for br in fault_branches2
+           if get_name(br) == &quot;BUS 1-BUS 3-i_1&quot;
+               br.r = 3 * br.r
+               br.x = 3 * br.x
+               b_new = (from = br.b.from / 3, to = br.b.to / 3)
+               br.b = b_new
+           end
+       end</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; #Obtain the new Ybus
+       Ybus_fault_dyn = Ybus(sys3).data</code><code class="nohighlight hljs ansi" style="display:block;">3×3 SparseArrays.SparseMatrixCSC{ComplexF64, Int64} with 7 stored entries:
+   0.91954-10.9011im  -0.689655+8.27586im  -0.229885+2.75862im
+ -0.689655+8.27586im   0.689655-8.17586im            ⋅
+ -0.229885+2.75862im            ⋅           0.229885-2.72529im</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; #Define Fault: Change of YBus
+       Ybus_change_dyn = NetworkSwitch(
+           1.0, #change at t = 1.0
+           Ybus_fault_dyn, #New YBus
+       )</code><code class="nohighlight hljs ansi" style="display:block;">NetworkSwitch(1.0, sparse([1, 2, 3, 4, 5, 6, 1, 2, 4, 5  …  5, 6, 1, 2, 4, 5, 1, 3, 4, 6], [1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6], [0.9195402298850576, -0.6896551724137931, -0.2298850574712644, 10.901149425287358, -8.275862068965518, -2.7586206896551726, -0.6896551724137931, 0.6896551724137931, -8.275862068965518, 8.175862068965518  …  -0.6896551724137931, -0.2298850574712644, 8.275862068965518, -8.175862068965518, -0.6896551724137931, 0.6896551724137931, 2.7586206896551726, -2.7252873563218394, -0.2298850574712644, 0.2298850574712644], 6, 6))</code></pre><h3 id="Step-4.1:-Run-the-simulation-of-the-Dynamic-Lines-System"><a class="docs-heading-anchor" href="#Step-4.1:-Run-the-simulation-of-the-Dynamic-Lines-System">Step 4.1: Run the simulation of the Dynamic Lines System</a><a id="Step-4.1:-Run-the-simulation-of-the-Dynamic-Lines-System-1"></a><a class="docs-heading-anchor-permalink" href="#Step-4.1:-Run-the-simulation-of-the-Dynamic-Lines-System" title="Permalink"></a></h3><p>Now, we construct the simulation:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; # Define Simulation
+       sim_dyn = Simulation(
+           ResidualModel, #Type of model used
+           threebus_sys_dyn, #system
+           pwd(), #folder to output results
+           (0.0, 30.0), #time span
+           Ybus_change_dyn, #Type of perturbation
+       )</code><code class="nohighlight hljs ansi" style="display:block;">Simulation Summary
+┌─────────────────────────┬────────────────┐
+│ Property                │ Value          │
+├─────────────────────────┼────────────────┤
+│ Status                  │ BUILT          │
+│ Simulation Type         │ Residual Model │
+│ Initialized?            │ Yes            │
+│ Multimachine system?    │ No             │
+│ Time Span               │ (0.0, 30.0)    │
+│ Number of States        │ 35             │
+│ Number of Perturbations │ 1              │
+└─────────────────────────┴────────────────┘</code></pre><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; # Run the simulation
+       execute!(
+           sim_dyn, #simulation structure
+           IDA(), #Sundials DAE Solver
+           dtmax = 0.02, #Maximum step size
+       )</code><code class="nohighlight hljs ansi" style="display:block;">SIMULATION_FINALIZED::BUILD_STATUS = 6</code></pre><p>We can obtain the initial conditions as:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; #Print the initial states. It also give the symbols used to describe those states.
+       show_states_initial_value(sim_dyn)</code><code class="nohighlight hljs ansi" style="display:block;">Voltage Variables
+====================
+BUS 1
+====================
+Vm 1.02
+θ 0.0
+====================
+BUS 2
+====================
+Vm 1.0141
+θ -0.0155
+====================
+BUS 3
+====================
+Vm 0.9686
+θ 0.1354
+====================
+====================
+Differential States
+generator-102-1
+====================
+eq_p 0.681
+ed_p 0.6477
+δ 0.907
+ω 1.0
+Vf 1.1115
+Vr1 0.0355
+Vr2 -0.2001
+Vm 1.0141
+====================
+Differential States
+generator-103-1
+====================
+θ_oc 0.5658
+ω_oc 1.0
+q_oc -0.3799
+ξd_ic 0.0014
+ξq_ic 0.0003
+γd_ic 0.0595
+γq_ic -0.014
+ϕd_ic 0.8484
+ϕq_ic -0.201
+vd_pll 0.8719
+vq_pll 0.0
+ε_pll -0.0
+θ_pll 0.3332
+ir_cnv 0.715
+ii_cnv 0.7768
+vr_filter 0.824
+vi_filter 0.2851
+ir_filter 0.7361
+ii_filter 0.7158
+====================
+====================
+Line Current States
+====================
+Line BUS 2-BUS 3-i_1
+Il_R -0.16141
+Il_I -0.06381
+====================</code></pre><h3 id="Step-5.1:-Store-the-solution"><a class="docs-heading-anchor" href="#Step-5.1:-Store-the-solution">Step 5.1: Store the solution</a><a id="Step-5.1:-Store-the-solution-1"></a><a class="docs-heading-anchor-permalink" href="#Step-5.1:-Store-the-solution" title="Permalink"></a></h3><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; results_dyn = read_results(sim_dyn)</code><code class="nohighlight hljs ansi" style="display:block;">Simulation Results Summary
+┌────────────────────────────┬─────────────┐
+│ Property                   │ Value       │
+├────────────────────────────┼─────────────┤
+│ System Base Power [MVA]    │ 100.0       │
+│ System Base Frequency [Hz] │ 60.0        │
+│ Time Span                  │ (0.0, 30.0) │
+│ Total Time Steps           │ 1721        │
+│ Number of States           │ 35          │
+│ Total solve time           │ 1.75333154  │
+└────────────────────────────┴─────────────┘</code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; series2_dyn = get_voltage_magnitude_series(results_dyn, 102);</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; zoom_dyn = [
+           (series2_dyn[1][ix], series2_dyn[2][ix]) for
+           (ix, s) in enumerate(series2_dyn[1]) if (s &gt; 0.90 &amp;&amp; s &lt; 1.6)
+       ];</code><code class="nohighlight hljs ansi" style="display:block;"></code></pre><h3 id="Step-6.1:-Compare-the-solutions:"><a class="docs-heading-anchor" href="#Step-6.1:-Compare-the-solutions:">Step 6.1: Compare the solutions:</a><a id="Step-6.1:-Compare-the-solutions:-1"></a><a class="docs-heading-anchor-permalink" href="#Step-6.1:-Compare-the-solutions:" title="Permalink"></a></h3><p>We can observe the effect of Dynamic Lines</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; plot(series2_dyn, label = &quot;V_gen_dyn&quot;);</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; plot!(series2, label = &quot;V_gen_st&quot;, xlabel = &quot;Time [s]&quot;, ylabel = &quot;Voltage [pu]&quot;);</code><code class="nohighlight hljs ansi" style="display:block;"></code></pre><p><img src="../figs/plot_dynlines.svg" alt="plot"/></p><p>that looks quite similar. The differences can be observed in the zoom plot:</p><pre><code class="language-julia-repl hljs" style="display:block;">julia&gt; plot(zoom_dyn, label = &quot;V_gen_dyn&quot;);</code><code class="nohighlight hljs ansi" style="display:block;"></code><br/><code class="language-julia-repl hljs" style="display:block;">julia&gt; plot!(zoom, label = &quot;V_gen_st&quot;, xlabel = &quot;Time [s]&quot;, ylabel = &quot;Voltage [pu]&quot;);</code><code class="nohighlight hljs ansi" style="display:block;"></code></pre><p><img src="../figs/plot_dynlines_zoom.svg" alt="plot"/></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../tutorial_omib/">« OMIB</a><a class="docs-footer-nextpage" href="../tutorial_inverter_modeling/">Inverter Modeling »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.24 on <span class="colophon-date" title="Wednesday 28 June 2023 04:02">Wednesday 28 June 2023</span>. Using Julia version 1.9.1.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Dynamic Lines Simulation · PowerSimulationsDynamics.jl</title><meta name="title" content="Dynamic Lines Simulation · PowerSimulationsDynamics.jl"/><meta property="og:title" content="Dynamic Lines Simulation · PowerSimulationsDynamics.jl"/><meta property="twitter:title" content="Dynamic Lines Simulation · PowerSimulationsDynamics.jl"/><meta name="description" content="Documentation for PowerSimulationsDynamics.jl."/><meta property="og:description" content="Documentation for PowerSimulationsDynamics.jl."/><meta property="twitter:description" content="Documentation for PowerSimulationsDynamics.jl."/><script data-outdated-warner src="../../assets/warner.js"></script><link href="https://cdnjs.cloudflare.com/ajax/libs/lato-font/3.0.0/css/lato-font.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/juliamono/0.050/juliamono.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="../.."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="../../assets/documenter.js"></script><script src="../../search_index.js"></script><script src="../../siteinfo.js"></script><script src="../../../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-mocha.css" data-theme-name="catppuccin-mocha"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-macchiato.css" data-theme-name="catppuccin-macchiato"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-frappe.css" data-theme-name="catppuccin-frappe"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/catppuccin-latte.css" data-theme-name="catppuccin-latte"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-dark.css" data-theme-name="documenter-dark" data-theme-primary-dark/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="../../assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="../../assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><a class="docs-logo" href="../../"><img src="../../assets/logo.png" alt="PowerSimulationsDynamics.jl logo"/></a><div class="docs-package-name"><span class="docs-autofit"><a href="../../">PowerSimulationsDynamics.jl</a></span></div><button class="docs-search-query input is-rounded is-small is-clickable my-2 mx-auto py-1 px-2" id="documenter-search-query">Search docs (Ctrl + /)</button><ul class="docs-menu"><li><a class="tocitem" href="../../">Welcome Page</a></li><li><a class="tocitem" href="../generated_quick_start_guide/">Quick Start Guide</a></li><li><a class="tocitem" href="../../execute/">Simulation Execution</a></li><li><span class="tocitem">Tutorials</span><ul><li><a class="tocitem" href="../generated_tutorial_dynamic_data/">Create Dynamic Data</a></li><li><a class="tocitem" href="../generated_tutorial_omib/">OMIB</a></li><li class="is-active"><a class="tocitem" href>Dynamic Lines Simulation</a><ul class="internal"><li><a class="tocitem" href="#Introduction"><span>Introduction</span></a></li></ul></li><li><a class="tocitem" href="../generated_tutorial_inverter_modeling/">Inverter Modeling</a></li><li><a class="tocitem" href="../generated_tutorial_240bus/">240 WECC solver comparison</a></li><li><a class="tocitem" href="../generated_tutorial_continuation_pf/">Small-Signal Analysis</a></li><li><a class="tocitem" href="../generated_tutorial_activeload/">Active Load Model</a></li></ul></li><li><a class="tocitem" href="../../models/">Models</a></li><li><a class="tocitem" href="../../initialization/">Initialization</a></li><li><a class="tocitem" href="../../small/">Small Signal</a></li><li><a class="tocitem" href="../../reference_frames/">Reference Frames</a></li><li><a class="tocitem" href="../../perturbations/">Perturbations</a></li><li><a class="tocitem" href="../../time_delays/">Time Delays</a></li><li><a class="tocitem" href="../../generic/">Industrial Renewable Models</a></li><li><span class="tocitem">Generator Component Library</span><ul><li><a class="tocitem" href="../../component_models/machines/">Machine</a></li><li><a class="tocitem" href="../../component_models/shafts/">Shaft</a></li><li><a class="tocitem" href="../../component_models/avr/">AVR</a></li><li><a class="tocitem" href="../../component_models/pss/">PSS</a></li><li><a class="tocitem" href="../../component_models/turbine_gov/">Turbine and Governor</a></li></ul></li><li><span class="tocitem">CIG Component Library</span><ul><li><a class="tocitem" href="../../component_models/converter/">Converter</a></li><li><a class="tocitem" href="../../component_models/dc_source/">DC Sources</a></li><li><a class="tocitem" href="../../component_models/filters/">Filter</a></li><li><a class="tocitem" href="../../component_models/freq_esti/">Frequency Estimators</a></li><li><a class="tocitem" href="../../component_models/inner_control/">Inner Control</a></li><li><a class="tocitem" href="../../component_models/outer_control/">Outer Control</a></li></ul></li><li><span class="tocitem">Branch Models</span><ul><li><a class="tocitem" href="../../component_models/network/">Network</a></li></ul></li><li><span class="tocitem">Load Models</span><ul><li><a class="tocitem" href="../../component_models/loads/">Load Models</a></li></ul></li><li><span class="tocitem">Code Base Developer Guide</span><ul><li><a class="tocitem" href="../../code_base_developer_guide/developer/">Developer Guide</a></li></ul></li><li><a class="tocitem" href="../../api/public/">Public API Reference</a></li><li><a class="tocitem" href="../../api/internal/">Internal API Reference</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><a class="docs-sidebar-button docs-navbar-link fa-solid fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a><nav class="breadcrumb"><ul class="is-hidden-mobile"><li><a class="is-disabled">Tutorials</a></li><li class="is-active"><a href>Dynamic Lines Simulation</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href>Dynamic Lines Simulation</a></li></ul></nav><div class="docs-right"><a class="docs-navbar-link" href="https://github.com/Sienna-Platform/PowerSimulationsDynamics.jl" title="View the repository on GitHub"><span class="docs-icon fa-brands"></span><span class="docs-label is-hidden-touch">GitHub</span></a><a class="docs-navbar-link" href="https://github.com/Sienna-Platform/PowerSimulationsDynamics.jl/blob/main/docs/src/tutorials/tutorial_dynamic_lines.jl" title="Edit source on GitHub"><span class="docs-icon fa-solid"></span></a><a class="docs-settings-button docs-navbar-link fa-solid fa-gear" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-article-toggle-button fa-solid fa-chevron-up" id="documenter-article-toggle-button" href="javascript:;" title="Collapse all docstrings"></a></div></header><article class="content" id="documenter-page"><h1 id="Line-Modeling-Simulations"><a class="docs-heading-anchor" href="#Line-Modeling-Simulations">Line Modeling Simulations</a><a id="Line-Modeling-Simulations-1"></a><a class="docs-heading-anchor-permalink" href="#Line-Modeling-Simulations" title="Permalink"></a></h1><p><em>To follow along, you can download this tutorial as a <a href="https://sienna-platform.github.io/PowerSimulationsDynamics.jl/dev/tutorials/tutorial_dynamic_lines.jl">Julia script (.jl)</a> or <a href="https://sienna-platform.github.io/PowerSimulationsDynamics.jl/dev/tutorials/generated_tutorial_dynamic_lines.ipynb">Jupyter notebook (.ipynb)</a>.</em></p><h2 id="Introduction"><a class="docs-heading-anchor" href="#Introduction">Introduction</a><a id="Introduction-1"></a><a class="docs-heading-anchor-permalink" href="#Introduction" title="Permalink"></a></h2><p>This tutorial will introduce an example of considering dynamic lines in <code>PowerSimulationsDynamics</code>.</p><p>This tutorial presents a simulation of a three-bus system, with an infinite bus (represented as a voltage source behind an impedance) at bus 1, a one d- one q- machine on bus 2 and an inverter of 19 states, as a virtual synchronous machine at bus 3. The perturbation will be the trip of two of the three circuits (triplicating its resistance and impedance) of the line that connects bus 1 and bus 3. This case also consider a dynamic line model for connection between buses 2 and 3. We will compare it against a system without dynamic lines.</p><p>It is recommended to check the OMIB tutorial first, since that includes more details and explanations on all definitions and functions.</p><h3 id="Step-1:-Package-Initialization"><a class="docs-heading-anchor" href="#Step-1:-Package-Initialization">Step 1: Package Initialization</a><a id="Step-1:-Package-Initialization-1"></a><a class="docs-heading-anchor-permalink" href="#Step-1:-Package-Initialization" title="Permalink"></a></h3><pre><code class="language-julia hljs">using PowerSimulationsDynamics
+using PowerSystems
+using PowerNetworkMatrices
+using PowerSystemCaseBuilder
+using Sundials
+using Plots</code></pre><div class="admonition is-info" id="Note-9c7338068042084a"><header class="admonition-header">Note<a class="admonition-anchor" href="#Note-9c7338068042084a" title="Permalink"></a></header><div class="admonition-body"><p><code>PowerSystemCaseBuilder.jl</code> is a helper library that makes it easier to reproduce examples in the documentation and tutorials. Normally you would pass your local files to create the system data instead of calling the function <a href="https://sienna-platform.github.io/PowerSystemCaseBuilder.jl/stable/reference/public/#PowerSystemCaseBuilder.build_system"><code>PowerSystemCaseBuilder.build_system</code></a>.</p></div></div><h3 id="Step-2:-Data-creation"><a class="docs-heading-anchor" href="#Step-2:-Data-creation">Step 2: Data creation</a><a id="Step-2:-Data-creation-1"></a><a class="docs-heading-anchor-permalink" href="#Step-2:-Data-creation" title="Permalink"></a></h3><p>Load the system using <code>PowerSystemCaseBuilder.jl</code>:</p><pre><code class="language-julia hljs">threebus_sys = build_system(PSIDSystems, &quot;Three Bus Dynamic data Example System&quot;)</code></pre><table>
+  <thead>
+    <tr class = "title">
+      <td colspan = "2" style = "font-size: x-large; font-weight: bold; text-align: center;">System</td>
+    </tr>
+    <tr class = "columnLabelRow">
+      <th style = "font-weight: bold; text-align: left;">Property</th>
+      <th style = "font-weight: bold; text-align: left;">Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">Name</td>
+      <td style = "text-align: left;"></td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">Description</td>
+      <td style = "text-align: left;"></td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">System Units Base</td>
+      <td style = "text-align: left;">SYSTEM_BASE</td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">Base Power</td>
+      <td style = "text-align: left;">100.0</td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">Base Frequency</td>
+      <td style = "text-align: left;">60.0</td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">Num Components</td>
+      <td style = "text-align: left;">19</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr class = "title">
+      <td colspan = "2" style = "font-size: x-large; font-weight: bold; text-align: center;">Static Components</td>
+    </tr>
+    <tr class = "columnLabelRow">
+      <th style = "font-weight: bold; text-align: left;">Type</th>
+      <th style = "font-weight: bold; text-align: left;">Count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">ACBus</td>
+      <td style = "text-align: left;">3</td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">Arc</td>
+      <td style = "text-align: left;">3</td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">Area</td>
+      <td style = "text-align: left;">1</td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">Line</td>
+      <td style = "text-align: left;">3</td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">LoadZone</td>
+      <td style = "text-align: left;">1</td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">Source</td>
+      <td style = "text-align: left;">1</td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">StandardLoad</td>
+      <td style = "text-align: left;">3</td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">ThermalStandard</td>
+      <td style = "text-align: left;">2</td>
+    </tr>
+  </tbody>
+</table>
+
+<table>
+  <thead>
+    <tr class = "title">
+      <td colspan = "2" style = "font-size: x-large; font-weight: bold; text-align: center;">Dynamic Components</td>
+    </tr>
+    <tr class = "columnLabelRow">
+      <th style = "font-weight: bold; text-align: left;">Type</th>
+      <th style = "font-weight: bold; text-align: left;">Count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">DynamicGenerator{OneDOneQMachine, SingleMass, AVRTypeI, TGFixed, PSSFixed}</td>
+      <td style = "text-align: left;">1</td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">DynamicInverter{AverageConverter, OuterControl, VoltageModeControl, FixedDCSource, KauraPLL, LCLFilter, Nothing}</td>
+      <td style = "text-align: left;">1</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In addition, we will create a new copy of the system on which we will simulate the same case, but will consider dynamic lines:</p><pre><code class="language-julia hljs">threebus_sys_dyn = deepcopy(threebus_sys);</code></pre><h3 id="Step-3:-Create-the-fault-and-simulation-on-the-Static-Lines-system"><a class="docs-heading-anchor" href="#Step-3:-Create-the-fault-and-simulation-on-the-Static-Lines-system">Step 3: Create the fault and simulation on the Static Lines system</a><a id="Step-3:-Create-the-fault-and-simulation-on-the-Static-Lines-system-1"></a><a class="docs-heading-anchor-permalink" href="#Step-3:-Create-the-fault-and-simulation-on-the-Static-Lines-system" title="Permalink"></a></h3><p>First, we construct the perturbation, by properly computing the new Ybus on the system:</p><pre><code class="language-julia hljs">#Make a copy of the original system
+sys2 = deepcopy(threebus_sys)
+#Triplicates the impedance of the line named &quot;BUS 1-BUS 3-i_1&quot;
+fault_branches = get_components(ACBranch, sys2)
+for br in fault_branches
+    if get_name(br) == &quot;BUS 1-BUS 3-i_1&quot;
+        br.r = 3 * br.r
+        br.x = 3 * br.x
+        b_new = (from = br.b.from / 3, to = br.b.to / 3)
+        br.b = b_new
+    end
+end
+#Obtain the new Ybus
+Ybus_fault = Ybus(sys2).data
+#Define Fault: Change of YBus
+Ybus_change = NetworkSwitch(
+    1.0, #change at t = 1.0
+    Ybus_fault, #New YBus
+);</code></pre><p>Now, we construct the simulation:</p><pre><code class="language-julia hljs">#Time span of our simulation
+tspan = (0.0, 30.0)
+
+#Define [`Simulation`](@ref)
+sim = Simulation(
+    ResidualModel, #Type of model used
+    threebus_sys, #system
+    pwd(), #folder to output results
+    tspan, #time span
+    Ybus_change, #Type of perturbation
+)</code></pre><table>
+  <thead>
+    <tr class = "title">
+      <td colspan = "2" style = "font-size: x-large; font-weight: bold; text-align: center;">Simulation Summary</td>
+    </tr>
+    <tr class = "columnLabelRow">
+      <th style = "font-weight: bold; text-align: left;">Property</th>
+      <th style = "font-weight: bold; text-align: left;">Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">Status</td>
+      <td style = "text-align: left;">BUILT</td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">Simulation Type</td>
+      <td style = "text-align: left;">Residual Model</td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">Initialized?</td>
+      <td style = "text-align: left;">Yes</td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">Multimachine system?</td>
+      <td style = "text-align: left;">No</td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">Time Span</td>
+      <td style = "text-align: left;">(0.0, 30.0)</td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">Number of States</td>
+      <td style = "text-align: left;">33</td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">Number of Perturbations</td>
+      <td style = "text-align: left;">1</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>We can obtain the initial conditions as:</p><pre><code class="language-julia hljs">#Print the initial states. It also give the symbols used to describe those states.
+show_states_initial_value(sim)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Voltage Variables
+====================
+BUS 1
+====================
+Vm 1.02
+θ -0.0
+====================
+BUS 2
+====================
+Vm 1.0142
+θ -0.0247
+====================
+BUS 3
+====================
+Vm 1.0059
+θ 0.05
+====================
+====================
+Differential States
+generator-102-1
+====================
+eq_p 0.6478
+ed_p 0.6672
+δ 0.9386
+ω 1.0
+Vf 1.0781
+Vr1 0.0333
+Vr2 -0.1941
+Vm 1.0142
+====================
+Differential States
+generator-103-1
+====================
+θ_oc 0.4573
+ω_oc 1.0
+q_oc -0.4453
+ξd_ic 0.0013
+ξq_ic 0.0004
+γd_ic 0.0615
+γq_ic -0.0138
+ϕd_ic 0.8765
+ϕq_ic -0.1978
+vd_pll 0.8986
+vq_pll 0.0
+ε_pll 0.0
+θ_pll 0.2354
+ir_cnv 0.7462
+ii_cnv 0.757
+vr_filter 0.8738
+vi_filter 0.2095
+ir_filter 0.7617
+ii_filter 0.6923
+====================</code></pre><h3 id="Step-4:-Run-the-simulation-of-the-Static-Lines-System"><a class="docs-heading-anchor" href="#Step-4:-Run-the-simulation-of-the-Static-Lines-System">Step 4: Run the simulation of the Static Lines System</a><a id="Step-4:-Run-the-simulation-of-the-Static-Lines-System-1"></a><a class="docs-heading-anchor-permalink" href="#Step-4:-Run-the-simulation-of-the-Static-Lines-System" title="Permalink"></a></h3><pre><code class="language-julia hljs">#Run the simulation
+execute!(
+    sim, #simulation structure
+    IDA(); #Sundials DAE Solver
+    dtmax = 0.02, #Maximum step size
+)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">SIMULATION_FINALIZED::BUILD_STATUS = 6</code></pre><h3 id="Step-5:-Store-the-solution"><a class="docs-heading-anchor" href="#Step-5:-Store-the-solution">Step 5: Store the solution</a><a id="Step-5:-Store-the-solution-1"></a><a class="docs-heading-anchor-permalink" href="#Step-5:-Store-the-solution" title="Permalink"></a></h3><pre><code class="language-julia hljs">results = read_results(sim)
+series2 = get_voltage_magnitude_series(results, 102)
+zoom = [
+    (series2[1][ix], series2[2][ix]) for
+    (ix, s) in enumerate(series2[1]) if (s &gt; 0.90 &amp;&amp; s &lt; 1.6)
+];</code></pre><h3 id="Step-3.1:-Create-the-fault-and-simulation-on-the-Dynamic-Lines-system"><a class="docs-heading-anchor" href="#Step-3.1:-Create-the-fault-and-simulation-on-the-Dynamic-Lines-system">Step 3.1: Create the fault and simulation on the Dynamic Lines system</a><a id="Step-3.1:-Create-the-fault-and-simulation-on-the-Dynamic-Lines-system-1"></a><a class="docs-heading-anchor-permalink" href="#Step-3.1:-Create-the-fault-and-simulation-on-the-Dynamic-Lines-system" title="Permalink"></a></h3><p>An important aspect to consider is that DynamicLines must not be considered in the computation of the Ybus. First we construct the Dynamic Line, by finding the Line named &quot;BUS 2-BUS 3-i_1&quot;, and then adding it to the system.</p><pre><code class="language-julia hljs"># get component return the Branch on threebus_sys_dyn named &quot;BUS 2-BUS 3-i_1&quot;
+dyn_branch = DynamicBranch(get_component(Line, threebus_sys_dyn, &quot;BUS 2-BUS 3-i_1&quot;))
+# Adding a dynamic line will immediately remove the static line from the system.
+add_component!(threebus_sys_dyn, dyn_branch)</code></pre><p>Similarly, we construct the Ybus fault by creating a copy of the original system, but removing the Line &quot;BUS 2-BUS 3-i_1&quot; to avoid considering it in the Ybus:</p><pre><code class="language-julia hljs">#Make a copy of the original system
+sys3 = deepcopy(threebus_sys);
+#Remove Line &quot;BUS 2-BUS 3-i_1&quot;
+remove_component!(Line, sys3, &quot;BUS 2-BUS 3-i_1&quot;)
+#Triplicates the impedance of the line named &quot;BUS 1-BUS 2-i_1&quot;
+fault_branches2 = get_components(Line, sys3)
+for br in fault_branches2
+    if get_name(br) == &quot;BUS 1-BUS 3-i_1&quot;
+        br.r = 3 * br.r
+        br.x = 3 * br.x
+        b_new = (from = br.b.from / 3, to = br.b.to / 3)
+        br.b = b_new
+    end
+end
+#Obtain the new Ybus
+Ybus_fault_dyn = Ybus(sys3).data
+#Define Fault: Change of YBus
+Ybus_change_dyn = NetworkSwitch(
+    1.0, #change at t = 1.0
+    Ybus_fault_dyn, #New YBus
+)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">NetworkSwitch(1.0, sparse([1, 2, 3, 4, 5, 6, 1, 2, 4, 5  …  5, 6, 1, 2, 4, 5, 1, 3, 4, 6], [1, 1, 1, 1, 1, 1, 2, 2, 2, 2  …  4, 4, 5, 5, 5, 5, 6, 6, 6, 6], Float32[1.4195402, -0.6896552, -0.22988506, 11.00115, -8.275862, -2.7586207, -0.6896552, 1.6896552, -8.275862, 8.4758625  …  -0.6896552, -0.22988506, 8.275862, -8.4758625, -0.6896552, 1.6896552, 2.7586207, -2.8252873, -0.22988506, 0.52988505], 6, 6))</code></pre><h3 id="Step-4.1:-Run-the-simulation-of-the-Dynamic-Lines-System"><a class="docs-heading-anchor" href="#Step-4.1:-Run-the-simulation-of-the-Dynamic-Lines-System">Step 4.1: Run the simulation of the Dynamic Lines System</a><a id="Step-4.1:-Run-the-simulation-of-the-Dynamic-Lines-System-1"></a><a class="docs-heading-anchor-permalink" href="#Step-4.1:-Run-the-simulation-of-the-Dynamic-Lines-System" title="Permalink"></a></h3><p>Now, we construct the simulation:</p><pre><code class="language-julia hljs"># Define [`Simulation`](@ref)
+sim_dyn = Simulation(
+    ResidualModel, #Type of model used
+    threebus_sys_dyn, #system
+    pwd(), #folder to output results
+    (0.0, 30.0), #time span
+    Ybus_change_dyn, #Type of perturbation
+)</code></pre><table>
+  <thead>
+    <tr class = "title">
+      <td colspan = "2" style = "font-size: x-large; font-weight: bold; text-align: center;">Simulation Summary</td>
+    </tr>
+    <tr class = "columnLabelRow">
+      <th style = "font-weight: bold; text-align: left;">Property</th>
+      <th style = "font-weight: bold; text-align: left;">Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">Status</td>
+      <td style = "text-align: left;">BUILT</td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">Simulation Type</td>
+      <td style = "text-align: left;">Residual Model</td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">Initialized?</td>
+      <td style = "text-align: left;">Yes</td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">Multimachine system?</td>
+      <td style = "text-align: left;">No</td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">Time Span</td>
+      <td style = "text-align: left;">(0.0, 30.0)</td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">Number of States</td>
+      <td style = "text-align: left;">35</td>
+    </tr>
+    <tr class = "dataRow">
+      <td style = "text-align: left;">Number of Perturbations</td>
+      <td style = "text-align: left;">1</td>
+    </tr>
+  </tbody>
+</table>
+
+<pre><code class="language-julia hljs"># Run the simulation
+execute!(
+    sim_dyn, #simulation structure
+    IDA(); #Sundials DAE Solver
+    dtmax = 0.02, #Maximum step size
+)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">SIMULATION_FINALIZED::BUILD_STATUS = 6</code></pre><p>We can obtain the initial conditions as:</p><pre><code class="language-julia hljs">#Print the initial states. It also give the symbols used to describe those states.
+show_states_initial_value(sim_dyn)</code></pre><pre class="documenter-example-output"><code class="nohighlight hljs ansi">Voltage Variables
+====================
+BUS 1
+====================
+Vm 1.02
+θ -0.0
+====================
+BUS 2
+====================
+Vm 1.0161
+θ -0.1355
+====================
+BUS 3
+====================
+Vm 0.9479
+θ 0.0365
+====================
+====================
+Differential States
+generator-102-1
+====================
+eq_p 0.9517
+ed_p 0.4462
+δ 0.4468
+ω 1.0001
+Vf 1.4757
+Vr1 0.0612
+Vr2 -0.2691
+Vm 1.0161
+====================
+Differential States
+generator-103-1
+====================
+θ_oc 0.4804
+ω_oc 1.0
+q_oc -0.3445
+ξd_ic 0.0014
+ξq_ic 0.0002
+γd_ic 0.0585
+γq_ic -0.0141
+ϕd_ic 0.8328
+ϕq_ic -0.2027
+vd_pll 0.8571
+vq_pll -0.0
+ε_pll 0.0
+θ_pll 0.2416
+ir_cnv 0.8065
+ii_cnv 0.678
+vr_filter 0.8322
+vi_filter 0.2051
+ir_filter 0.8216
+ii_filter 0.6164
+====================
+====================
+Line Current States
+====================
+Line BUS 2-BUS 3-i_1
+Il_R -0.18944
+Il_I -0.07034
+====================</code></pre><h3 id="Step-5.1:-Store-the-solution"><a class="docs-heading-anchor" href="#Step-5.1:-Store-the-solution">Step 5.1: Store the solution</a><a id="Step-5.1:-Store-the-solution-1"></a><a class="docs-heading-anchor-permalink" href="#Step-5.1:-Store-the-solution" title="Permalink"></a></h3><pre><code class="language-julia hljs">results_dyn = read_results(sim_dyn)
+series2_dyn = get_voltage_magnitude_series(results_dyn, 102);
+zoom_dyn = [
+    (series2_dyn[1][ix], series2_dyn[2][ix]) for
+    (ix, s) in enumerate(series2_dyn[1]) if (s &gt; 0.90 &amp;&amp; s &lt; 1.6)
+];</code></pre><h3 id="Step-6.1:-Compare-the-solutions"><a class="docs-heading-anchor" href="#Step-6.1:-Compare-the-solutions">Step 6.1: Compare the solutions</a><a id="Step-6.1:-Compare-the-solutions-1"></a><a class="docs-heading-anchor-permalink" href="#Step-6.1:-Compare-the-solutions" title="Permalink"></a></h3><p>We can observe the effect of Dynamic Lines</p><pre><code class="language-julia hljs">plot(series2_dyn; label = &quot;V_gen_dyn&quot;);
+plot!(series2; label = &quot;V_gen_st&quot;, xlabel = &quot;Time [s]&quot;, ylabel = &quot;Voltage [pu]&quot;)</code></pre><img src="5f637f63.svg" alt="Example block output"/><p>that looks quite similar. The differences can be observed in the zoom plot:</p><pre><code class="language-julia hljs">plot(zoom_dyn; label = &quot;V_gen_dyn&quot;);
+plot!(zoom; label = &quot;V_gen_st&quot;, xlabel = &quot;Time [s]&quot;, ylabel = &quot;Voltage [pu]&quot;)</code></pre><img src="f505d74a.svg" alt="Example block output"/></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../generated_tutorial_omib/">« OMIB</a><a class="docs-footer-nextpage" href="../generated_tutorial_inverter_modeling/">Inverter Modeling »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="auto">Automatic (OS)</option><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option><option value="catppuccin-latte">catppuccin-latte</option><option value="catppuccin-frappe">catppuccin-frappe</option><option value="catppuccin-macchiato">catppuccin-macchiato</option><option value="catppuccin-mocha">catppuccin-mocha</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 1.15.0 on <span class="colophon-date" title="Tuesday 12 May 2026 20:46">Tuesday 12 May 2026</span>. Using Julia version 1.12.6.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>

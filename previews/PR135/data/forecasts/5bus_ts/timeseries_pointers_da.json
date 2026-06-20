@@ -1,0 +1,67 @@
+[
+    {
+        "simulation": "DAY_AHEAD",
+        "resolution": 3600,
+        "category": "Generator",
+        "component_name": "SolarBusC",
+        "module": "PowerSystems",
+        "type": "SingleTimeSeries",
+        "name": "max_active_power",
+        "scaling_factor_multiplier": "get_max_active_power",
+        "scaling_factor_multiplier_module": "PowerSystems",
+        "normalization_factor": 1.0,
+        "data_file": "./gen/Renewable/PV/da_solar5.csv"
+    },
+    {
+        "simulation": "DAY_AHEAD",
+        "resolution": 3600,
+        "category": "Generator",
+        "component_name": "WindBusA",
+        "module": "PowerSystems",
+        "type": "SingleTimeSeries",
+        "name": "max_active_power",
+        "scaling_factor_multiplier": "get_max_active_power",
+        "scaling_factor_multiplier_module": "PowerSystems",
+        "normalization_factor": 1.0,
+        "data_file": "./gen/Renewable/WIND/da_wind5.csv"
+    },
+    {
+        "simulation": "DAY_AHEAD",
+        "resolution": 3600,
+        "category": "ElectricLoad",
+        "component_name": "bus2",
+        "module": "PowerSystems",
+        "type": "SingleTimeSeries",
+        "name": "max_active_power",
+        "scaling_factor_multiplier": "get_max_active_power",
+        "scaling_factor_multiplier_module": "PowerSystems",
+        "normalization_factor": 1.0,
+        "data_file": "./load/da_load5.csv"
+    },
+    {
+        "simulation": "DAY_AHEAD",
+        "resolution": 3600,
+        "category": "ElectricLoad",
+        "component_name": "bus3",
+        "module": "PowerSystems",
+        "type": "SingleTimeSeries",
+        "name": "max_active_power",
+        "scaling_factor_multiplier": "get_max_active_power",
+        "scaling_factor_multiplier_module": "PowerSystems",
+        "normalization_factor": 1.0,
+        "data_file": "./load/da_load5.csv"
+    },
+    {
+        "simulation": "DAY_AHEAD",
+        "resolution": 3600,
+        "category": "ElectricLoad",
+        "component_name": "bus4",
+        "module": "PowerSystems",
+        "type": "SingleTimeSeries",
+        "name": "max_active_power",
+        "scaling_factor_multiplier": "get_max_active_power",
+        "scaling_factor_multiplier_module": "PowerSystems",
+        "normalization_factor": 1.0,
+        "data_file": "./load/da_load5.csv"
+    }
+]

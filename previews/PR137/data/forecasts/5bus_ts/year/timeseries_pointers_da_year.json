@@ -1,0 +1,130 @@
+[
+    {
+        "simulation": "DAY_AHEAD",
+        "category": "Generator",
+        "component_name": "HydroDispatch1",
+        "label": "get_max_active_power",
+        "scaling_factor": "max",
+        "data_file": "./da_hydro.csv"
+    },
+    {
+        "simulation": "DAY_AHEAD",
+        "category": "Generator",
+        "component_name": "HydroDispatch2",
+        "label": "get_max_active_power",
+        "scaling_factor": "max",
+        "data_file": "./da_hydro.csv"
+    },
+    {
+        "simulation": "DAY_AHEAD",
+        "category": "Generator",
+        "component_name": "HydroDispatch3",
+        "label": "get_max_active_power",
+        "scaling_factor": "max",
+        "data_file": "./da_hydro.csv"
+    },
+    {
+        "simulation": "DAY_AHEAD",
+        "category": "Generator",
+        "component_name": "HydroDispatch1",
+        "label": "get_inflow",
+        "scaling_factor": "max",
+        "data_file": "./da_hydro.csv"
+    },
+    {
+        "simulation": "DAY_AHEAD",
+        "category": "Generator",
+        "component_name": "HydroDispatch3",
+        "label": "get_inflow",
+        "scaling_factor": "max",
+        "data_file": "./da_hydro.csv"
+    },
+    {
+        "simulation": "DAY_AHEAD",
+        "category": "Generator",
+        "component_name": "HydroDispatch1",
+        "label": "get_storage_target",
+        "scaling_factor": "max",
+        "data_file": "./da_hydro.csv"
+    },
+    {
+        "simulation": "DAY_AHEAD",
+        "category": "Generator",
+        "component_name": "HydroDispatch3",
+        "label": "get_storage_target",
+        "scaling_factor": "max",
+        "data_file": "./da_hydro.csv"
+    },
+    {
+        "simulation": "DAY_AHEAD",
+        "category": "Generator",
+        "component_name": "SolarBusC",
+        "label": "get_max_active_power",
+        "scaling_factor": "max",
+        "data_file": "./da_solar.csv"
+    },
+    {
+        "simulation": "DAY_AHEAD",
+        "category": "Generator",
+        "component_name": "WindBusA",
+        "label": "get_max_active_power",
+        "scaling_factor": "max",
+        "data_file": "./da_wind.csv"
+    },
+    {
+        "simulation": "DAY_AHEAD",
+        "category": "ElectricLoad",
+        "component_name": "bus2",
+        "label": "get_max_active_power",
+        "scaling_factor": "max",
+        "data_file": "./da_load.csv"
+    },
+    {
+        "simulation": "DAY_AHEAD",
+        "category": "ElectricLoad",
+        "component_name": "bus3",
+        "label": "get_max_active_power",
+        "scaling_factor": "max",
+        "data_file": "./da_load.csv"
+    },
+    {
+        "simulation": "DAY_AHEAD",
+        "category": "ElectricLoad",
+        "component_name": "bus4",
+        "label": "get_max_active_power",
+        "scaling_factor": "max",
+        "data_file": "./da_load.csv"
+    },
+    {
+        "simulation": "DAY_AHEAD",
+        "category": "Reserve",
+        "component_name": "REG1",
+        "label": "get_requirement",
+        "scaling_factor": "max",
+        "data_file": "./da_reserve.csv"
+    },
+    {
+        "simulation": "DAY_AHEAD",
+        "category": "Reserve",
+        "component_name": "REG2",
+        "label": "get_requirement",
+        "scaling_factor": "max",
+        "data_file": "./da_reserve.csv"
+    },
+    {
+        "simulation": "DAY_AHEAD",
+        "category": "Reserve",
+        "component_name": "REG3",
+        "label": "get_requirement",
+        "scaling_factor": "max",
+        "data_file": "./da_reserve.csv"
+    },
+        {
+        "simulation": "DAY_AHEAD",
+        "category": "Reserve",
+        "component_name": "REG4",
+        "label": "get_requirement",
+        "scaling_factor": "max",
+        "data_file": "./da_reserve.csv"
+    }
+]
