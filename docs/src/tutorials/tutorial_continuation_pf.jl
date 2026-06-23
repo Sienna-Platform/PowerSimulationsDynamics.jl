@@ -23,7 +23,6 @@ gr()
 
 ## Disable Logging to avoid excessive information
 using Logging
-Logging.disable_logging(Logging.Info);
 Logging.disable_logging(Logging.Warn);
 
 # !!! note
@@ -201,3 +200,5 @@ plot!(
 # produce critical eigenvalues which cross the ``j\omega`` axis at some point. This is
 # called a Hopf Bifurcation, in this case a subcritical one since the limit cycles are
 # unstable.
+
+Logging.disable_logging(Logging.Debug); #hide
