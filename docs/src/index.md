@@ -57,11 +57,20 @@ power system modeling, simulation, and optimization. The Sienna ecosystem can be
     simulations
 
 Each application uses multiple packages in the [`Julia`](http://www.julialang.org)
-programming language.
+programming language. `PowerSimulationsDynamics.jl` is the core package for Sienna\Dyn.
+
+## How to use this documentation
+
+  - **Tutorials** — walk-throughs to help you *learn* dynamic simulation workflows
+  - **How to...** — task guides for particular modeling and analysis steps
+  - **Explanation** — background on models, solvers, and small-signal methods
+  - **Reference** — API and model library for quick look-up
+
+`PowerSimulationsDynamics.jl` follows the [Diátaxis](https://diataxis.fr/) documentation framework.
 
 ## Installation and Quick Links
 
   - [Sienna installation page](https://sienna-platform.github.io/Sienna/SiennaDocs/docs/build/how-to/install/):
     Instructions to install `PowerSimulationsDynamics.jl` and other Sienna\Dyn packages
-  - [Sienna Documentation Hub](https://sienna-platform.github.io/Sienna/SiennaDocs/docs/build/index.html):
-    Links to other Sienna packages' documentation
+  - [Central Sienna documentation](https://sienna-platform.github.io/Sienna/SiennaDocs/docs/build/index.html):
+    Cross-linked documentation website for the core user-facing Sienna packages
